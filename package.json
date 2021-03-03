@@ -1,0 +1,37 @@
+{
+  "name": "dsctickets.settings-server",
+  "version": "1.0.0",
+  "description": "Settings server for Discord Tickets",
+  "main": "server/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/discord-tickets/settings-server.git"
+  },
+  "keywords": [
+    "discord",
+    "tickets",
+    "fastify",
+    "vue"
+  ],
+  "author": "eartharoid",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/discord-tickets/settings-server/issues"
+  },
+  "homepage": "https://github.com/discord-tickets/settings-server#readme",
+  "dependencies": {
+    "fastify": "^3.13.0",
+    "fastify-secure-session": "^2.3.1",
+    "fastify-static": "^4.0.1",
+    "form-data": "^4.0.0",
+    "node-fetch": "^2.6.1",
+    "sequelize": "^6.5.0",
+    "socket.io": "^3.1.2"
+  },
+  "devDependencies": {
+    "eslint": "^7.21.0"
+  }
+}
