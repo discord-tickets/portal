@@ -11,7 +11,7 @@ module.exports = {
 			return 'Bad Request: no code';
 		}
 
-		if (req.query.state !== 'apollo') {
+		if (req.query.state !== req.session.get('state')) {
 			res.status(400);
 			return 'Bad Request: state mismatch';
 		}
@@ -21,7 +21,7 @@ module.exports = {
 		data.append('client_secret', process.env.DISCORD_SECRET);
 		data.append('grant_type', 'authorization_code');
 		data.append('redirect_uri', plugin.redirect_uri);
-		data.append('scope', 'identify guild');
+		data.append('scope', 'identify guilds');
 		data.append('code', req.query.code);
 
 		let {
