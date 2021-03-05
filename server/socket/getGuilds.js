@@ -26,7 +26,6 @@ module.exports = {
 				return members.hasPermission('MANAGE_GUILD');
 			})
 			.map(g => {
-				console.log(g)
 				g = plugin.client.guilds.cache.get(g.id);
 				let fallback_icon = new URL(`https://avatar.oxro.io/avatar.svg?background=7289DA&name=${g.name}`).toString();
 				return {
