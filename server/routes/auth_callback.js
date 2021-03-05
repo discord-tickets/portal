@@ -1,3 +1,4 @@
+const { randomUUID } = require('crypto');
 const fetch = require('node-fetch');
 const FormData = require('form-data');
 
@@ -36,10 +37,22 @@ module.exports = {
 		expires_in = expires_in * 1000;
 		let expires_at = Date.now() + expires_in;
 
-		req.session.set('access_token', access_token);
-		req.session.set('expires_in', expires_in);
-		req.session.set('expires_at', expires_at);
-		req.session.set('refresh_token', refresh_token);
+		let user = await (await fetch('https://discordapp.com/api/users/@me', {
+			headers: {
+				'Authorization': `Bearer ${access_token}`
+			}
+		})).json();
+
+		let uuid = randomUUID();
+		req.session.set('uuid', uuid);
+
+		plugin.keyv.set(uuid, {
+			id: user.id,
+			access_token: access_token,
+			refresh_token: refresh_token,
+			expires_in: expires_in,
+			expires_at: expires_at,
+		});
 
 		res.redirect(307, '/settings');
 

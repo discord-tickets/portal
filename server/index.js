@@ -2,6 +2,7 @@ const fastify = require('fastify');
 const session = require('fastify-secure-session');
 const { randomBytes } = require('crypto');
 const fs = require('fs');
+const Keyv = require('keyv');
 const { join } = require('path');
 
 module.exports = (Plugin) => {
@@ -17,6 +18,11 @@ module.exports = (Plugin) => {
 		}
 
 		async preload() {
+
+			this.keyv = new Keyv({
+				ttl: 86400000
+			});
+
 			this.fastify = fastify();
 
 			this.fastify.register(this.client.log.fastify(), {
@@ -34,7 +40,7 @@ module.exports = (Plugin) => {
 			});
 
 			this.fastify.register(require('fastify-static'), {
-				root: this.path('./server/public'),
+				root: this.path('./public'),
 				// prefix: '/public/',
 			});
 
@@ -60,17 +66,25 @@ module.exports = (Plugin) => {
 				this.client.log.info(`Settings server listening at ${host}`);
 			});
 
-			this.io = require('socket.io')(process.env.HTTP_PORT || 8080);
+			this.io = require('socket.io')(this.fastify.server);
 
-			this.io.on('connection', socket => {
+			this.io.on('connection', async (socket) => {
+				const { auth } = socket.handshake;
+				if (!auth || !await this.keyv.get(auth.uuid)) {
+					this.client.log.ws('Received unauthorised connection');
+					return this.client.log.warn('Unauthorised attempt to connect to settings socket');
+				}
+
+				this.client.log.ws('A client has connected to settings socket');
 				const events = fs.readdirSync(this.path('./server/socket'))
 					.filter(file => file.endsWith('.js'));
+
 				for (const e of events) {
 					const {
 						event,
 						execute
 					} = require(`./socket/${e}`);
-					socket.on(event, (...args) => execute(this, ...args));
+					socket.on(event, (...args) => execute(this, socket, ...args));
 				}
 			});
 		}

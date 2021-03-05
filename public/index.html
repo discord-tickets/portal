@@ -1,12 +1,41 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>DiscordTickets / Settings</title>
-	</head>
-	<body>
-		<script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.1/socket.io.min.js'></script>
-		<script>
-			const socket = io('./');
-		</script>
-	</body>
+
+<head>
+	<title>DiscordTickets / Settings</title>
+	<meta charset='utf-8' />
+	<meta http-equiv='X-UA-Compatible' content='IE=edge' />
+	<meta name='viewport' content='width=device-width,initial-scale=1.0' />
+	
+	<meta name='robots' content='noindex, nofollow' />
+	
+	<meta name='theme-color' content='#7289DA' />
+	<meta name='title' content='Discord Tickets / Settings' />
+	<meta name='og:title' content='Discord Tickets / Settings' />
+	<meta name='og:site_name' content='Discord Tickets' />
+	<meta name='twitter:title' content='Discord Tickets / Settings' />
+
+	<link rel='stylesheet' href='https://unpkg.com/buefy/dist/buefy.min.css' />
+	<link rel='stylesheet' href='https://jenil.github.io/bulmaswatch/darkly/bulmaswatch.min.css' />
+</head>
+
+<body>
+	<div id='vapp'>
+		Hello, {{ user.username }}
+	</div>
+
+	<script src='https://unpkg.com/vue@2.6.12/dist/vue.min.js'></script>
+	<script src='https://unpkg.com/vue-router@3.5.1/dist/vue-router.js'></script>
+	<script src='https://unpkg.com/buefy/dist/buefy.min.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.1/socket.io.min.js'></script>
+
+	<script>
+		const SOCKET_HOST = '%%SOCKET_HOST%%';
+		const SOCKET_USER = '%%SOCKET_USER%%';
+	</script>
+
+	<script src='/js/socket.js'></script>
+	<script src='/js/vue.js'></script>
+</body>
+
 </html>

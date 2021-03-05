@@ -3,6 +3,7 @@ dependencies:
   fastify-secure-session: 2.3.1
   fastify-static: 4.0.1
   form-data: 4.0.0
+  keyv: 4.0.3
   node-fetch: 2.6.1
   sequelize: 6.5.0
   socket.io: 3.1.2
@@ -841,6 +842,10 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-okMH7OXXJ7YrN9Ok3/SXrnu4iX9yOk+25nqX4imS2npuvTYDmo/QEZoqwZkYaIDk3jVvBOTOIEgEhaLOynBS9g==
+  /json-buffer/3.0.1:
+    dev: false
+    resolution:
+      integrity: sha512-4bV5BfR2mqfQTJm+V5tPPdf+ZpuhiIvTuAB5g8kcrXOZpTT/QwwVRWBywX1ozr6lEuPdbHxwaJlm9G6mI2sfSQ==
   /json-schema-traverse/0.4.1:
     resolution:
       integrity: sha512-xbbCH5dCYU5T8LcEhhuh7HJ88HXuW3qsI3Y0zOZFKfZEHcpWiHU/Jxzk629Brsab/mMiHQti9wMP+845RPe3Vg==
@@ -852,6 +857,12 @@ packages:
     dev: true
     resolution:
       integrity: sha1-nbe1lJatPzz+8wp1FC0tkwrXJlE=
+  /keyv/4.0.3:
+    dependencies:
+      json-buffer: 3.0.1
+    dev: false
+    resolution:
+      integrity: sha512-zdGa2TOpSZPq5mU6iowDARnMBZgtCqJ11dJROFi6tg6kTn4nuUdU09lFyLFSaHrWqpIJ+EBq4E8/Dc0Vx5vLdA==
   /levn/0.4.1:
     dependencies:
       prelude-ls: 1.2.1
@@ -1460,6 +1471,7 @@ specifiers:
   fastify-secure-session: ^2.3.1
   fastify-static: ^4.0.1
   form-data: ^4.0.0
+  keyv: ^4.0.3
   node-fetch: ^2.6.1
   sequelize: ^6.5.0
   socket.io: ^3.1.2
