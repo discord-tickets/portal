@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 
-<head>
+<head lang='en'>
+
 	<title>DiscordTickets / Settings</title>
 	<meta charset='utf-8' />
 	<meta http-equiv='X-UA-Compatible' content='IE=edge' />
@@ -15,27 +16,29 @@
 	<meta name='og:site_name' content='Discord Tickets' />
 	<meta name='twitter:title' content='Discord Tickets / Settings' />
 
-	<link rel='stylesheet' href='https://unpkg.com/buefy/dist/buefy.min.css' />
-	<link rel='stylesheet' href='https://jenil.github.io/bulmaswatch/darkly/bulmaswatch.min.css' />
+	<link rel='icon' href='/favicon.ico' />
+
+	<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.2.0/css/all.css' />
+
+  <noscript>
+	<h1>Please enable JavaScript.</h1>
+  </noscript>
+
 </head>
 
 <body>
-	<div id='vapp'>
-		Hello, {{ user.username }}
-	</div>
 
-	<script src='https://unpkg.com/vue@2.6.12/dist/vue.min.js'></script>
-	<script src='https://unpkg.com/vue-router@3.5.1/dist/vue-router.js'></script>
-	<script src='https://unpkg.com/buefy/dist/buefy.min.js'></script>
+	<div id='app'></div>
+
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.1/socket.io.min.js'></script>
 
 	<script>
-		const SOCKET_HOST = '%%SOCKET_HOST%%';
-		const SOCKET_USER = '%%SOCKET_USER%%';
+		// const SOCKET_HOST = '%%SOCKET_HOST%%';
+		// const SOCKET_USER = '%%SOCKET_USER%%';
+		const SOCKET_HOST = 'http://localhost:8080';
+		const SOCKET_USER = '3ad0d25c-5690-4938-8d09-ac93e870a443';
 	</script>
 
-	<script src='/js/socket.js'></script>
-	<script src='/js/vue.js'></script>
 </body>
 
 </html>

@@ -45,6 +45,7 @@ module.exports = {
 
 		let uuid = randomUUID();
 		req.session.set('uuid', uuid);
+		plugin.client.log.info(uuid);
 
 		plugin.keyv.set(uuid, {
 			id: user.id,

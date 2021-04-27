@@ -13,8 +13,6 @@ module.exports = {
 		})).json();
 
 		if (!(guilds instanceof Array)) {
-			plugin.client.log.info(guilds instanceof Array)
-			plugin.client.log.info(typeof guilds)
 			plugin.client.log.warn('Couldn\'t fetch user\'s guilds');
 			return plugin.client.log.error(guilds);
 		}

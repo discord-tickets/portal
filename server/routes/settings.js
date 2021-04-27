@@ -13,7 +13,7 @@ module.exports = {
 		let expired = expires_at < Date.now();
 		if (expired) return res.redirect(307, '/auth/login');
 
-		let html = await fs.readFile(plugin.path('./public/index.html'), {
+		let html = await fs.readFile(plugin.path('./dist/index.html'), {
 			encoding: 'utf8'
 		});
 

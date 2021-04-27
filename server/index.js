@@ -40,7 +40,7 @@ module.exports = (Plugin) => {
 			});
 
 			this.fastify.register(require('fastify-static'), {
-				root: this.path('./public'),
+				root: this.path('./dist'),
 				// prefix: '/public/',
 			});
 
@@ -52,6 +52,9 @@ module.exports = (Plugin) => {
 		async load() {
 			const routes = fs.readdirSync(this.path('./server/routes'))
 				.filter(file => file.endsWith('.js'));
+			const events = fs.readdirSync(this.path('./server/socket'))
+				.filter(file => file.endsWith('.js'));
+
 			for (const r of routes) {
 				const {
 					method,
@@ -66,7 +69,13 @@ module.exports = (Plugin) => {
 				this.client.log.info(`Settings server listening at ${host}`);
 			});
 
-			this.io = require('socket.io')(this.fastify.server);
+			let io_options = {};
+			if (process.env.NODE_ENV == 'development')
+				io_options.cors = {
+					origin: [process.env.HTTP_HOST, 'http://localhost:8081'],
+					credentials: true,
+				};
+			this.io = require('socket.io')(this.fastify.server, io_options);
 
 			this.io.on('connection', async (socket) => {
 				const { auth } = socket.handshake;
@@ -76,8 +85,6 @@ module.exports = (Plugin) => {
 				}
 
 				this.client.log.ws('A client has connected to settings socket');
-				const events = fs.readdirSync(this.path('./server/socket'))
-					.filter(file => file.endsWith('.js'));
 
 				for (const e of events) {
 					const {
