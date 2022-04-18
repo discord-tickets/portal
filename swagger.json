@@ -175,6 +175,16 @@
                 }
               }
             }
+          },
+          "401" : {
+            "description" : "Unauthorised",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
           }
         }
       }
