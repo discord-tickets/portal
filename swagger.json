@@ -47,6 +47,16 @@
                 }
               }
             }
+          },
+          "401" : {
+            "description" : "Unauthorised",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
           }
         }
       }
@@ -73,6 +83,16 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/GuildSettings"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorised",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
                 }
               }
             }
