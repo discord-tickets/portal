@@ -55,6 +55,36 @@
       }
     },
     "/admin/guilds/{guild}" : {
+      "delete" : {
+        "tags" : [ "admin" ],
+        "summary" : "Reset a guild's settings",
+        "description" : "This route resets the guild's settings.",
+        "parameters" : [ {
+          "name" : "guild",
+          "in" : "path",
+          "description" : "The guild to reset the settings of",
+          "required" : true,
+          "style" : "simple",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/GuildSettings"
+                }
+              }
+            }
+          },
+          "default" : {
+            "$ref" : "#/components/responses/default"
+          }
+        }
+      },
       "get" : {
         "tags" : [ "admin" ],
         "summary" : "Get a guild's settings",
