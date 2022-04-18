@@ -1,0 +1,231 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "version" : "4.0.0",
+    "title" : "Discord Tickets API",
+    "description" : "This is the schema for the API that you can use to interact with your ticket bot. It is used by the Archives Portal and the Settings Panel websites.\nIf you are using a managed ticket bot your API will be available at `https://hosting.discordtickets.app:{port}`. Create a ticket if you don't know what port your bot is on.\n# Error codes\n- `0x191`: Unauthorised\n- `0x193`: Forbidden\n- `0x194`: Not Found"
+  },
+  "servers" : [ {
+    "description" : "[TEST] SwaggerHub API Auto Mocking",
+    "url" : "https://virtserver.swaggerhub.com/eartharoid/discord-tickets/4.0.0"
+  }, {
+    "url" : "http://localhost:{port}/api",
+    "description" : "[DEV] Local development API server",
+    "variables" : {
+      "port" : {
+        "default" : "8080"
+      }
+    }
+  }, {
+    "url" : "{host}/api",
+    "description" : "[PROD] Production API server",
+    "variables" : {
+      "host" : {
+        "default" : "http://localhost:8080"
+      }
+    }
+  } ],
+  "security" : [ {
+    "api_key" : [ ]
+  } ],
+  "paths" : {
+    "/admin/guilds" : {
+      "get" : {
+        "tags" : [ "admin" ],
+        "summary" : "List the guilds that the user has permission to manage",
+        "description" : "This route returns an array of guilds that the user can manage.",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Guild"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/guilds/{guild}" : {
+      "get" : {
+        "tags" : [ "admin" ],
+        "summary" : "Get a guild's settings",
+        "description" : "This route returns the guild's current settings.",
+        "parameters" : [ {
+          "name" : "guild",
+          "in" : "path",
+          "description" : "The guild to get the settings of",
+          "required" : true,
+          "style" : "simple",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/GuildSettings"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "admin" ],
+        "summary" : "Set a guild's settings",
+        "description" : "This route sets the guild's settings.",
+        "parameters" : [ {
+          "name" : "guild",
+          "in" : "path",
+          "description" : "The guild to update the settings of",
+          "required" : true,
+          "style" : "simple",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/GuildSettings"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorised",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not Found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/archives/guilds" : {
+      "get" : {
+        "tags" : [ "user" ],
+        "summary" : "List the guilds that the client and the user have in common",
+        "description" : "This route returns an array of guilds that the client and user have in common and it is therefore possible for the user to have a ticket in.",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Guild"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Error" : {
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "type" : "number"
+          },
+          "message" : {
+            "type" : "string"
+          }
+        },
+        "example" : {
+          "code" : "0x001",
+          "message" : "Unauthorised"
+        }
+      },
+      "Guild" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "logo" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          }
+        },
+        "example" : {
+          "id" : "451745464480432129",
+          "logo" : "https://cdn.discordapp.com/icons/451745464480432129/c340066806e27569c1c6b2bbd8ab28f1.png",
+          "name" : "Planet Earth"
+        }
+      },
+      "GuildSettings" : {
+        "type" : "object",
+        "properties" : {
+          "archive" : {
+            "type" : "boolean"
+          },
+          "errorColour" : {
+            "type" : "string"
+          },
+          "primaryColour" : {
+            "type" : "string"
+          },
+          "successColour" : {
+            "type" : "string"
+          }
+        },
+        "example" : {
+          "archive" : true,
+          "errorColour" : "RED",
+          "primaryColour" : "#009999",
+          "successColour" : "GREEN"
+        }
+      }
+    },
+    "securitySchemes" : {
+      "api_key" : {
+        "type" : "apiKey",
+        "name" : "Authorization",
+        "in" : "header"
+      }
+    }
+  }
+}
