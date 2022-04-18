@@ -99,6 +99,17 @@
             "type" : "string"
           }
         } ],
+        "requestBody" : {
+          "description" : "The full GuildSettings object",
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/GuildSettings"
+              }
+            }
+          }
+        },
         "responses" : {
           "200" : {
             "description" : "OK",
