@@ -1,2 +1,3 @@
 # settings
-Settings server plugin for the Discord Tickets bot.
+
+The settings UI for Discord Tickets.
