@@ -157,11 +157,21 @@
         }
       }
     },
-    "/admin/guilds/categories" : {
+    "/admin/guilds/{guild}/categories" : {
       "get" : {
         "tags" : [ "admin" ],
         "summary" : "List the categories of a guild",
         "description" : "This route returns an array of categories within a guild.",
+        "parameters" : [ {
+          "name" : "guild",
+          "in" : "path",
+          "description" : "The guild to list the categories of",
+          "required" : true,
+          "style" : "simple",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
         "responses" : {
           "200" : {
             "description" : "OK",
@@ -171,6 +181,50 @@
                   "type" : "array",
                   "items" : {
                     "$ref" : "#/components/schemas/Category"
+                  }
+                }
+              }
+            }
+          },
+          "default" : {
+            "$ref" : "#/components/responses/default"
+          }
+        }
+      }
+    },
+    "/admin/guilds/{guild}/categories/{category}" : {
+      "get" : {
+        "tags" : [ "admin" ],
+        "summary" : "Get a category's settings",
+        "description" : "This route returns the category's current settings.",
+        "parameters" : [ {
+          "name" : "guild",
+          "in" : "path",
+          "description" : "The guild the category belongs to",
+          "required" : true,
+          "style" : "simple",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "category",
+          "in" : "path",
+          "description" : "The category to get the settings of",
+          "required" : true,
+          "style" : "simple",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/CategorySettings"
                   }
                 }
               }
@@ -226,6 +280,21 @@
         }
       },
       "Category" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          }
+        },
+        "example" : {
+          "id" : "620272351988285480",
+          "name" : "Support"
+        }
+      },
+      "CategorySettings" : {
         "type" : "object",
         "properties" : {
           "channelName" : {
