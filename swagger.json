@@ -252,6 +252,57 @@
         }
       }
     },
+    "/adming/guilds/{guild}/roles" : {
+      "get" : {
+        "tags" : [ "admin" ],
+        "summary" : "Get an array of roles in a guild",
+        "description" : "This route returns an array of the guild's roles.",
+        "parameters" : [ {
+          "name" : "guild",
+          "in" : "path",
+          "description" : "The guild to get the roles of",
+          "required" : true,
+          "style" : "simple",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object",
+                    "properties" : {
+                      "colour" : {
+                        "type" : "string"
+                      },
+                      "id" : {
+                        "type" : "string"
+                      },
+                      "name" : {
+                        "type" : "string"
+                      }
+                    }
+                  }
+                },
+                "example" : [ {
+                  "colour" : "#e42c66",
+                  "id" : "451745586564169728",
+                  "name" : "earth"
+                } ]
+              }
+            }
+          },
+          "default" : {
+            "$ref" : "#/components/responses/default"
+          }
+        }
+      }
+    },
     "/admin/guilds/{guild}/categories/{category}" : {
       "get" : {
         "tags" : [ "admin" ],
