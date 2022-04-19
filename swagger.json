@@ -3,7 +3,7 @@
   "info" : {
     "version" : "4.0.0",
     "title" : "Discord Tickets API",
-    "description" : "This is the schema for the API that you can use to interact with your ticket bot. It is used by the Archives Portal and the Settings Panel websites.\nIf you are using a managed ticket bot your API will be available at `https://hosting.discordtickets.app:{port}`. Create a ticket if you don't know what port your bot is on.\n# Error codes\nCheck the error `message` for more specific details.\n- `0x001`: Invalid type\n- `0x190`: Bad request\n- `0x191`: Unauthorised\n- `0x193`: Forbidden\n- `0x194`: Not found\n- `0x1F4`: Internal server error"
+    "description" : "This is the schema for the API that you can use to interact with your ticket bot. It is used by the Archives Portal and the Settings Panel websites.\nIf you are using a managed ticket bot your API will be available at `https://hosting.discordtickets.app:{port}`. Create a ticket if you don't know what port your bot is on.\n# Error codes\nCheck the error `message` for more specific details.\n- `0x001`: Invalid type\n\n- `0x191`: Unauthorised\n- `0x193`: Forbidden\n- `0x194`: Not found\n- `0x1F4`: Internal server error"
   },
   "servers" : [ {
     "description" : "[TEST] SwaggerHub API Auto Mocking",
@@ -253,56 +253,6 @@
     "responses" : {
       "default" : {
         "description" : "Unexpected error",
-        "content" : {
-          "application/json" : {
-            "schema" : {
-              "$ref" : "#/components/schemas/Error"
-            }
-          }
-        }
-      },
-      "400" : {
-        "description" : "Bad Request",
-        "content" : {
-          "application/json" : {
-            "schema" : {
-              "$ref" : "#/components/schemas/Error"
-            }
-          }
-        }
-      },
-      "401" : {
-        "description" : "Unauthorised",
-        "content" : {
-          "application/json" : {
-            "schema" : {
-              "$ref" : "#/components/schemas/Error"
-            }
-          }
-        }
-      },
-      "403" : {
-        "description" : "Forbidden",
-        "content" : {
-          "application/json" : {
-            "schema" : {
-              "$ref" : "#/components/schemas/Error"
-            }
-          }
-        }
-      },
-      "404" : {
-        "description" : "Not Found",
-        "content" : {
-          "application/json" : {
-            "schema" : {
-              "$ref" : "#/components/schemas/Error"
-            }
-          }
-        }
-      },
-      "500" : {
-        "description" : "Internal Server Error",
         "content" : {
           "application/json" : {
             "schema" : {
