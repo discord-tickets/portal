@@ -205,25 +205,24 @@
             "type" : "string"
           }
         } ],
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "object",
-                  "properties" : {
-                    "name" : {
+        "requestBody" : {
+          "description" : "The full CategorySettings object",
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "name" : {
+                    "type" : "string"
+                  },
+                  "openingMessage" : {
+                    "type" : "string"
+                  },
+                  "roles" : {
+                    "type" : "array",
+                    "items" : {
                       "type" : "string"
-                    },
-                    "openingMessage" : {
-                      "type" : "string"
-                    },
-                    "roles" : {
-                      "type" : "array",
-                      "items" : {
-                        "type" : "string"
-                      }
                     }
                   }
                 },
@@ -231,6 +230,18 @@
                   "name" : "Support",
                   "openingMessage" : "Thank you for creating a ticket. Please be patient, a member of the support team will reply when they become        available. Whilst you wait, please provide as much information about your support query as possible. ",
                   "roles" : [ 451745787974778908, 513828182697312267 ]
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Created",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CategorySettings"
                 }
               }
             }
