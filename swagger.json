@@ -157,6 +157,31 @@
         }
       }
     },
+    "/admin/guilds/categories" : {
+      "get" : {
+        "tags" : [ "admin" ],
+        "summary" : "List the categories of a guild",
+        "description" : "This route returns an array of categories within a guild.",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Category"
+                  }
+                }
+              }
+            }
+          },
+          "default" : {
+            "$ref" : "#/components/responses/default"
+          }
+        }
+      }
+    },
     "/archives/guilds" : {
       "get" : {
         "tags" : [ "user" ],
@@ -189,7 +214,7 @@
         "type" : "object",
         "properties" : {
           "code" : {
-            "type" : "number"
+            "type" : "integer"
           },
           "message" : {
             "type" : "string"
@@ -198,6 +223,59 @@
         "example" : {
           "code" : "0x190",
           "message" : "Bad Request"
+        }
+      },
+      "Category" : {
+        "type" : "object",
+        "properties" : {
+          "channelName" : {
+            "type" : "string"
+          },
+          "claiming" : {
+            "type" : "boolean"
+          },
+          "image" : {
+            "type" : "string"
+          },
+          "memberLimit" : {
+            "type" : "integer"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "openingMessage" : {
+            "type" : "string"
+          },
+          "ping" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "requireTopic" : {
+            "type" : "boolean"
+          },
+          "roles" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "totalLimit" : {
+            "type" : "integer"
+          }
+        },
+        "example" : {
+          "channelName" : "ticket-{num}",
+          "claiming" : false,
+          "image" : "https://static.eartharoid.me/ticket-header.png",
+          "memberLimit" : 1,
+          "name" : "Support",
+          "openingMessage" : "Thank you for creating a ticket. Please be patient, a member of the support team will reply when they become available. Whilst you wait, please provide as much information about your support query as possible. ",
+          "ping" : [ 513828182697312267 ],
+          "requireTopic" : true,
+          "roles" : [ 451745787974778908, 513828182697312267 ],
+          "totalLimit" : -1
         }
       },
       "Guild" : {
