@@ -190,6 +190,55 @@
             "$ref" : "#/components/responses/default"
           }
         }
+      },
+      "post" : {
+        "tags" : [ "admin" ],
+        "summary" : "Create a new category",
+        "description" : "This route creates a new category within a guild.",
+        "parameters" : [ {
+          "name" : "guild",
+          "in" : "path",
+          "description" : "The guild to create a category in",
+          "required" : true,
+          "style" : "simple",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "name" : {
+                      "type" : "string"
+                    },
+                    "openingMessage" : {
+                      "type" : "string"
+                    },
+                    "roles" : {
+                      "type" : "array",
+                      "items" : {
+                        "type" : "string"
+                      }
+                    }
+                  }
+                },
+                "example" : {
+                  "name" : "Support",
+                  "openingMessage" : "Thank you for creating a ticket. Please be patient, a member of the support team will reply when they become        available. Whilst you wait, please provide as much information about your support query as possible. ",
+                  "roles" : [ 451745787974778908, 513828182697312267 ]
+                }
+              }
+            }
+          },
+          "default" : {
+            "$ref" : "#/components/responses/default"
+          }
+        }
       }
     },
     "/admin/guilds/{guild}/categories/{category}" : {
@@ -216,6 +265,59 @@
             "type" : "string"
           }
         } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/CategorySettings"
+                  }
+                }
+              }
+            }
+          },
+          "default" : {
+            "$ref" : "#/components/responses/default"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "admin" ],
+        "summary" : "Set a category's settings",
+        "description" : "This route sets the category's settings.",
+        "parameters" : [ {
+          "name" : "guild",
+          "in" : "path",
+          "description" : "The guild the category belongs to",
+          "required" : true,
+          "style" : "simple",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "category",
+          "in" : "path",
+          "description" : "The category to set the settings of",
+          "required" : true,
+          "style" : "simple",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "The full CategorySettings object",
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CategorySettings"
+              }
+            }
+          }
+        },
         "responses" : {
           "200" : {
             "description" : "OK",
