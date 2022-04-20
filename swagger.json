@@ -228,7 +228,7 @@
                 },
                 "example" : {
                   "name" : "Support",
-                  "openingMessage" : "Thank you for creating a ticket. Please be patient, a member of the support team will reply when they become        available. Whilst you wait, please provide as much information about your support query as possible. ",
+                  "openingMessage" : "Thank you for creating a ticket. Please be patient, a member of the support team will reply when they become available. Whilst you wait, please provide as much information about your support query as possible. ",
                   "roles" : [ 451745787974778908, 513828182697312267 ]
                 }
               }
