@@ -643,10 +643,16 @@
       },
       "GuildSettings" : {
         "type" : "object",
-        "required" : [ "archives", "errorColour", "primaryColour", "successColour" ],
+        "required" : [ "archive", "blocklist", "errorColour", "primaryColour", "successColour" ],
         "properties" : {
           "archive" : {
             "type" : "boolean"
+          },
+          "blocklist" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
           },
           "errorColour" : {
             "type" : "string"
@@ -660,6 +666,7 @@
         },
         "example" : {
           "archive" : true,
+          "blocklist" : [ "587112191950585856" ],
           "errorColour" : "RED",
           "primaryColour" : "#009999",
           "successColour" : "GREEN"
