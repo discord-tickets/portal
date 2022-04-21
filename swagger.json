@@ -55,20 +55,20 @@
       }
     },
     "/admin/guilds/{guild}" : {
+      "parameters" : [ {
+        "name" : "guild",
+        "in" : "path",
+        "description" : "The guild to get or update the settings of",
+        "required" : true,
+        "style" : "simple",
+        "schema" : {
+          "type" : "string"
+        }
+      } ],
       "delete" : {
         "tags" : [ "admin" ],
         "summary" : "Reset a guild's settings",
         "description" : "This route resets the guild's settings.",
-        "parameters" : [ {
-          "name" : "guild",
-          "in" : "path",
-          "description" : "The guild to reset the settings of",
-          "required" : true,
-          "style" : "simple",
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
         "responses" : {
           "200" : {
             "description" : "OK",
@@ -89,16 +89,6 @@
         "tags" : [ "admin" ],
         "summary" : "Get a guild's settings",
         "description" : "This route returns the guild's current settings.",
-        "parameters" : [ {
-          "name" : "guild",
-          "in" : "path",
-          "description" : "The guild to get the settings of",
-          "required" : true,
-          "style" : "simple",
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
         "responses" : {
           "200" : {
             "description" : "OK",
@@ -119,16 +109,6 @@
         "tags" : [ "admin" ],
         "summary" : "Set a guild's settings",
         "description" : "This route sets the guild's settings.",
-        "parameters" : [ {
-          "name" : "guild",
-          "in" : "path",
-          "description" : "The guild to update the settings of",
-          "required" : true,
-          "style" : "simple",
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
         "requestBody" : {
           "description" : "The full GuildSettings object",
           "required" : true,
