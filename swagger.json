@@ -392,10 +392,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/GuildStats"
-                  }
+                  "$ref" : "#/components/schemas/GuildStats"
                 }
               }
             }
@@ -442,10 +439,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/GlobalStats"
-                  }
+                  "$ref" : "#/components/schemas/GlobalStats"
                 }
               }
             }
@@ -588,11 +582,26 @@
       "GuildStats" : {
         "type" : "object",
         "properties" : {
+          "categories" : {
+            "type" : "array",
+            "items" : {
+              "allOf" : [ {
+                "$ref" : "#/components/schemas/Category"
+              }, {
+                "type" : "object",
+                "properties" : {
+                  "tickets" : {
+                    "type" : "integer"
+                  }
+                }
+              } ]
+            }
+          },
           "archviedMessages" : {
             "type" : "integer"
           },
           "avgResponseTime" : {
-            "type" : "integer"
+            "type" : "string"
           },
           "tags" : {
             "type" : "integer"
@@ -600,6 +609,17 @@
           "tickets" : {
             "type" : "integer"
           }
+        },
+        "example" : {
+          "categories" : [ {
+            "id" : "620272351988285480",
+            "name" : "Support",
+            "tickets" : 47
+          } ],
+          "archivedMessages" : 1768,
+          "avgResponseTime" : "1h 7m",
+          "tags" : 14,
+          "tickets" : 47
         }
       },
       "Guild" : {
