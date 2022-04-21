@@ -391,6 +391,41 @@
         }
       }
     },
+    "/admin/guilds/{guild}/stats" : {
+      "get" : {
+        "tags" : [ "admin" ],
+        "summary" : "Get statistics about this guild",
+        "description" : "This route returns the statistics of the guild.",
+        "parameters" : [ {
+          "name" : "guild",
+          "in" : "path",
+          "description" : "The guild to get the stats of",
+          "required" : true,
+          "style" : "simple",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/GuildStats"
+                  }
+                }
+              }
+            }
+          },
+          "default" : {
+            "$ref" : "#/components/responses/default"
+          }
+        }
+      }
+    },
     "/archives/guilds" : {
       "get" : {
         "tags" : [ "user" ],
@@ -414,6 +449,32 @@
             "$ref" : "#/components/responses/default"
           }
         }
+      }
+    },
+    "/global/stats" : {
+      "get" : {
+        "tags" : [ "global" ],
+        "summary" : "Get the statistics for this instance",
+        "description" : "This **public route** (no authentication required) returns the statistics of the bot instance.",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/GlobalStats"
+                  }
+                }
+              }
+            }
+          },
+          "default" : {
+            "$ref" : "#/components/responses/default"
+          }
+        },
+        "security" : [ ]
       }
     }
   },
@@ -500,6 +561,52 @@
           "requireTopic" : true,
           "roles" : [ 451745787974778908, 513828182697312267 ],
           "totalLimit" : -1
+        }
+      },
+      "GlobalStats" : {
+        "type" : "object",
+        "properties" : {
+          "activatedUsers" : {
+            "type" : "integer"
+          },
+          "archviedMessages" : {
+            "type" : "integer"
+          },
+          "avgResponseTime" : {
+            "type" : "integer"
+          },
+          "guilds" : {
+            "type" : "integer"
+          },
+          "guildsAvgMembers" : {
+            "type" : "integer"
+          },
+          "guildsTotalMembers" : {
+            "type" : "integer"
+          },
+          "tags" : {
+            "type" : "integer"
+          },
+          "tickets" : {
+            "type" : "integer"
+          }
+        }
+      },
+      "GuildStats" : {
+        "type" : "object",
+        "properties" : {
+          "archviedMessages" : {
+            "type" : "integer"
+          },
+          "avgResponseTime" : {
+            "type" : "integer"
+          },
+          "tags" : {
+            "type" : "integer"
+          },
+          "tickets" : {
+            "type" : "integer"
+          }
         }
       },
       "Guild" : {
