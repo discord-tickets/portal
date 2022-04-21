@@ -486,13 +486,22 @@
       },
       "CategorySettings" : {
         "type" : "object",
-        "required" : [ "channelName", "claiming", "memberLimit", "name", "ping", "requireTopic", "roles", "totalLimit" ],
+        "required" : [ "channelName", "claiming", "discordCategory", "memberLimit", "name", "openingMessage", "pingRoles", "requiredRoles", "requireTopic", "staffRoles", "totalLimit" ],
         "properties" : {
           "channelName" : {
             "type" : "string"
           },
           "claiming" : {
             "type" : "boolean"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "discordCategory" : {
+            "type" : "string"
+          },
+          "emoji" : {
+            "type" : "string"
           },
           "image" : {
             "type" : "string"
@@ -506,7 +515,13 @@
           "openingMessage" : {
             "type" : "string"
           },
-          "ping" : {
+          "pingRoles" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "requiredRoles" : {
             "type" : "array",
             "items" : {
               "type" : "string"
@@ -515,14 +530,11 @@
           "requireTopic" : {
             "type" : "boolean"
           },
-          "roles" : {
+          "staffRoles" : {
             "type" : "array",
             "items" : {
               "type" : "string"
             }
-          },
-          "totalLimit" : {
-            "type" : "integer"
           },
           "surveyDescription" : {
             "type" : "string"
@@ -532,22 +544,29 @@
           },
           "surveyTitle" : {
             "type" : "string"
+          },
+          "totalLimit" : {
+            "type" : "integer"
           }
         },
         "example" : {
           "channelName" : "ticket-{num}",
           "claiming" : false,
+          "description" : "Get help with anything",
+          "discordCategory" : "874366537727877181",
+          "emoji" : "❓",
           "image" : "https://static.eartharoid.me/ticket-header.png",
           "memberLimit" : 1,
           "name" : "Support",
           "openingMessage" : "Thank you for creating a ticket. Please be patient, a member of the support team will reply when they become available. Whilst you wait, please provide as much information about your support query as possible. ",
-          "ping" : [ 513828182697312267 ],
+          "pingRoles" : [ 513828182697312267 ],
+          "requiredRoles" : [ ],
           "requireTopic" : true,
-          "roles" : [ 451745787974778908, 513828182697312267 ],
-          "totalLimit" : -1,
+          "staffRoles" : [ 451745787974778908, 513828182697312267 ],
           "surveyDescription" : "Click on the button below to give us feedback.",
           "surveyLink" : "https://forms.google.com",
-          "surveyTitle" : "How did we do?"
+          "surveyTitle" : "How did we do?",
+          "totalLimit" : -1
         }
       },
       "GlobalStats" : {
