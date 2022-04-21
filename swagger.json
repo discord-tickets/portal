@@ -157,6 +157,48 @@
         }
       }
     },
+    "/admin/guilds/{guild}/data" : {
+      "get" : {
+        "tags" : [ "admin" ],
+        "summary" : "Get properties from the guild data",
+        "description" : "This route returns the requested property from the guild.",
+        "parameters" : [ {
+          "name" : "guild",
+          "in" : "path",
+          "description" : "The guild to reset the settings of",
+          "required" : true,
+          "style" : "simple",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "query",
+          "in" : "query",
+          "description" : "The dot-notation property to get",
+          "required" : true,
+          "style" : "form",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object"
+                },
+                "example" : 5
+              }
+            }
+          },
+          "default" : {
+            "$ref" : "#/components/responses/default"
+          }
+        }
+      }
+    },
     "/admin/guilds/{guild}/categories" : {
       "get" : {
         "tags" : [ "admin" ],
@@ -243,57 +285,6 @@
                 "schema" : {
                   "$ref" : "#/components/schemas/CategorySettings"
                 }
-              }
-            }
-          },
-          "default" : {
-            "$ref" : "#/components/responses/default"
-          }
-        }
-      }
-    },
-    "/admin/guilds/{guild}/roles" : {
-      "get" : {
-        "tags" : [ "admin" ],
-        "summary" : "Get an array of roles in a guild",
-        "description" : "This route returns an array of the guild's roles.",
-        "parameters" : [ {
-          "name" : "guild",
-          "in" : "path",
-          "description" : "The guild to get the roles of",
-          "required" : true,
-          "style" : "simple",
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "type" : "object",
-                    "properties" : {
-                      "colour" : {
-                        "type" : "string"
-                      },
-                      "id" : {
-                        "type" : "string"
-                      },
-                      "name" : {
-                        "type" : "string"
-                      }
-                    }
-                  }
-                },
-                "example" : [ {
-                  "colour" : "#e42c66",
-                  "id" : "451745586564169728",
-                  "name" : "earth"
-                } ]
               }
             }
           },
