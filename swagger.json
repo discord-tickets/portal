@@ -492,6 +492,7 @@
       },
       "CategorySettings" : {
         "type" : "object",
+        "required" : [ "channelName", "claiming", "memberLimit", "name", "ping", "requireTopic", "roles", "totalLimit" ],
         "properties" : {
           "channelName" : {
             "type" : "string"
@@ -528,6 +529,15 @@
           },
           "totalLimit" : {
             "type" : "integer"
+          },
+          "surveyDescription" : {
+            "type" : "string"
+          },
+          "surveyLink" : {
+            "type" : "string"
+          },
+          "surveyTitle" : {
+            "type" : "string"
           }
         },
         "example" : {
@@ -540,7 +550,10 @@
           "ping" : [ 513828182697312267 ],
           "requireTopic" : true,
           "roles" : [ 451745787974778908, 513828182697312267 ],
-          "totalLimit" : -1
+          "totalLimit" : -1,
+          "surveyDescription" : "Click on the button below to give us feedback.",
+          "surveyLink" : "https://forms.google.com",
+          "surveyTitle" : "How did we do?"
         }
       },
       "GlobalStats" : {
@@ -610,6 +623,7 @@
       },
       "GuildSettings" : {
         "type" : "object",
+        "required" : [ "archives", "errorColour", "primaryColour", "successColour" ],
         "properties" : {
           "archive" : {
             "type" : "boolean"
