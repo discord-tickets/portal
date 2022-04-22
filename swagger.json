@@ -234,14 +234,18 @@
             "application/json" : {
               "schema" : {
                 "type" : "object",
+                "required" : [ "name", "openingMessage", "staffRoles" ],
                 "properties" : {
+                  "discordCategory" : {
+                    "type" : "string"
+                  },
                   "name" : {
                     "type" : "string"
                   },
                   "openingMessage" : {
                     "type" : "string"
                   },
-                  "roles" : {
+                  "staffRoles" : {
                     "type" : "array",
                     "items" : {
                       "type" : "string"
@@ -249,6 +253,7 @@
                   }
                 },
                 "example" : {
+                  "discordCategory" : null,
                   "name" : "Support",
                   "openingMessage" : "Thank you for creating a ticket. Please be patient, a member of the support team will reply when they become available. Whilst you wait, please provide as much information about your support query as possible. ",
                   "roles" : [ 451745787974778908, 513828182697312267 ]
@@ -275,6 +280,45 @@
       }
     },
     "/admin/guilds/{guild}/categories/{category}" : {
+      "delete" : {
+        "tags" : [ "admin" ],
+        "summary" : "Delete a category",
+        "description" : "This route deletes the category. Tickets within this category will **not** be deleted automatically.",
+        "parameters" : [ {
+          "name" : "guild",
+          "in" : "path",
+          "description" : "The guild the category belongs to",
+          "required" : true,
+          "style" : "simple",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "category",
+          "in" : "path",
+          "description" : "The category to delete",
+          "required" : true,
+          "style" : "simple",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object"
+                }
+              }
+            }
+          },
+          "default" : {
+            "$ref" : "#/components/responses/default"
+          }
+        }
+      },
       "get" : {
         "tags" : [ "admin" ],
         "summary" : "Get a category's settings",
@@ -304,10 +348,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/CategorySettings"
-                  }
+                  "$ref" : "#/components/schemas/CategorySettings"
                 }
               }
             }
