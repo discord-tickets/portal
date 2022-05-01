@@ -547,6 +547,9 @@
           "emoji" : {
             "type" : "string"
           },
+          "enableFeedback" : {
+            "type" : "boolean"
+          },
           "image" : {
             "type" : "string"
           },
