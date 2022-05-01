@@ -642,6 +642,25 @@
           }
         }
       },
+      "Guild" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "logo" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          }
+        },
+        "example" : {
+          "id" : "451745464480432129",
+          "logo" : "https://cdn.discordapp.com/icons/451745464480432129/c340066806e27569c1c6b2bbd8ab28f1.png",
+          "name" : "Planet Earth"
+        }
+      },
       "GuildStats" : {
         "type" : "object",
         "properties" : {
@@ -685,25 +704,6 @@
           "tickets" : 47
         }
       },
-      "Guild" : {
-        "type" : "object",
-        "properties" : {
-          "id" : {
-            "type" : "string"
-          },
-          "logo" : {
-            "type" : "string"
-          },
-          "name" : {
-            "type" : "string"
-          }
-        },
-        "example" : {
-          "id" : "451745464480432129",
-          "logo" : "https://cdn.discordapp.com/icons/451745464480432129/c340066806e27569c1c6b2bbd8ab28f1.png",
-          "name" : "Planet Earth"
-        }
-      },
       "GuildSettings" : {
         "type" : "object",
         "required" : [ "archive", "blocklist", "errorColour", "primaryColour", "successColour" ],
@@ -716,6 +716,9 @@
             "items" : {
               "type" : "string"
             }
+          },
+          "createdAt" : {
+            "type" : "string"
           },
           "errorColour" : {
             "type" : "string"
