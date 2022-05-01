@@ -535,6 +535,9 @@
           "claiming" : {
             "type" : "boolean"
           },
+          "createdAt" : {
+            "type" : "string"
+          },
           "description" : {
             "type" : "string"
           },
