@@ -1,4 +1,31 @@
+<script context="module">
+	const host = import.meta.env.PROD ? '' : import.meta.env.VITE_HOST;
+	/** @type {import('./__types/[slug]').Load} */
+	export async function load({ params, fetch, session, stuff }) {
+		const url = `${host}/api/users/@me`;
+		const response = await fetch(url);
+
+		if (response.status === 401) {
+			return {
+				status: 302,
+				redirect: `${host}/auth/login`
+			};
+		} else {
+			return {
+				status: response.status,
+				props: {
+					user: response.ok && (await response.json())
+				}
+			};
+		}
+	}
+</script>
+
 <script>
+	export let user;
+	import '../app.css';
+	import '@fortawesome/fontawesome-free/css/all.css';
+	import TopBar from '../components/TopBar.svelte';
 	import { onMount } from 'svelte';
 	let isDark = false;
 
@@ -13,6 +40,7 @@
 	<div class="bg-gray-200 dark:bg-slate-900 min-h-screen h-max w-full absolute">
 		<div class="m-2 sm:mx-12 sm:my-8 md:mx-24 lg:mx-32 2xl:mx-72">
 			<div class="text-gray-800 dark:text-slate-300">
+				<TopBar {user} />
 				<slot />
 				<footer class="text-center my-12">
 					<p>

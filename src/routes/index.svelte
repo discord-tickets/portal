@@ -1,6 +1,5 @@
 <script context="module">
 	const host = import.meta.env.PROD ? '' : import.meta.env.VITE_HOST;
-	console.log(host);
 	/** @type {import('./__types/[slug]').Load} */
 	export async function load({ params, fetch, session, stuff }) {
 		const url = `${host}/api/users/@me`;
@@ -27,18 +26,12 @@
 <script>
 	export let client;
 	export let guilds;
-	export let user;
-	import '../app.css';
-	import '@fortawesome/fontawesome-free/css/all.css';
-	// import Forbidden from '../components/Forbidden.svelte';
-	import TopBar from '../components/TopBar.svelte';
 </script>
 
 <svelte:head>
 	<title>Discord Tickets</title>
 </svelte:head>
 
-<TopBar {user} />
 <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
 	<div class="text-center">
 		<div class="grid grid-cols-1 gap-2">

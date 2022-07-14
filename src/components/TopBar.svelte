@@ -1,6 +1,5 @@
 <script>
 	export let user;
-	const host = import.meta.env.VITE_HOST;
 </script>
 
 <div class="bg-white dark:bg-slate-700 my-8 p-4 rounded-xl shadow-sm">
@@ -12,7 +11,7 @@
 		</div>
 		<div>
 			<div class="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left md:float-right">
-				<a href="{host}/auth/logout" class="flex items-center justify-center md:justify-end" title="Logout">
+				<a href="/auth/logout" class="flex items-center justify-center md:justify-end" title="Logout">
 					<img src={user.avatar} class="h-8 rounded-full" alt="Discord Tickets" />
 					<span class="ml-3">{user.username}</span>
 				</a>
