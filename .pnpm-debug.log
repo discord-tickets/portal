@@ -1,0 +1,15 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1
+  },
+  "1 error pnpm": {
+    "code": "ERR_PNPM_INIT_ARG",
+    "hint": "Maybe you wanted to run \"pnpm create svelte\"",
+    "err": {
+      "name": "pnpm",
+      "message": "init command does not accept any arguments",
+      "code": "ERR_PNPM_INIT_ARG",
+      "stack": "pnpm: init command does not accept any arguments\n    at Object.handler [as init] (/home/isaac/.nvm/versions/node/v17.6.0/pnpm-global/5/node_modules/.pnpm/pnpm@7.1.2/node_modules/pnpm/dist/pnpm.cjs:173945:15)\n    at /home/isaac/.nvm/versions/node/v17.6.0/pnpm-global/5/node_modules/.pnpm/pnpm@7.1.2/node_modules/pnpm/dist/pnpm.cjs:176459:51\n    at async run (/home/isaac/.nvm/versions/node/v17.6.0/pnpm-global/5/node_modules/.pnpm/pnpm@7.1.2/node_modules/pnpm/dist/pnpm.cjs:176435:34)\n    at async runPnpm (/home/isaac/.nvm/versions/node/v17.6.0/pnpm-global/5/node_modules/.pnpm/pnpm@7.1.2/node_modules/pnpm/dist/pnpm.cjs:176653:5)\n    at async /home/isaac/.nvm/versions/node/v17.6.0/pnpm-global/5/node_modules/.pnpm/pnpm@7.1.2/node_modules/pnpm/dist/pnpm.cjs:176645:7"
+    }
+  }
+}
