@@ -1,7 +1,7 @@
 module.exports = {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	darkMode: 'class',
-	plugins: [],
+	plugins: [require('@tailwindcss/forms')],
 	theme: {
 		extend: {
 			colors: {

@@ -3,7 +3,13 @@
 	/** @type {import('./__types/[slug]').Load} */
 	export async function load({ params, fetch, session, stuff }) {
 		const url = `${host}/api/users/@me`;
-		const response = await fetch(url);
+		const fetchOptions = {
+			credentials: 'include',
+			headers: {
+				'Content-type': 'application/json; charset=UTF-8'
+			}
+		};
+		const response = await fetch(url, fetchOptions);
 
 		if (response.status === 401) {
 			return {
@@ -14,8 +20,8 @@
 			return {
 				status: response.status,
 				props: {
-					client: await (await fetch(`${host}/api/client`)).json(),
-					guilds: await (await fetch(`${host}/api/admin/guilds`)).json(),
+					client: await (await fetch(`${host}/api/client`, fetchOptions)).json(),
+					guilds: await (await fetch(`${host}/api/admin/guilds`, fetchOptions)).json(),
 					user: response.ok && (await response.json())
 				}
 			};
@@ -28,10 +34,6 @@
 	export let guilds;
 </script>
 
-<svelte:head>
-	<title>Discord Tickets</title>
-</svelte:head>
-
 <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
 	<div class="text-center">
 		<div class="grid grid-cols-1 gap-2">
@@ -43,7 +45,7 @@
 				{#each guilds as guild}
 					<a href={`/guilds/${guild.id}`}>
 						<div
-							class="bg-gray-100 dark:bg-slate-800 p-4 rounded-xl shadow-sm flex items-center gap-4 font-semibold hover:underline"
+							class="bg-gray-100 dark:bg-slate-800 p-4 rounded-xl shadow-sm flex items-center gap-4 font-semibold hover:underline link"
 						>
 							<img src={guild.logo} alt="" class="h-12 rounded-full" />
 							<span>{guild.name}</span>
@@ -56,7 +58,7 @@
 				target="_blank"
 			>
 				<div
-					class="bg-gray-100 dark:bg-slate-800 p-4 rounded-xl shadow-sm font-semibold hover:underline text-center text-lg"
+					class="bg-gray-100 dark:bg-slate-800 p-4 rounded-xl shadow-sm font-semibold hover:underline text-center text-lg link"
 				>
 					<i class="fa-solid fa-circle-plus mr-2" /><span>Add</span>
 				</div>
@@ -77,19 +79,19 @@
 		<div class="m-4 grid grid-cols-2 sm:grid-cols-3 2xl:grid-cols-5 gap-4">
 			<div>
 				<h6 class="font-semibold">Activated users</h6>
-				<p class="text-gray-500 dark:text-slate-400">#</p>
+				<p class="text-gray-500 dark:text-slate-400">{client.stats.activatedUsers}</p>
 			</div>
 			<div>
 				<h6 class="font-semibold">Archived messages</h6>
-				<p class="text-gray-500 dark:text-slate-400">#</p>
+				<p class="text-gray-500 dark:text-slate-400">{client.stats.archivedMessages}</p>
 			</div>
 			<div>
 				<h6 class="font-semibold">Avg. response</h6>
-				<p class="text-gray-500 dark:text-slate-400">#</p>
+				<p class="text-gray-500 dark:text-slate-400">{client.stats.avgResponseTime}</p>
 			</div>
 			<div>
 				<h6 class="font-semibold">Categories</h6>
-				<p class="text-gray-500 dark:text-slate-400">#</p>
+				<p class="text-gray-500 dark:text-slate-400">{client.stats.categories}</p>
 			</div>
 			<div>
 				<h6 class="font-semibold">Guilds</h6>
@@ -97,7 +99,9 @@
 			</div>
 			<div>
 				<h6 class="font-semibold">Avg. members</h6>
-				<p class="text-gray-500 dark:text-slate-400">{Math.floor(client.stats.members / client.stats.guilds)}</p>
+				<p class="text-gray-500 dark:text-slate-400">
+					{Math.floor(client.stats.members / client.stats.guilds)}
+				</p>
 			</div>
 			<div>
 				<h6 class="font-semibold">Total members</h6>
@@ -105,11 +109,11 @@
 			</div>
 			<div>
 				<h6 class="font-semibold">Tags</h6>
-				<p class="text-gray-500 dark:text-slate-400">#</p>
+				<p class="text-gray-500 dark:text-slate-400">{client.stats.tags}</p>
 			</div>
 			<div>
 				<h6 class="font-semibold">Tickets</h6>
-				<p class="text-gray-500 dark:text-slate-400">#</p>
+				<p class="text-gray-500 dark:text-slate-400">{client.stats.tickets}</p>
 			</div>
 		</div>
 	</div>

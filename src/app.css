@@ -7,3 +7,17 @@
 		background: #2e2e2e;
 	}
 }
+
+@layer components {
+	.link {
+		@apply hover:bg-blurple dark:hover:bg-blurple hover:text-white dark:hover:text-white transition duration-300;
+	}
+
+	.input {
+		@apply block m-2 w-full rounded-md shadow-sm bg-gray-100 dark:bg-slate-800 border-transparent focus:border-blurple focus:border-2 focus:bg-white focus:ring-0  font-normal
+	}
+
+	select option:checked {
+		@apply bg-blurple text-white
+	}
+}

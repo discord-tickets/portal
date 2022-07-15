@@ -3,7 +3,12 @@
 	/** @type {import('./__types/[slug]').Load} */
 	export async function load({ params, fetch, session, stuff }) {
 		const url = `${host}/api/users/@me`;
-		const response = await fetch(url);
+		const response = await fetch(url, {
+			credentials: 'include',
+			headers: {
+				'Content-type': 'application/json; charset=UTF-8'
+			}
+		});
 
 		if (response.status === 401) {
 			return {
@@ -35,6 +40,11 @@
 			(!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
 	});
 </script>
+
+<svelte:head>
+	<title>Discord Tickets</title>
+</svelte:head>
+
 
 <div class={isDark ? 'dark' : ''}>
 	<div class="bg-gray-200 dark:bg-slate-900 min-h-screen h-max w-full absolute">
