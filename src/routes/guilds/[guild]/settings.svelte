@@ -41,6 +41,7 @@
 	export let locales;
 	export let roles;
 	export let url;
+	import zones from '../../../timezones.json';
 	import ms from 'ms';
 
 	channels = channels.filter((c) => c.type === 'GUILD_TEXT');
@@ -51,7 +52,8 @@
 
 	let autoTag = Array.isArray(settings.autoTag) ? 'custom' : settings.autoTag; // there are 2 inputs for autoTag, need separate variables
 	if (!Array.isArray(settings.workingHours)) settings.workingHours = [];
-	let workingHours = settings.workingHours.join('\n');
+	let timezone = settings.workingHours.shift();
+	let workingHours = settings.workingHours.map(v => v === null ? 'null' : v).join('\n')
 	let error = null;
 	let loading = false;
 
@@ -68,6 +70,11 @@
 		if (settings.logChannel === '') settings.logChannel = null;
 
 		settings.workingHours = workingHours.split('\n');
+		settings.workingHours.unshift(timezone);
+		for (let i = 0; i < 8; i++) {
+			if (i === 0 && settings.workingHours[0] === '') settings.workingHours[0] = 'UTC';
+			else if (settings.workingHours[i] === '' || settings.workingHours[i] === 'null') settings.workingHours[i] = null;
+		}
 
 		try {
 			const response = await fetch(url, {
@@ -88,6 +95,7 @@
 			settings.autoClose = settings.autoClose ? ms(settings.autoClose) : '';
 			settings.logChannel = settings.logChannel ?? '';
 			settings.staleAfter = settings.staleAfter ? ms(settings.staleAfter) : '';
+			timezone = settings.workingHours.shift();
 			workingHours = settings.workingHours.join('\n');
 			error = err;
 			window.scroll({
@@ -290,7 +298,21 @@
 						class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 						title="When can your users expect staff to be available?"
 					/>
-					<textarea class="form-textarea input" rows="8" bind:value={workingHours} />
+					<input
+						type="text"
+						list="timezones"
+						class="form-input input"
+						placeholder="Timezone"
+						bind:value={timezone}
+					/>
+					<datalist id="timezones" class="">
+						{#each zones as zone}
+							<option value={zone} class="p-1">
+								{zone}
+							</option>
+						{/each}
+					</datalist>
+					<textarea class="form-textarea input" rows="7" bind:value={workingHours} />
 				</label>
 				<span class="text-gray-500 dark:text-slate-400 text-sm">
 					View the <a
