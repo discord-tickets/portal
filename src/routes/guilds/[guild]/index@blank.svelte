@@ -69,6 +69,7 @@
 				<span class="font-bold text-2xl">
 					{guild.name}
 				</span>
+				<br>
 				<span class="text-gray-500 dark:text-slate-400">
 					Added on
 					{createdAt}
@@ -94,7 +95,7 @@
 			</div>
 			<div class="col-span-2">
 				<h6 class="font-semibold">Most popular category</h6>
-				<p class="text-gray-500 dark:text-slate-400">{guild.stats.categories.sort((a, b) => b - a)[0].name}</p>
+				<p class="text-gray-500 dark:text-slate-400">{guild.stats.categories.sort((a, b) => b - a)[0]?.name ?? 'None'}</p>
 			</div>
 		</div>
 	</div>
