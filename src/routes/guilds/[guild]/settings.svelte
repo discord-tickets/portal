@@ -61,17 +61,18 @@
 	let loading = false;
 
 	const submit = async () => {
+		try {
 		error = null;
 		loading = true;
 		const json = { ...settings };
 		json.autoClose = settings.autoClose ? ms(settings.autoClose) : null;
 		json.staleAfter = settings.staleAfter ? ms(settings.staleAfter) : null;
+		if (json.autoClose !== null && json.staleAfter === null) throw new Error('autoClose cannot be set unless staleAfter is also set.');
 		if (autoTag !== 'custom') json.autoTag = autoTag;
 		else if (!Array.isArray(settings.autoTag)) json.autoTag = []; // it only updates if you select (and optionally deselect) a channel
 		if (settings.logChannel === '') json.logChannel = null;
 		json.workingHours = settings.workingHours.map((v) => (v.length === 0 ? null : v));
 
-		try {
 			console.log(json)
 			const response = await fetch(url, {
 				method: 'PATCH',
@@ -97,15 +98,15 @@
 	};
 </script>
 
-<h1 class="m-4 text-4xl font-bold text-center">Settings</h1>
+<h1 class="m-4 text-4xl font-bold text-center">General settings</h1>
 <div class="m-2 p-4 max-w-lg mx-auto text-lg">
 	{#if error}
 		<div id="error" class="text-center">
 			<div
-				class="bg-red-400 dark:bg-red-500 text-red-800 dark:text-red-400 bg-opacity-40 dark:bg-opacity-20 m-2 p-6 px-12 rounded-lg text-center max-w-lg inline-block"
+				class="bg-red-400 dark:bg-red-500 text-red-800 dark:text-red-400 bg-opacity-40 dark:bg-opacity-20 mb-4 p-6 px-12 rounded-lg text-center max-w-lg inline-block"
 			>
 				<p class="font-semibold text-xl">Error</p>
-				{error.message}
+				{error.message ?? error}
 			</div>
 		</div>
 	{/if}
@@ -237,7 +238,7 @@
 			</div>
 			<div>
 				<label class="font-medium">
-					Log Channel
+					Log channel
 					<i
 						class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 						title="Which channel should logs be sent to?"
