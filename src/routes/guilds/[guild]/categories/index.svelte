@@ -51,7 +51,7 @@
 					<p>
 						<span class="text-xl font-semibold">
 							{#if category.emoji}
-								{emoji.get(category.emoji)}
+								{emoji.get(category.emoji) ?? ''}
 							{/if}
 							{category.name}
 						</span>

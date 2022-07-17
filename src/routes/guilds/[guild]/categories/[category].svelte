@@ -81,7 +81,7 @@
 
 	channels = channels.filter((c) => c.type === 'GUILD_CATEGORY');
 	roles = roles.filter((r) => r.name !== '@everyone');
-	console.log(category)
+	console.log(category);
 	let error = null;
 	let loading = false;
 	const submit = async () => {
@@ -95,6 +95,34 @@
 			const response = await fetch(url, {
 				method: category.id ? 'PATCH' : 'POST',
 				body: JSON.stringify(json),
+				credentials: 'include',
+				headers: {
+					'Content-type': 'application/json; charset=UTF-8'
+				}
+			});
+			const body = await response.json();
+
+			if (!response.ok) throw body;
+			else window.location = './';
+		} catch (err) {
+			loading = false;
+			error = err;
+			window.scroll({
+				top: 0,
+				behavior: 'smooth'
+			});
+		}
+	};
+
+	const del = async () => {
+		try {
+			const confirmed = confirm('Are you sure?\nThis will delete all associated tickets (including archives).');
+			if (!confirmed) return false;
+			error = null;
+			loading = true;
+
+			const response = await fetch(url, {
+				method: 'DELETE',
 				credentials: 'include',
 				headers: {
 					'Content-type': 'application/json; charset=UTF-8'
@@ -190,7 +218,12 @@
 							class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 							title="What is this category for?"
 						/>
-						<input type="text" class="form-input input" required bind:value={category.description} />
+						<input
+							type="text"
+							class="form-input input"
+							required
+							bind:value={category.description}
+						/>
 					</label>
 				</div>
 				<div>
@@ -404,8 +437,10 @@
 				<div class="flex justify-end gap-4">
 					{#if category.id}
 						<button
+							type="button"
 							disabled={loading}
 							class="mt-4 bg-red-300 hover:bg-red-500 hover:text-white dark:bg-red-500/20 dark:hover:bg-red-500 dark:hover:text-white p-2 px-5 rounded-lg font-medium transition duration-300 disabled:cursor-not-allowed"
+							on:click={del}
 						>
 							{#if loading}
 								<i class="fa-solid fa-spinner animate-spin" />
