@@ -41,45 +41,41 @@
 	export let locales;
 	export let roles;
 	export let url;
+	// import schema from '../../../schemas/settings';
 	import zones from '../../../timezones.json';
 	import ms from 'ms';
+	import { fade } from 'svelte/transition';
+
+	const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+	const expanded = { workingHours: false };
 
 	channels = channels.filter((c) => c.type === 'GUILD_TEXT');
 	roles = roles.filter((r) => r.name !== '@everyone');
 	settings.autoClose = settings.autoClose ? ms(settings.autoClose) : '';
 	settings.logChannel = settings.logChannel ?? '';
 	settings.staleAfter = settings.staleAfter ? ms(settings.staleAfter) : '';
+	settings.workingHours = settings.workingHours.map((v) => (v === null ? [] : v));
 
 	let autoTag = Array.isArray(settings.autoTag) ? 'custom' : settings.autoTag; // there are 2 inputs for autoTag, need separate variables
-	if (!Array.isArray(settings.workingHours)) settings.workingHours = [];
-	let timezone = settings.workingHours.shift();
-	let workingHours = settings.workingHours.map(v => v === null ? 'null' : v).join('\n')
 	let error = null;
 	let loading = false;
 
 	const submit = async () => {
 		error = null;
 		loading = true;
-
-		settings.autoClose = settings.autoClose ? ms(settings.autoClose) : null;
-		settings.staleAfter = settings.staleAfter ? ms(settings.staleAfter) : null;
-
-		if (autoTag !== 'custom') settings.autoTag = autoTag;
-		else if (!Array.isArray(settings.autoTag)) settings.autoTag = []; // it only updates if you select (and optionally deselect) a channel
-
-		if (settings.logChannel === '') settings.logChannel = null;
-
-		settings.workingHours = workingHours.split('\n');
-		settings.workingHours.unshift(timezone);
-		for (let i = 0; i < 8; i++) {
-			if (i === 0 && settings.workingHours[0] === '') settings.workingHours[0] = 'UTC';
-			else if (settings.workingHours[i] === '' || settings.workingHours[i] === 'null') settings.workingHours[i] = null;
-		}
+		const json = { ...settings };
+		json.autoClose = settings.autoClose ? ms(settings.autoClose) : null;
+		json.staleAfter = settings.staleAfter ? ms(settings.staleAfter) : null;
+		if (autoTag !== 'custom') json.autoTag = autoTag;
+		else if (!Array.isArray(settings.autoTag)) json.autoTag = []; // it only updates if you select (and optionally deselect) a channel
+		if (settings.logChannel === '') json.logChannel = null;
+		json.workingHours = settings.workingHours.map((v) => (v.length === 0 ? null : v));
 
 		try {
+			console.log(json)
 			const response = await fetch(url, {
 				method: 'PATCH',
-				body: JSON.stringify(settings),
+				body: JSON.stringify(json),
 				credentials: 'include',
 				headers: {
 					'Content-type': 'application/json; charset=UTF-8'
@@ -92,11 +88,6 @@
 			if (!response.ok) throw body;
 			else window.location = './';
 		} catch (err) {
-			settings.autoClose = settings.autoClose ? ms(settings.autoClose) : '';
-			settings.logChannel = settings.logChannel ?? '';
-			settings.staleAfter = settings.staleAfter ? ms(settings.staleAfter) : '';
-			timezone = settings.workingHours.shift();
-			workingHours = settings.workingHours.join('\n');
 			error = err;
 			window.scroll({
 				top: 0,
@@ -292,40 +283,74 @@
 				</label>
 			</div>
 			<div>
-				<label class="font-medium">
-					Working hours
-					<i
-						class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
-						title="When can your users expect staff to be available?"
-					/>
-					<input
-						type="text"
-						list="timezones"
-						class="form-input input"
-						placeholder="Timezone"
-						bind:value={timezone}
-					/>
-					<datalist id="timezones" class="">
-						{#each zones as zone}
-							<option value={zone} class="p-1">
-								{zone}
-							</option>
-						{/each}
-					</datalist>
-					<textarea class="form-textarea input" rows="7" bind:value={workingHours} />
-				</label>
-				<span class="text-gray-500 dark:text-slate-400 text-sm">
-					View the <a
-						href="https://discordtickets.app/settings/working-hours"
-						class="font-semibold hover:underline">documentation</a
-					> about this option.
-				</span>
+				<div class="font-medium grid grid-cols-1 gap-2">
+					<div>
+						Working hours
+						<i
+							class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
+							title="When can your users expect staff to be available?"
+						/>
+						<p
+							class="hover:text-blurple cursor-pointer transition duration-300 text-xl"
+							on:click={() => (expanded.workingHours = !expanded.workingHours)}
+						>
+							<i
+								class="fa-solid {expanded.workingHours
+									? 'fa-angle-up'
+									: 'fa-angle-down'} float-right"
+							/>
+							<span class="text-gray-500 dark:text-slate-400 text-sm">
+								Click to {expanded.workingHours ? 'hide' : 'expand'}</span
+							>
+						</p>
+					</div>
+
+					{#if expanded.workingHours}
+						<div in:fade out:fade>
+							<label>
+								<p class="text-sm">Timezone</p>
+								<input
+									type="text"
+									list="timezones"
+									class="form-input input"
+									required
+									bind:value={settings.workingHours[0]}
+								/>
+								<datalist id="timezones" class="">
+									{#each zones as zone}
+										<option value={zone} class="p-1">
+											{zone}
+										</option>
+									{/each}
+								</datalist>
+							</label>
+							{#each days as day, index}
+								<label for={day}>
+									<p class="text-sm">{day}</p>
+									<div class="flex items-center">
+										<input
+											type="time"
+											class="form-input m-2 rounded-md shadow-sm bg-gray-100 dark:bg-slate-800 border-transparent focus:border-blurple focus:border-2 focus:bg-white focus:ring-0 font-normal text-center grow"
+											bind:value={settings.workingHours[index + 1][0]}
+										/>
+										<i class="fa-solid fa-arrow-right-long" />
+										<input
+											type="time"
+											class="form-input m-2 rounded-md shadow-sm bg-gray-100 dark:bg-slate-800 border-transparent focus:border-blurple focus:border-2 focus:bg-white focus:ring-0 font-normal text-center grow"
+											bind:value={settings.workingHours[index + 1][1]}
+										/>
+									</div>
+								</label>
+							{/each}
+						</div>
+					{/if}
+				</div>
 			</div>
 		</div>
 		<button
 			type="submit"
 			disabled={loading}
-			class="float-right bg-green-300 hover:bg-green-500 hover:text-white dark:bg-green-500/20 dark:hover:bg-green-500 dark:hover:text-white p-2 px-5 rounded-lg font-medium transition duration-300 disabled:cursor-not-allowed"
+			class="mt-4 float-right bg-green-300 hover:bg-green-500 hover:text-white dark:bg-green-500/20 dark:hover:bg-green-500 dark:hover:text-white p-2 px-5 rounded-lg font-medium transition duration-300 disabled:cursor-not-allowed"
 		>
 			{#if loading}
 				<i class="fa-solid fa-spinner animate-spin" />

@@ -15,7 +15,7 @@
 	}
 
 	.input {
-		@apply block m-2 w-full rounded-md shadow-sm bg-gray-100 dark:bg-slate-800 border-transparent focus:border-blurple focus:border-2 focus:bg-white focus:ring-0  font-normal
+		@apply block m-2 w-full rounded-md shadow-sm bg-gray-100 dark:bg-slate-800 border-transparent focus:border-blurple focus:border-2 focus:bg-white focus:ring-0 font-normal
 	}
 
 	select option:checked {
