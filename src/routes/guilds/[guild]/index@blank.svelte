@@ -35,7 +35,7 @@
 	<div class="text-center">
 		{#if guild.stats.categories.length === 0}
 			<div class="m-4">
-				<a href="/categories/new" target="_blank">
+				<a href="/categories/new">
 					<div class="p-2 rounded-xl border-blurple bg-blurple/20 border-2 link font-medium">
 						<i class="fa-solid fa-circle-info text-2xl float-left" />
 						Create a category to get started
