@@ -37,7 +37,7 @@
 <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
 	<div class="text-center">
 		<div class="grid grid-cols-1 gap-2">
-			<h2 class="font-bold text-lg">Guilds</h2>
+			<h2 class="font-bold text-xl">Guilds</h2>
 			{#if guilds.length === 0}
 				<p class="text-red-600 dark:text-red-400">Your bot isn't in any guilds.</p>
 			{:else}

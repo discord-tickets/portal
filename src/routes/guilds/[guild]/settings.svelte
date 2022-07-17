@@ -97,6 +97,7 @@
 	};
 </script>
 
+<h1 class="m-4 text-4xl font-bold text-center">Settings</h1>
 <div class="m-2 p-4 max-w-lg mx-auto text-lg">
 	{#if error}
 		<div id="error" class="text-center">
