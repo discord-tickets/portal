@@ -118,32 +118,32 @@
 				</div>
 			</div>
 		</div>
-		<div class="bg-white dark:bg-slate-700 p-4 rounded-xl shadow-sm">
-			<h2 class="font-bold text-lg mb-2  text-center">Resources</h2>
-			<div class="grid grid-cols-1 gap-4">
-				<a href="https://discordtickets.app" target="_blank">
-					<div
-						class="bg-gray-100 dark:bg-slate-800/75 p-4 rounded-xl shadow-sm link flex items-center gap-4"
-					>
-						<i class="fa-solid fa-book text-5xl" />
-						<div>
-							<p class="text-lg font-semibold">Documentation</p>
-							<p>Follow the guide and find answers</p>
-						</div>
-					</div>
-				</a>
-				<a href="https://lnk.earth/discord" target="_blank">
-					<div
-						class="bg-gray-100 dark:bg-slate-800/75 p-4 rounded-xl shadow-sm link flex items-center gap-4"
-					>
-						<i class="fa-solid fa-circle-question text-5xl" />
-						<div>
-							<p class="text-lg font-semibold">Support</p>
-							<p>Get help on Discord</p>
-						</div>
-					</div>
-				</a>
+	</div>
+</div>
+<div class="max-w-3xl my-8 mx-auto">
+	<!-- <h2 class="font-bold text-lg mb-2 text-center">Resources</h2> -->
+	<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+		<a href="https://discordtickets.app" target="_blank">
+			<div
+				class="bg-gray-50/75 dark:bg-slate-800/75 p-4 rounded-xl shadow-sm link flex items-center gap-4"
+			>
+				<i class="fa-solid fa-book text-5xl" />
+				<div>
+					<p class="text-lg font-semibold">Documentation</p>
+					<p>Follow the guide and find answers</p>
+				</div>
 			</div>
-		</div>
+		</a>
+		<a href="https://lnk.earth/discord" target="_blank">
+			<div
+				class="bg-gray-50/75 dark:bg-slate-800/75 p-4 rounded-xl shadow-sm link flex items-center gap-4"
+			>
+				<i class="fa-solid fa-circle-question text-5xl" />
+				<div>
+					<p class="text-lg font-semibold">Support</p>
+					<p>Get help on Discord</p>
+				</div>
+			</div>
+		</a>
 	</div>
 </div>
