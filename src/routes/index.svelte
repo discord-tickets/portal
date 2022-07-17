@@ -36,29 +36,31 @@
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
 	<div class="text-center">
-		<div class="grid grid-cols-1 gap-2">
-			<h2 class="font-bold text-xl">Guilds</h2>
-			{#if guilds.length === 0}
-				<p class="text-red-600 dark:text-red-400">Your bot isn't in any guilds.</p>
-			{:else}
-				<p>These are the guilds that you can manage.</p>
-				{#each guilds as guild}
-					<a href={`/guilds/${guild.id}`}>
-						<div
-							class="bg-gray-100 dark:bg-slate-800 p-4 rounded-xl shadow-sm flex items-center gap-4 font-semibold hover:underline link"
-						>
-							<img src={guild.logo} alt="" class="h-12 rounded-full" />
-							<span>{guild.name}</span>
-						</div>
-					</a>
-				{/each}
-			{/if}
+		<div class="grid grid-cols-1 gap-4">
+			<div>
+				<h3 class="font-bold text-xl">Guilds</h3>
+				{#if guilds.length === 0}
+					<p class="text-red-600 dark:text-red-400">Your bot isn't in any guilds.</p>
+				{:else}
+					<p>These are the guilds that you can manage.</p>
+				{/if}
+			</div>
+			{#each guilds as guild}
+				<a href={`/guilds/${guild.id}`}>
+					<div
+						class="bg-gray-100 dark:bg-slate-800 p-4 rounded-xl shadow-sm flex items-center gap-4 font-semibold link"
+					>
+						<img src={guild.logo} alt="" class="h-12 rounded-full" />
+						<span>{guild.name}</span>
+					</div>
+				</a>
+			{/each}
 			<a
 				href={`https://discord.com/oauth2/authorize?scope=applications.commands%20bot&permissions=268561488&client_id=${client.id}`}
 				target="_blank"
 			>
 				<div
-					class="bg-gray-100 dark:bg-slate-800 p-4 rounded-xl shadow-sm font-semibold hover:underline text-center text-lg link"
+					class="bg-gray-100 dark:bg-slate-800 p-4 rounded-xl shadow-sm font-semibold text-center text-lg link"
 				>
 					<i class="fa-solid fa-circle-plus mr-2" /><span>Add</span>
 				</div>

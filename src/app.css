@@ -18,6 +18,10 @@
 		@apply block m-2 w-full rounded-md shadow-sm bg-gray-100 dark:bg-slate-800 border-transparent focus:border-blurple focus:border-2 focus:bg-white focus:ring-0 font-normal
 	}
 
+	.form-checkbox {
+		@apply rounded text-blurple focus:ring-blurple bg-gray-100 dark:bg-slate-800 checked:bg-blurple dark:checked:bg-blurple cursor-pointer p-3 block m-2
+	}
+
 	select option:checked {
 		@apply bg-blurple text-white
 	}

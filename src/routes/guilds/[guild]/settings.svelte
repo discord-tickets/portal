@@ -62,18 +62,19 @@
 
 	const submit = async () => {
 		try {
-		error = null;
-		loading = true;
-		const json = { ...settings };
-		json.autoClose = settings.autoClose ? ms(settings.autoClose) : null;
-		json.staleAfter = settings.staleAfter ? ms(settings.staleAfter) : null;
-		if (json.autoClose !== null && json.staleAfter === null) throw new Error('autoClose cannot be set unless staleAfter is also set.');
-		if (autoTag !== 'custom') json.autoTag = autoTag;
-		else if (!Array.isArray(settings.autoTag)) json.autoTag = []; // it only updates if you select (and optionally deselect) a channel
-		if (settings.logChannel === '') json.logChannel = null;
-		json.workingHours = settings.workingHours.map((v) => (v.length === 0 ? null : v));
+			error = null;
+			loading = true;
+			const json = { ...settings };
+			json.autoClose = settings.autoClose ? ms(settings.autoClose) : null;
+			json.staleAfter = settings.staleAfter ? ms(settings.staleAfter) : null;
+			if (json.autoClose !== null && json.staleAfter === null)
+				throw new Error('autoClose cannot be set unless staleAfter is also set.');
+			if (autoTag !== 'custom') json.autoTag = autoTag;
+			else if (!Array.isArray(settings.autoTag)) json.autoTag = []; // it only updates if you select (and optionally deselect) a channel
+			if (settings.logChannel === '') json.logChannel = null;
+			json.workingHours = settings.workingHours.map((v) => (v.length === 0 ? null : v));
 
-			console.log(json)
+			console.log(json);
 			const response = await fetch(url, {
 				method: 'PATCH',
 				body: JSON.stringify(json),
@@ -83,12 +84,10 @@
 				}
 			});
 			const body = await response.json();
-
-			loading = false;
-
 			if (!response.ok) throw body;
 			else window.location = './';
 		} catch (err) {
+			loading = false;
 			error = err;
 			window.scroll({
 				top: 0,
@@ -114,9 +113,8 @@
 		<p class="font-semibold"><i class="fa-solid fa-triangle-exclamation" /> Warning</p>
 		<p>
 			This page is made to be "just about functional".
-			<a
-				href="https://discordtickets.app/settings/working-hours"
-				class="font-semibold hover:underline">Read the documentation</a
+			<a href="https://discordtickets.app/settings/general" class="font-semibold hover:underline"
+				>Read the documentation</a
 			>
 			to avoid breaking something.
 		</p>
@@ -173,7 +171,7 @@
 						type="checkbox"
 						id="archive"
 						name="archive"
-						class="form-checkbox rounded text-blurple focus:ring-blurple cursor-pointer p-3 block m-2"
+						class="form-checkbox"
 						bind:checked={settings.archive}
 					/>
 				</label>
@@ -245,6 +243,7 @@
 					/>
 					<select class="form-multiselect input" bind:value={settings.logChannel}>
 						<option value="">None</option>
+						<option disabled>------------</option>
 						{#each channels as channel}
 							<option value={channel.id} class="p-1">
 								<i class="fa-solid fa-hashtag text-gray-500 dark:text-slate-400" />
