@@ -50,7 +50,7 @@
 		<div class="m-2 sm:m-6 lg:m-12 ">
 			<div class="max-w-7xl mx-auto">
 				<div class="text-gray-800 dark:text-slate-300">
-					<TopBar {user} />
+					<TopBar {user} {isDark} />
 					<slot />
 					<footer class="text-center my-24">
 						<p>
