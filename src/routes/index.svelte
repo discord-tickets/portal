@@ -48,7 +48,7 @@
 			{#each guilds as guild}
 				<a href={`/guilds/${guild.id}`}>
 					<div
-						class="bg-gray-100 dark:bg-slate-800 p-4 rounded-xl shadow-sm flex items-center gap-4 font-semibold link"
+						class="bg-gray-100 dark:bg-slate-800 p-4 rounded-xl shadow-sm flex items-center gap-4 font-semibold text-lg link"
 					>
 						<img src={guild.logo} alt="" class="h-12 rounded-full" />
 						<span>{guild.name}</span>

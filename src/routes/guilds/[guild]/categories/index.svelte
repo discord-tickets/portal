@@ -15,7 +15,6 @@
 			status: response.status,
 			error: !response.ok ? body?.message || String(response.status) : null,
 			props: {
-				url,
 				categories: body
 			}
 		};
@@ -40,7 +39,7 @@
 		</a>
 		{#each categories as category}
 			<a href={`./categories/${category.id}`}>
-				<div class="bg-gray-100 dark:bg-slate-800 p-4 rounded-xl shadow-sm link group">
+				<div class="bg-gray-100 dark:bg-slate-800 p-4 rounded-xl shadow-sm link group  flex flex-col-reverse md:flex-row-reverse md:justify-between gap-1">
 					{#if browser}
 						<p
 							class="text-sm float-right text-gray-500 dark:text-slate-400 group-hover:text-white dark:group-hover:text-white transition duration-300"
@@ -50,7 +49,7 @@
 							{new Intl.DateTimeFormat(navigator.languages[0]).format(new Date(category.createdAt))}
 						</p>
 					{/if}
-					<div class="flex items-start gap-4">
+					<div class="flex items-center gap-4">
 						<span class="text-5xl">
 							{#if category.emoji}
 								{emoji.get(category.emoji) ?? ''}

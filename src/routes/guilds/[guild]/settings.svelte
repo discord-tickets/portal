@@ -49,7 +49,7 @@
 	const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 	const expanded = { workingHours: false };
 
-	channels = channels.filter((c) => c.type === 'GUILD_TEXT');
+	channels = channels.filter((c) => c.type === 0);
 	roles = roles.filter((r) => r.name !== '@everyone');
 	settings.autoClose = settings.autoClose ? ms(settings.autoClose) : '';
 	settings.logChannel = settings.logChannel ?? '';
@@ -100,7 +100,7 @@
 <h1 class="m-4 text-4xl font-bold text-center">General settings</h1>
 <div class="m-2 p-4 max-w-lg mx-auto text-lg">
 	{#if error}
-		<div id="error" class="text-center">
+		<div id="error" class="text-center break-all">
 			<div
 				class="bg-red-400 dark:bg-red-500 text-red-800 dark:text-red-400 bg-opacity-40 dark:bg-opacity-20 mb-4 p-6 px-12 rounded-lg text-center max-w-lg inline-block"
 			>

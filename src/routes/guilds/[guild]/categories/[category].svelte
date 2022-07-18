@@ -12,15 +12,16 @@
 		let body;
 		if (params.category === 'new') {
 			body = {
-				channelName: null,
+				channelName: '',
 				claiming: false,
-				description: null,
-				discordCategory: '',
+				description: '',
+				discordCategory: 'new',
 				enableFeedback: false,
-				image: null,
+				emoji: '',
+				image: '',
 				memberLimit: 1,
-				name: null,
-				openingMessage: null,
+				name: '',
+				openingMessage: '',
 				pingRoles: [],
 				questions: [],
 				ratelimit: null,
@@ -62,6 +63,10 @@
 	export let channels;
 	export let roles;
 	import ms from 'ms';
+	import emoji from 'emoji-name-map';
+	import { marked } from 'marked';
+	import CategoryQuestions from '../../../../components/CategoryQuestions.svelte';
+	import { getContext } from 'svelte';
 
 	const slowmodes = [
 		'5s',
@@ -79,18 +84,20 @@
 		'6h'
 	];
 
-	channels = channels.filter((c) => c.type === 'GUILD_CATEGORY');
+	channels = channels.filter((c) => c.type === 4);
 	roles = roles.filter((r) => r.name !== '@everyone');
-	console.log(category);
+
 	let error = null;
-	let loading = false;
+	let loadingSubmit = false;
+	let loadingDelete = false;
+
 	const submit = async () => {
 		try {
 			error = null;
-			loading = true;
+			loadingSubmit = true;
 			const json = { ...category };
 
-			console.log(json);
+			if (category.discordCategory === 'new') json.discordCategory = null;
 
 			const response = await fetch(url, {
 				method: category.id ? 'PATCH' : 'POST',
@@ -105,7 +112,7 @@
 			if (!response.ok) throw body;
 			else window.location = './';
 		} catch (err) {
-			loading = false;
+			loadingSubmit = false;
 			error = err;
 			window.scroll({
 				top: 0,
@@ -116,10 +123,12 @@
 
 	const del = async () => {
 		try {
-			const confirmed = confirm('Are you sure?\nThis will delete all associated tickets (including archives).');
+			const confirmed = confirm(
+				'Are you sure?\nThis will delete all associated tickets (including archives).'
+			);
 			if (!confirmed) return false;
 			error = null;
-			loading = true;
+			loadingDelete = true;
 
 			const response = await fetch(url, {
 				method: 'DELETE',
@@ -133,7 +142,7 @@
 			if (!response.ok) throw body;
 			else window.location = './';
 		} catch (err) {
-			loading = false;
+			loadingDelete = false;
 			error = err;
 			window.scroll({
 				top: 0,
@@ -154,11 +163,12 @@
 </div>
 <h1 class="m-4 text-4xl font-bold text-center">Categories</h1>
 <h2 class="m-4 text-2xl font-semibold text-center text-gray-500 dark:text-slate-400">
+	{emoji.get(category.emoji) ?? ''}
 	{category.name || 'New category'}
 </h2>
 <div class="m-2 p-4 max-w-5xl mx-auto text-lg">
 	{#if error}
-		<div id="error" class="text-center">
+		<div id="error" class="text-center break-all">
 			<div
 				class="bg-red-400 dark:bg-red-500 text-red-800 dark:text-red-400 bg-opacity-40 dark:bg-opacity-20 mb-4 p-6 px-12 rounded-lg text-center max-w-lg inline-block"
 			>
@@ -233,9 +243,11 @@
 							class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 							title="Which category channel should ticket channels be created under?"
 						/>
-						<select class="form-multiselect input" bind:value={category.discordCategory}>
-							<option value="">Create a new category</option>
-							<option disabled>------------</option>
+						<select class="form-multiselect input" required bind:value={category.discordCategory}>
+							{#if !category.discordCategory || category.discordCategory === 'new'}
+								<option value="new">Create a new category</option>
+								<option disabled>------------</option>
+							{/if}
 							{#each channels as channel}
 								<option value={channel.id} class="p-1">
 									<i class="fa-solid fa-hashtag text-gray-500 dark:text-slate-400" />
@@ -252,6 +264,7 @@
 							class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 							title="Emoji used for buttons & dropdowns"
 						/>
+						<span class="text-2xl">{emoji.get(category.emoji) ?? ''}</span>
 						<input type="text" class="form-input input" required bind:value={category.emoji} />
 					</label>
 				</div>
@@ -311,6 +324,16 @@
 							bind:value={category.openingMessage}
 						/>
 					</label>
+					{#if category.openingMessage}
+						<p class="text-sm font-medium">Output</p>
+						<div
+							class="block m-2 p-3 w-full rounded-md shadow-sm bg-blurple/20 dark:bg-blurple/20 text-sm font-mono"
+						>
+							{@html marked
+								.parse(category.openingMessage.replace(/\n/g, '\n\n'))
+								.replace(/\{user\}/g, '@' + getContext('user').username)}
+						</div>
+					{/if}
 				</div>
 				<div>
 					<label class="font-medium">
@@ -432,17 +455,55 @@
 			</div>
 			<div>
 				<div class="bg-white dark:bg-slate-700 p-4 rounded-xl shadow-sm">
-					<h3 class="font-bold text-xl">Questions</h3>
+					<!-- {JSON.stringify(qData)}
+						{#each qData as d}
+						<Question name={d.name} bind:state={d.state} />
+						{/each} -->
+					<div class="flex flex-col gap-4">
+						<h3 class="font-bold text-xl text-center">Questions</h3>
+						<div>
+							<CategoryQuestions bind:state={category.questions} />
+						</div>
+						{#each category.questions as q}
+							{q.label}
+						{/each}
+						{#if category.questions.length < 5}
+							<div class="text-center">
+								<button
+									type="button"
+									class="hover:text-green-300 text-green-500 dark:hover:text-green-500/50 dark:text-green-500 p-2 px-5 rounded-lg font-medium transition duration-300 disabled:cursor-not-allowed"
+									on:click={() => {
+										category.questions.push({
+											label: `Question ${category.questions.length + 1}`,
+											maxLength: 4000,
+											minLength: 0,
+											order: 0,
+											placeholder: '',
+											required: true,
+											style: 2,
+											value: ''
+										});
+										category.questions = category.questions;
+										console.log(category.questions);
+										console.log(category.questions.length);
+									}}
+								>
+									<i class="fa-solid fa-circle-plus" />
+									Add
+								</button>
+							</div>
+						{/if}
+					</div>
 				</div>
 				<div class="flex justify-end gap-4">
 					{#if category.id}
 						<button
 							type="button"
-							disabled={loading}
+							disabled={loadingDelete}
 							class="mt-4 bg-red-300 hover:bg-red-500 hover:text-white dark:bg-red-500/20 dark:hover:bg-red-500 dark:hover:text-white p-2 px-5 rounded-lg font-medium transition duration-300 disabled:cursor-not-allowed"
 							on:click={del}
 						>
-							{#if loading}
+							{#if loadingDelete}
 								<i class="fa-solid fa-spinner animate-spin" />
 							{:else}
 								<i class="fa-solid fa-trash" />
@@ -452,10 +513,10 @@
 					{/if}
 					<button
 						type="submit"
-						disabled={loading}
+						disabled={loadingSubmit}
 						class="mt-4 bg-green-300 hover:bg-green-500 hover:text-white dark:bg-green-500/20 dark:hover:bg-green-500 dark:hover:text-white p-2 px-5 rounded-lg font-medium transition duration-300 disabled:cursor-not-allowed"
 					>
-						{#if loading}
+						{#if loadingSubmit}
 							<i class="fa-solid fa-spinner animate-spin" />
 						{/if}
 						Submit
