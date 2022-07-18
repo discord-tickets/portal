@@ -40,25 +40,33 @@
 		</a>
 		{#each categories as category}
 			<a href={`./categories/${category.id}`}>
-				<div class="bg-gray-100 dark:bg-slate-800 p-4 rounded-xl shadow-sm link">
+				<div class="bg-gray-100 dark:bg-slate-800 p-4 rounded-xl shadow-sm link group">
 					{#if browser}
-						<p class="text-sm float-right">
+						<p
+							class="text-sm float-right text-gray-500 dark:text-slate-400 group-hover:text-white dark:group-hover:text-white"
+						>
 							<i class="fa-solid fa-calendar-days" />
 							Created on
 							{new Intl.DateTimeFormat(navigator.languages[0]).format(new Date(category.createdAt))}
 						</p>
 					{/if}
-					<p>
-						<span class="text-xl font-semibold">
+					<div class="flex items-start gap-4">
+						<span class="text-5xl">
 							{#if category.emoji}
 								{emoji.get(category.emoji) ?? ''}
 							{/if}
-							{category.name}
 						</span>
-					</p>
-					<p class="mt-1">
-						{category.description}
-					</p>
+						<div>
+							<p class="text-xl font-semibold">
+								<span>
+									{category.name}
+								</span>
+							</p>
+							<p>
+								{category.description}
+							</p>
+						</div>
+					</div>
 				</div>
 			</a>
 		{/each}
