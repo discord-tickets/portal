@@ -43,7 +43,7 @@
 				<div class="bg-gray-100 dark:bg-slate-800 p-4 rounded-xl shadow-sm link group">
 					{#if browser}
 						<p
-							class="text-sm float-right text-gray-500 dark:text-slate-400 group-hover:text-white dark:group-hover:text-white"
+							class="text-sm float-right text-gray-500 dark:text-slate-400 group-hover:text-white dark:group-hover:text-white transition duration-300"
 						>
 							<i class="fa-solid fa-calendar-days" />
 							Created on
