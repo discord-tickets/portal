@@ -292,15 +292,15 @@
 							title="When can your users expect staff to be available?"
 						/>
 						<p
-							class="hover:text-blurple cursor-pointer transition duration-300 text-xl"
+							class="text-gray-500 dark:text-slate-400 hover:text-blurple dark:hover:text-blurple cursor-pointer transition duration-300"
 							on:click={() => (expanded.workingHours = !expanded.workingHours)}
 						>
 							<i
 								class="fa-solid {expanded.workingHours
 									? 'fa-angle-up'
-									: 'fa-angle-down'} float-right"
+									: 'fa-angle-down'} float-right text-xl"
 							/>
-							<span class="text-gray-500 dark:text-slate-400 text-sm">
+							<span class="text-sm">
 								Click to {expanded.workingHours ? 'hide' : 'expand'}</span
 							>
 						</p>
