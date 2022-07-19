@@ -3,18 +3,22 @@
 	/** @type {import('./__types/[slug]').Load} */
 	export async function load({ params, fetch, session, stuff }) {
 		const url = `${host}/api/admin/guilds/${params.guild}`;
-		const response = await fetch(url, {
+		const fetchOptions = {
 			credentials: 'include',
 			headers: {
 				'Content-type': 'application/json; charset=UTF-8'
 			}
-		});
+		};
+		const response = await fetch(url, fetchOptions);
 		const body = response.status < 500 ? await response.json() : null;
 		return {
 			status: response.status,
 			error: !response.ok ? body?.message || String(response.status) : null,
 			props: {
-				guild: body
+				guild: body,
+				problems: await (
+					await fetch(`${host}/api/admin/guilds/${params.guild}/problems`, fetchOptions)
+				).json()
 			}
 		};
 	}
@@ -22,16 +26,34 @@
 
 <script>
 	export let guild;
+	export let problems;
 	import { onMount } from 'svelte';
 
 	let createdAt = '';
 	onMount(() => {
 		createdAt = new Intl.DateTimeFormat(navigator.languages[0]).format(new Date(guild.createdAt));
 	});
+
+	const getProblemText = (p) => {
+		switch (p.id) {
+			case 'logChannelMissingPermission':
+				return `Please give the bot <span class="font-mono">${p.permission}</span> permission in the log channel.`;
+		}
+	};
 </script>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
 	<div class="text-center">
+		{#each problems as problem}
+			<div class="m-4">
+				<div
+					class="p-2 rounded-xl bg-orange-400/20 dark:bg-orange-500/20 text-orange-600 dark:text-orange-400 border-orange-600 dark:border-orange-400 border-2 font-medium"
+				>
+					<i class="fa-solid fa-triangle-exclamation text-2xl float-left mr-2" />
+					{@html getProblemText(problem)}
+				</div>
+			</div>
+		{/each}
 		{#if guild.stats.categories.length === 0}
 			<div class="m-4">
 				<a href={guild.id + '/categories/new'}>

@@ -1,9 +1,16 @@
 <script>
 	export let state;
 	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
 	import Sortable from 'sortablejs';
+import Error from '../routes/__error.svelte';
+
+	const host = import.meta.env.PROD ? '' : import.meta.env.VITE_HOST;
+
+	let loading = {};
 	let expanded = null;
 	let list;
+
 	onMount(() => {
 		let sortable = Sortable.create(list, {
 			animation: 300,
@@ -14,19 +21,44 @@
 			store: {
 				get: (sortable) => {
 					const order = state.sort((a, b) => a.order - b.order);
-					console.log(order);
 					return order;
 				},
 				set: (sortable) => {
-					console.log('state', state);
 					const order = sortable.toArray();
-					order.forEach((id, i) => (state.find((q) => q._id === Number(id)).order = i));
+					order.forEach((id, i) => (state.find((q) => q._id === id).order = i));
 					state = state;
 				}
 			}
 		});
 	});
-	$: state = state;
+
+	const del = async (q) => {
+		if (q.id) {
+			const confirmed = confirm('Are you sure? This will delete all responses.');
+			if (!confirmed) return false;
+			loading[q.id] = true;
+			const url = `${host}/api/admin/guilds/${$page.params.guild}/categories/${$page.params.category}/questions/${q.id}`;
+			const response = await fetch(url, {
+				credentials: 'include',
+				method: 'DELETE',
+				headers: {
+					'Content-type': 'application/json; charset=UTF-8'
+				}
+			});
+			loading[q.id] = false;
+			if (!response.ok) {
+				const body = await response.json();
+				console.log(body);
+				return;
+			}
+		}
+		const i = state.findIndex((x) => q._id === x._id);
+		state.splice(i, 1);
+		state = state;
+		loading = false;
+	};
+
+	// $: state = state;
 </script>
 
 <div bind:this={list} class="list-group flex flex-col gap-2">
@@ -40,11 +72,16 @@
 				{q.label}
 				<button
 					type="button"
-					disabled={false}
-					class="text-red-300 hover:text-red-500 dark:text-red-500/20 dark:hover:text-red-500 transition duration-300 disabled:cursor-not-allowed"
-					title="Delete"
+					disabled={loading[q.id]}
+					class="text-red-300 hover:text-red-500 dark:text-red-500/50 dark:hover:text-red-500 transition duration-300 disabled:cursor-not-allowed"
+					title="Remove"
+					on:click={() => del(q)}
 				>
-					<i class="fa-solid fa-trash" />
+					{#if loading[q.id]}
+						<i class="fa-solid fa-spinner animate-spin" />
+					{:else}
+						<i class="fa-solid fa-xmark" />
+					{/if}
 				</button>
 				<div
 					class="select-none text-gray-500 dark:text-slate-400 hover:text-blurple dark:hover:text-blurple cursor-pointer transition duration-300 font-medium flex justify-between"
@@ -118,7 +155,6 @@
 									<input
 										type="text"
 										class="form-input input text-sm"
-										required
 										maxlength="100"
 										bind:value={q.placeholder}
 									/>
@@ -168,7 +204,6 @@
 									/>
 									<textarea
 										class="form-input input text-sm"
-										required
 										maxlength="4000"
 										bind:value={q.value}
 									/>

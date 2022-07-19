@@ -9,6 +9,7 @@
 				'Content-type': 'application/json; charset=UTF-8'
 			}
 		};
+		let response;
 		let body;
 		if (params.category === 'new') {
 			body = {
@@ -31,12 +32,12 @@
 				totalLimit: 50
 			};
 		} else {
-			const response = await fetch(`${url}/${params.category}`, fetchOptions);
-			body = response.status < 500 ? await response.json() : null;
+			response = await fetch(`${url}/${params.category}`, fetchOptions);
+			body = await response.json();
 		}
 		return {
-			// status: response.status,
-			// error: !response.ok ? body?.message || String(response.status) : null,
+			status: response?.status || 200,
+			error: response && (!response.ok ? body?.message || String(response.status) : null),
 			props: {
 				url: params.category === 'new' ? url : `${url}/${params.category}`,
 				category: body,
@@ -88,42 +89,6 @@
 	roles = roles.filter((r) => r.name !== '@everyone');
 	category.questions.forEach((q) => (q._id = q.id));
 
-	category.questions = [
-		{
-			_id: 69,
-			label: `Second question`,
-			maxLength: 4000,
-			minLength: 0,
-			order: 1,
-			placeholder: '',
-			required: true,
-			style: 2,
-			value: ''
-		},
-		{
-			_id: 420,
-			label: `My first question`,
-			maxLength: 4000,
-			minLength: 0,
-			order: 0,
-			placeholder: '',
-			required: true,
-			style: 2,
-			value: ''
-		},
-		{
-			_id: 69420,
-			label: `Third question`,
-			maxLength: 4000,
-			minLength: 0,
-			order: 2,
-			placeholder: '',
-			required: true,
-			style: 2,
-			value: ''
-		}
-	];
-
 	let error = null;
 	let loadingSubmit = false;
 	let loadingDelete = false;
@@ -135,6 +100,7 @@
 			const json = { ...category };
 
 			if (category.discordCategory === 'new') json.discordCategory = null;
+			json.questions.forEach((q) => delete q._id);
 
 			const response = await fetch(url, {
 				method: category.id ? 'PATCH' : 'POST',
@@ -161,7 +127,7 @@
 	const del = async () => {
 		try {
 			const confirmed = confirm(
-				'Are you sure?\nThis will delete all associated tickets (including archives).'
+				'Are you sure?\nThis will delete all associated tickets (including question answers).'
 			);
 			if (!confirmed) return false;
 			error = null;
@@ -187,6 +153,13 @@
 			});
 		}
 	};
+
+	// window.addEventListener('beforeunload', event => {
+	// 	if () {
+	// 		event.preventDefault();
+	// 		event.returnValue = '';
+	// 	}
+	// });
 </script>
 
 <div class="mb-8 text-orange-600 dark:text-orange-400 text-center">
@@ -364,7 +337,7 @@
 					{#if category.openingMessage}
 						<p class="text-sm font-medium">Output</p>
 						<div
-							class="block m-2 p-3 w-full rounded-md shadow-sm bg-blurple/20 dark:bg-blurple/20 text-sm font-mono"
+							class="block p-3 w-full rounded-md shadow-sm bg-blurple/20 dark:bg-blurple/20 text-sm font-mono"
 						>
 							{@html marked
 								.parse(category.openingMessage.replace(/\n/g, '\n\n'))
@@ -507,18 +480,17 @@
 									class="hover:text-green-300 text-green-500 dark:hover:text-green-500/50 dark:text-green-500 p-2 px-5 rounded-lg font-medium transition duration-300 disabled:cursor-not-allowed"
 									on:click={() => {
 										category.questions.push({
-											_id: Date.now(),
+											_id: Date.now().toString(),
 											label: `Question ${category.questions.length + 1}`,
 											maxLength: 4000,
 											minLength: 0,
-											order: 0,
+											order: category.questions.length,
 											placeholder: '',
 											required: true,
 											style: 2,
 											value: ''
 										});
 										category.questions = category.questions;
-										console.log(category.questions);
 									}}
 								>
 									<i class="fa-solid fa-circle-plus" />
