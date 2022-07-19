@@ -33,13 +33,15 @@
 	import TopBar from '../components/TopBar.svelte';
 	import { onMount, setContext } from 'svelte';
 	import { navigating } from '$app/stores';
-
+	
 	setContext('user', user);
 	let isDark = false;
+	let mounted = false;
 	onMount(() => {
 		isDark =
 			localStorage.theme === 'dark' ||
 			(!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+		mounted = true;
 	});
 </script>
 
@@ -52,7 +54,7 @@
 		<div class="m-2 sm:m-6 lg:m-12 ">
 			<div class="max-w-7xl mx-auto">
 				<div class="text-gray-800 dark:text-slate-300">
-					{#if $navigating}
+					{#if $navigating || !mounted}
 						<div class="spinner">
 							<div class="cube1" />
 							<div class="cube2" />
