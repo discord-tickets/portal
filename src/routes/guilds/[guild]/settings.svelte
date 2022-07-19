@@ -120,7 +120,7 @@
 		</p>
 	</div>
 	<form on:submit|preventDefault={() => submit()}>
-		<div class="my-4 grid grid-cols-1 gap-6">
+		<div class="my-4 grid grid-cols-1 gap-8">
 			<div>
 				<label class="font-medium">
 					Auto close after
@@ -292,7 +292,7 @@
 							title="When can your users expect staff to be available?"
 						/>
 						<p
-							class="text-gray-500 dark:text-slate-400 hover:text-blurple dark:hover:text-blurple cursor-pointer transition duration-300"
+							class="select-none text-gray-500 dark:text-slate-400 hover:text-blurple dark:hover:text-blurple cursor-pointer transition duration-300"
 							on:click={() => (expanded.workingHours = !expanded.workingHours)}
 						>
 							<i
@@ -301,7 +301,7 @@
 									: 'fa-angle-down'} float-right text-xl"
 							/>
 							<span class="text-sm">
-								Click to {expanded.workingHours ? 'hide' : 'expand'}</span
+								Click to {expanded.workingHours ? 'collapse' : 'expand'}</span
 							>
 						</p>
 					</div>

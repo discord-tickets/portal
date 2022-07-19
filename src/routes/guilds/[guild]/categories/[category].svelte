@@ -86,6 +86,43 @@
 
 	channels = channels.filter((c) => c.type === 4);
 	roles = roles.filter((r) => r.name !== '@everyone');
+	category.questions.forEach((q) => (q._id = q.id));
+
+	category.questions = [
+		{
+			_id: 69,
+			label: `Second question`,
+			maxLength: 4000,
+			minLength: 0,
+			order: 1,
+			placeholder: '',
+			required: true,
+			style: 2,
+			value: ''
+		},
+		{
+			_id: 420,
+			label: `My first question`,
+			maxLength: 4000,
+			minLength: 0,
+			order: 0,
+			placeholder: '',
+			required: true,
+			style: 2,
+			value: ''
+		},
+		{
+			_id: 69420,
+			label: `Third question`,
+			maxLength: 4000,
+			minLength: 0,
+			order: 2,
+			placeholder: '',
+			required: true,
+			style: 2,
+			value: ''
+		}
+	];
 
 	let error = null;
 	let loadingSubmit = false;
@@ -179,7 +216,7 @@
 	{/if}
 	<form on:submit|preventDefault={() => submit()} class="my-4">
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
-			<div class="grid grid-cols-1 gap-6">
+			<div class="grid grid-cols-1 gap-8">
 				<div>
 					<label class="font-medium">
 						Name
@@ -455,18 +492,14 @@
 			</div>
 			<div>
 				<div class="bg-white dark:bg-slate-700 p-4 rounded-xl shadow-sm">
-					<!-- {JSON.stringify(qData)}
-						{#each qData as d}
-						<Question name={d.name} bind:state={d.state} />
-						{/each} -->
 					<div class="flex flex-col gap-4">
-						<h3 class="font-bold text-xl text-center">Questions</h3>
+						<div class="text-center">
+							<h3 class="font-bold text-xl">Questions</h3>
+							<p class="text-gray-500 dark:text-slate-400">{category.questions.length}/5</p>
+						</div>
 						<div>
 							<CategoryQuestions bind:state={category.questions} />
 						</div>
-						{#each category.questions as q}
-							{q.label}
-						{/each}
 						{#if category.questions.length < 5}
 							<div class="text-center">
 								<button
@@ -474,6 +507,7 @@
 									class="hover:text-green-300 text-green-500 dark:hover:text-green-500/50 dark:text-green-500 p-2 px-5 rounded-lg font-medium transition duration-300 disabled:cursor-not-allowed"
 									on:click={() => {
 										category.questions.push({
+											_id: Date.now(),
 											label: `Question ${category.questions.length + 1}`,
 											maxLength: 4000,
 											minLength: 0,
@@ -485,7 +519,6 @@
 										});
 										category.questions = category.questions;
 										console.log(category.questions);
-										console.log(category.questions.length);
 									}}
 								>
 									<i class="fa-solid fa-circle-plus" />
