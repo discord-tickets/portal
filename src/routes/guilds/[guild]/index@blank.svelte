@@ -81,7 +81,7 @@
 				<p class="font-semibold text-center text-lg">Categories</p>
 			</a>
 			<a
-				href={guild.id + '/create-panel'}
+				href={guild.id + '/panels'}
 				class="bg-gray-100 dark:bg-slate-800 p-4 rounded-xl shadow-sm link"
 			>
 				<i class="fas fa-sliders text-4xl mb-4" />

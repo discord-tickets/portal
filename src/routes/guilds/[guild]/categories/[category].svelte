@@ -85,7 +85,7 @@
 		'6h'
 	];
 
-	channels = channels.filter((c) => c.type === 4);
+	channels = channels.filter((c) => c.type === 4); // category
 	roles = roles.filter((r) => r.name !== '@everyone');
 	category.questions.forEach((q) => (q._id = q.id));
 
@@ -95,7 +95,7 @@
 
 	const submit = async () => {
 		try {
-			error = null;
+			// error = null;
 			loadingSubmit = true;
 			const json = { ...category };
 
@@ -130,7 +130,7 @@
 				'Are you sure?\nThis will delete all associated tickets (including question answers).'
 			);
 			if (!confirmed) return false;
-			error = null;
+			// error = null;
 			loadingDelete = true;
 
 			const response = await fetch(url, {
@@ -178,7 +178,7 @@
 </h2>
 <div class="m-2 p-4 max-w-5xl mx-auto text-lg">
 	{#if error}
-		<div id="error" class="text-center break-all">
+		<div id="error" class="text-center break-words">
 			<div
 				class="bg-red-400 dark:bg-red-500 text-red-800 dark:text-red-400 bg-opacity-40 dark:bg-opacity-20 mb-4 p-6 px-12 rounded-lg text-center max-w-lg inline-block"
 			>
@@ -283,7 +283,7 @@
 						Feedback
 						<i
 							class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
-							title="Gather feedback from users?"
+							title="Gather feedback from members?"
 						/>
 						<input
 							type="checkbox"
@@ -358,7 +358,7 @@
 							bind:value={category.pingRoles}
 						>
 							{#each roles as role}
-								<option value={role.id} class="p-1">
+								<option value={role.id} class="p-1 rounded">
 									<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" />
 									{role.name}
 								</option>
@@ -400,7 +400,7 @@
 							bind:value={category.requiredRoles}
 						>
 							{#each roles as role}
-								<option value={role.id} class="p-1">
+								<option value={role.id} class="p-1 rounded">
 									<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" />
 									{role.name}
 								</option>
@@ -438,7 +438,7 @@
 							bind:value={category.staffRoles}
 						>
 							{#each roles as role}
-								<option value={role.id} class="p-1">
+								<option value={role.id} class="p-1 rounded">
 									<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" />
 									{role.name}
 								</option>
@@ -505,7 +505,7 @@
 						<button
 							type="button"
 							disabled={loadingDelete}
-							class="mt-4 bg-red-300 hover:bg-red-500 hover:text-white dark:bg-red-500/20 dark:hover:bg-red-500 dark:hover:text-white p-2 px-5 rounded-lg font-medium transition duration-300 disabled:cursor-not-allowed"
+							class="mt-4 bg-red-300 hover:bg-red-500 hover:text-white dark:bg-red-500/50 dark:hover:bg-red-500 dark:hover:text-white p-2 px-5 rounded-lg font-medium transition duration-300 disabled:cursor-not-allowed"
 							on:click={del}
 						>
 							{#if loadingDelete}
@@ -519,7 +519,7 @@
 					<button
 						type="submit"
 						disabled={loadingSubmit}
-						class="mt-4 bg-green-300 hover:bg-green-500 hover:text-white dark:bg-green-500/20 dark:hover:bg-green-500 dark:hover:text-white p-2 px-5 rounded-lg font-medium transition duration-300 disabled:cursor-not-allowed"
+						class="mt-4 bg-green-300 hover:bg-green-500 hover:text-white dark:bg-green-500/50 dark:hover:bg-green-500 dark:hover:text-white p-2 px-5 rounded-lg font-medium transition duration-300 disabled:cursor-not-allowed"
 					>
 						{#if loadingSubmit}
 							<i class="fa-solid fa-spinner animate-spin" />

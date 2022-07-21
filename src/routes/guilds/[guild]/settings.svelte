@@ -49,7 +49,7 @@
 	const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 	const expanded = { workingHours: false };
 
-	channels = channels.filter((c) => c.type === 0);
+	channels = channels.filter((c) => c.type === 0); // text
 	roles = roles.filter((r) => r.name !== '@everyone');
 	settings.autoClose = settings.autoClose ? ms(settings.autoClose) : '';
 	settings.logChannel = settings.logChannel ?? '';
@@ -62,7 +62,7 @@
 
 	const submit = async () => {
 		try {
-			error = null;
+			// error = null;
 			loading = true;
 			const json = { ...settings };
 			json.autoClose = settings.autoClose ? ms(settings.autoClose) : null;
@@ -100,7 +100,7 @@
 <h1 class="m-4 text-4xl font-bold text-center">General settings</h1>
 <div class="m-2 p-4 max-w-lg mx-auto text-lg">
 	{#if error}
-		<div id="error" class="text-center break-all">
+		<div id="error" class="text-center break-words">
 			<div
 				class="bg-red-400 dark:bg-red-500 text-red-800 dark:text-red-400 bg-opacity-40 dark:bg-opacity-20 mb-4 p-6 px-12 rounded-lg text-center max-w-lg inline-block"
 			>
@@ -151,7 +151,7 @@
 							bind:value={settings.autoTag}
 						>
 							{#each channels as channel}
-								<option value={channel.id} class="p-1">
+								<option value={channel.id} class="p-1 rounded">
 									<i class="fa-solid fa-hashtag text-gray-500 dark:text-slate-400" />
 									{channel.name}
 								</option>
@@ -189,13 +189,44 @@
 						bind:value={settings.blocklist}
 					>
 						{#each roles as role}
-							<option value={role.id} class="p-1">
+							<option value={role.id} class="p-1 rounded">
 								<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" />
 								{role.name}
 							</option>
 						{/each}
 					</select>
 				</label>
+			</div>
+			<div>
+				<div class="font-medium">
+					Buttons
+					<i
+						class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
+						title="Which buttons should be enabled (if the feature is enabled in the category)?"
+					/>
+					<div class="mx-4">
+						<div>
+							<label for="claimButton" class="font-medium text-base">
+								Claim
+								<i
+									class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
+									title="Add a claim/unclaim button to the opening message (if enabled in category)?"
+								/>
+								<input type="checkbox" id="claimButton" name="claimButton" class="form-checkbox" bind:checked={settings.claimButton} />
+							</label>
+						</div>
+						<div>
+							<label for="closeButton" class="font-medium text-base">
+								Close
+								<i
+									class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
+									title="Add a close button to the opening message?"
+								/>
+								<input type="checkbox" id="closeButton" name="closeButton" class="form-checkbox" bind:checked={settings.closeButton} />
+							</label>
+						</div>
+					</div>
+				</div>
 			</div>
 			<div>
 				<label class="font-medium">
@@ -268,7 +299,7 @@
 					Stale after
 					<i
 						class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
-						title="When should the bot remind users/staff about messages with no reply?"
+						title="When should the bot remind members/staff about messages with no reply?"
 					/>
 					<input type="text" class="form-input input" bind:value={settings.staleAfter} />
 				</label>
@@ -289,7 +320,7 @@
 						Working hours
 						<i
 							class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
-							title="When can your users expect staff to be available?"
+							title="When can your members expect staff to be available?"
 						/>
 						<p
 							class="select-none text-gray-500 dark:text-slate-400 hover:text-blurple dark:hover:text-blurple cursor-pointer transition duration-300"
@@ -300,49 +331,49 @@
 									? 'fa-angle-up'
 									: 'fa-angle-down'} float-right text-xl"
 							/>
-							<span class="text-sm">
-								Click to {expanded.workingHours ? 'collapse' : 'expand'}</span
-							>
+							<span class="text-sm"> Click to {expanded.workingHours ? 'collapse' : 'expand'}</span>
 						</p>
 					</div>
 
 					{#if expanded.workingHours}
 						<div in:fade out:fade>
-							<label>
-								<p class="text-sm">Timezone</p>
-								<input
-									type="text"
-									list="timezones"
-									class="form-input input"
-									required
-									bind:value={settings.workingHours[0]}
-								/>
-								<datalist id="timezones" class="">
-									{#each zones as zone}
-										<option value={zone} class="p-1">
-											{zone}
-										</option>
-									{/each}
-								</datalist>
-							</label>
-							{#each days as day, index}
-								<label for={day}>
-									<p class="text-sm">{day}</p>
-									<div class="flex items-center">
-										<input
-											type="time"
-											class="form-input m-2 rounded-md shadow-sm bg-gray-100 dark:bg-slate-800 border-transparent focus:border-blurple focus:border-2 focus:bg-white focus:ring-0 font-normal text-center grow"
-											bind:value={settings.workingHours[index + 1][0]}
-										/>
-										<i class="fa-solid fa-arrow-right-long" />
-										<input
-											type="time"
-											class="form-input m-2 rounded-md shadow-sm bg-gray-100 dark:bg-slate-800 border-transparent focus:border-blurple focus:border-2 focus:bg-white focus:ring-0 font-normal text-center grow"
-											bind:value={settings.workingHours[index + 1][1]}
-										/>
-									</div>
+							<div class="mx-4">
+								<label>
+									<p class="text-base">Timezone</p>
+									<input
+										type="text"
+										list="timezones"
+										class="form-input input"
+										required
+										bind:value={settings.workingHours[0]}
+									/>
+									<datalist id="timezones" class="">
+										{#each zones as zone}
+											<option value={zone} class="p-1">
+												{zone}
+											</option>
+										{/each}
+									</datalist>
 								</label>
-							{/each}
+								{#each days as day, index}
+									<label for={day}>
+										<p class="text-base">{day}</p>
+										<div class="flex items-center">
+											<input
+												type="time"
+												class="form-input m-2 rounded-md shadow-sm bg-gray-100 dark:bg-slate-800 border-transparent focus:border-blurple focus:border-2 focus:bg-white focus:ring-0 font-normal text-center grow"
+												bind:value={settings.workingHours[index + 1][0]}
+											/>
+											<i class="fa-solid fa-arrow-right-long" />
+											<input
+												type="time"
+												class="form-input m-2 rounded-md shadow-sm bg-gray-100 dark:bg-slate-800 border-transparent focus:border-blurple focus:border-2 focus:bg-white focus:ring-0 font-normal text-center grow"
+												bind:value={settings.workingHours[index + 1][1]}
+											/>
+										</div>
+									</label>
+								{/each}
+							</div>
 						</div>
 					{/if}
 				</div>
@@ -351,7 +382,7 @@
 		<button
 			type="submit"
 			disabled={loading}
-			class="mt-4 float-right bg-green-300 hover:bg-green-500 hover:text-white dark:bg-green-500/20 dark:hover:bg-green-500 dark:hover:text-white p-2 px-5 rounded-lg font-medium transition duration-300 disabled:cursor-not-allowed"
+			class="mt-4 float-right bg-green-300 hover:bg-green-500 hover:text-white dark:bg-green-500/50 dark:hover:bg-green-500 dark:hover:text-white p-2 px-5 rounded-lg font-medium transition duration-300 disabled:cursor-not-allowed"
 		>
 			{#if loading}
 				<i class="fa-solid fa-spinner animate-spin" />

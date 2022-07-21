@@ -19,12 +19,14 @@
 	}
 
 	.form-checkbox {
-		@apply rounded text-blurple focus:ring-blurple bg-gray-100 dark:bg-slate-800 checked:bg-blurple dark:checked:bg-blurple cursor-pointer p-3 block m-2
+		@apply rounded text-blurple focus:ring-blurple bg-gray-100 dark:bg-slate-800 checked:bg-blurple dark:checked:bg-blurple cursor-pointer p-3 m-2
 	}
 
-	select option:checked {
+	select option:checked,
+	select option:checked i {
 		@apply bg-blurple text-white
 	}
+	
 
 	.dragged {
 		@apply bg-blurple/10 dark:bg-blurple/10

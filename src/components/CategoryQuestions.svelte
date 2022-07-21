@@ -3,7 +3,6 @@
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import Sortable from 'sortablejs';
-import Error from '../routes/__error.svelte';
 
 	const host = import.meta.env.PROD ? '' : import.meta.env.VITE_HOST;
 
@@ -161,7 +160,7 @@ import Error from '../routes/__error.svelte';
 								</label>
 							</div>
 							<div>
-								<label for="required">
+								<label for="required" class="font-medium">
 									Required
 									<i
 										class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
@@ -177,7 +176,7 @@ import Error from '../routes/__error.svelte';
 								</label>
 							</div>
 							<div>
-								<label>
+								<label class="font-medium">
 									Style
 									<i
 										class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
