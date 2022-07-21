@@ -66,7 +66,7 @@
 	import ms from 'ms';
 	import emoji from 'emoji-name-map';
 	import { marked } from 'marked';
-	import CategoryQuestions from '../../../../components/CategoryQuestions.svelte';
+	import CategoryQuestions from '../../../../components/CategoryQuestions/Questions.svelte';
 	import { getContext } from 'svelte';
 
 	const slowmodes = [
@@ -88,6 +88,7 @@
 	channels = channels.filter((c) => c.type === 4); // category
 	roles = roles.filter((r) => r.name !== '@everyone');
 	category.questions.forEach((q) => (q._id = q.id));
+	category.cooldown = category.cooldown ? ms(category.cooldown) : '';
 
 	let error = null;
 	let loadingSubmit = false;
@@ -101,6 +102,7 @@
 
 			if (category.discordCategory === 'new') json.discordCategory = null;
 			json.questions.forEach((q) => delete q._id);
+			json.cooldown = category.cooldown ? ms(category.cooldown) : null;
 
 			const response = await fetch(url, {
 				method: category.id ? 'PATCH' : 'POST',
@@ -153,6 +155,8 @@
 			});
 		}
 	};
+
+	$: category.requireTopic = category.questions.length > 0 ? false : category.requireTopic;
 
 	// window.addEventListener('beforeunload', event => {
 	// 	if () {
@@ -229,6 +233,16 @@
 							class="form-checkbox"
 							bind:checked={category.claiming}
 						/>
+					</label>
+				</div>
+				<div>
+					<label class="font-medium">
+						Cooldown
+						<i
+							class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
+							title="How long should members have to wait before creating another ticket?"
+						/>
+						<input type="text" class="form-input input" bind:value={category.cooldown} />
 					</label>
 				</div>
 				<div>
@@ -358,7 +372,7 @@
 							bind:value={category.pingRoles}
 						>
 							{#each roles as role}
-								<option value={role.id} class="p-1 rounded">
+								<option value={role.id} class="p-1 m-1 rounded">
 									<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" />
 									{role.name}
 								</option>
@@ -400,7 +414,7 @@
 							bind:value={category.requiredRoles}
 						>
 							{#each roles as role}
-								<option value={role.id} class="p-1 rounded">
+								<option value={role.id} class="p-1 m-1 rounded">
 									<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" />
 									{role.name}
 								</option>
@@ -420,6 +434,7 @@
 							id="requireTopic"
 							name="requireTopic"
 							class="form-checkbox"
+							disabled={category.questions.length > 0}
 							bind:checked={category.requireTopic}
 						/>
 					</label>
@@ -438,7 +453,7 @@
 							bind:value={category.staffRoles}
 						>
 							{#each roles as role}
-								<option value={role.id} class="p-1 rounded">
+								<option value={role.id} class="p-1 m-1 rounded">
 									<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" />
 									{role.name}
 								</option>
@@ -470,6 +485,33 @@
 							<h3 class="font-bold text-xl">Questions</h3>
 							<p class="text-gray-500 dark:text-slate-400">{category.questions.length}/5</p>
 						</div>
+						{#if category.questions.length > 0}
+							<div>
+								<label class="font-medium">
+									Custom topic
+									<i
+										class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
+										title="Which question's value should be used as the ticket topic?"
+									/>
+									<select
+										class="form-multiselect input font-normal"
+										bind:value={category.customTopic}
+									>
+										<option value={null} class="p-1">
+											<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" />
+											None
+										</option>
+										<option disabled>------------</option>
+										{#each category.questions as q}
+											<option value={q._id} class="p-1">
+												<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" />
+												{q.label}
+											</option>
+										{/each}
+									</select>
+								</label>
+							</div>
+						{/if}
 						<div>
 							<CategoryQuestions bind:state={category.questions} />
 						</div>
@@ -484,10 +526,12 @@
 											label: `Question ${category.questions.length + 1}`,
 											maxLength: 4000,
 											minLength: 0,
+											options: [],
 											order: category.questions.length,
 											placeholder: '',
 											required: true,
 											style: 2,
+											type: null,
 											value: ''
 										});
 										category.questions = category.questions;

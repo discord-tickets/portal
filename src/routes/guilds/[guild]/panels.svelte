@@ -175,7 +175,7 @@
 							bind:value={data.categories}
 						>
 							{#each categories as category}
-								<option value={category.id} class="p-1 rounded">
+								<option value={category.id} class="p-1 m-1 rounded">
 									{emoji.get(category.emoji) ?? ''}
 									{category.name}
 								</option>

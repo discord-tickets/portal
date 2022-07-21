@@ -74,7 +74,6 @@
 			if (settings.logChannel === '') json.logChannel = null;
 			json.workingHours = settings.workingHours.map((v) => (v.length === 0 ? null : v));
 
-			console.log(json);
 			const response = await fetch(url, {
 				method: 'PATCH',
 				body: JSON.stringify(json),
@@ -151,7 +150,7 @@
 							bind:value={settings.autoTag}
 						>
 							{#each channels as channel}
-								<option value={channel.id} class="p-1 rounded">
+								<option value={channel.id} class="p-1 m-1 rounded">
 									<i class="fa-solid fa-hashtag text-gray-500 dark:text-slate-400" />
 									{channel.name}
 								</option>
@@ -189,7 +188,7 @@
 						bind:value={settings.blocklist}
 					>
 						{#each roles as role}
-							<option value={role.id} class="p-1 rounded">
+							<option value={role.id} class="p-1 m-1 rounded">
 								<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" />
 								{role.name}
 							</option>

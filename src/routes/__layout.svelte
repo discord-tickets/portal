@@ -32,8 +32,10 @@
 	import '@fortawesome/fontawesome-free/css/all.css';
 	import TopBar from '../components/TopBar.svelte';
 	import { onMount, setContext } from 'svelte';
+	import { fade } from 'svelte/transition';
 	import { navigating } from '$app/stores';
-	
+	import { Modals, closeModal } from 'svelte-modals';
+
 	setContext('user', user);
 	let isDark = false;
 	let mounted = false;
@@ -51,6 +53,9 @@
 
 <div class={isDark ? 'dark' : ''}>
 	<div class="bg-gray-200 dark:bg-slate-900 min-h-screen h-max w-full absolute">
+		<Modals>
+			<div slot="backdrop" class="backdrop" transition:fade on:click={closeModal} />
+		</Modals>
 		<div class="m-2 sm:m-6 lg:m-12 ">
 			<div class="max-w-7xl mx-auto">
 				<div class="text-gray-800 dark:text-slate-300">

@@ -1,0 +1,218 @@
+<script>
+	export let isOpen;
+	export let id;
+
+	import { fly } from 'svelte/transition';
+	import { closeModal, onBeforeClose } from 'svelte-modals';
+	import { questionsStore } from './store';
+	import { onMount } from 'svelte';
+	import Sortable from 'sortablejs';
+	import emoji from 'emoji-name-map';
+
+	const qIndex = $questionsStore.findIndex((v) => v._id === id);
+	const q = $questionsStore[qIndex];
+
+	onBeforeClose(() => {
+		const temp = $questionsStore;
+		temp[qIndex] = q;
+		questionsStore.set(temp);
+		return true;
+	});
+
+	let expanded = null;
+	let list;
+	onMount(() => {
+		Sortable.create(list, {
+			animation: 300,
+			handle: '.handle',
+			dragClass: 'dragged',
+			swapThreshold: 0.5,
+			dataIdAttr: 'data-id',
+			store: {
+				set: (sortable) => {
+					const temp = [];
+					const order = sortable.toArray();
+					order.forEach((id, i) => (temp[i] = q.options.find((q) => q._id === id)));
+					console.log(q.options);
+					console.log(temp);
+					q.options = temp;
+				}
+			}
+		});
+	});
+</script>
+
+{#if isOpen}
+	<div
+		role="dialog"
+		class="modal my-4 sm:my-12 md:my-24 lg:my-32 max-w-lg mx-auto"
+		transition:fly={{ y: 50 }}
+		on:introstart
+		on:outroend
+	>
+		<div
+			class="pointer-events-auto bg-white dark:bg-slate-700 text-gray-800 dark:text-slate-300 p-4 rounded-xl shadow-sm w-full max-h-full overflow-y-scroll"
+		>
+			<form on:submit|preventDefault={() => {}} id="questionOptions" name="questionOptions">
+				<div class="m-2 sm:m-4 flex flex-col gap-6">
+					<div class="flex items-center gap-5">
+						<i class="fa-regular fa-rectangle-list text-4xl" />
+						<div>
+							<h3 class="leading-tight text-2xl font-bold">{q.label}</h3>
+							<h4 class="leading-tight text-lg font-semibold text-gray-500 dark:text-slate-400">
+								Options
+							</h4>
+						</div>
+					</div>
+					<div bind:this={list} class="list-group flex flex-col gap-2">
+						{#each q.options as o}
+							<div
+								data-id={o._id}
+								class="list-group-item bg-gray-100/50 dark:bg-slate-800/50 p-4 rounded-xl"
+							>
+								<div class="w-full">
+									<div class="flex items-center gap-2 md:gap-4">
+										<i
+											class="handle fa-solid fa-grip-vertical text-gray-500 dark:text-slate-400 cursor-move"
+										/>
+
+										<div class="w-full flex items-center gap-4">
+											{#if emoji.get(o.emoji)}
+												<span class="text-3xl">{emoji.get(o.emoji)}</span>
+											{/if}
+											<div class="w-full">
+												{o.label}
+												<button
+													type="button"
+													class="text-red-300 hover:text-red-500 dark:text-red-500/50 dark:hover:text-red-500 transition duration-300 disabled:cursor-not-allowed"
+													title="Remove"
+													on:click={() => {
+														const i = q.options.findIndex((x) => o._id === x._id);
+														q.options.splice(i, 1);
+														q.options = q.options;
+													}}
+												>
+													<i class="fa-solid fa-xmark" />
+												</button>
+												<div
+													class="select-none text-gray-500 dark:text-slate-400 hover:text-blurple dark:hover:text-blurple cursor-pointer transition duration-300 font-medium flex justify-between"
+													on:click={() => (expanded = expanded === o._id ? null : o._id)}
+												>
+													<span class="text-sm">
+														Click to {expanded === o._id ? 'collapse' : 'expand'}</span
+													>
+													<i
+														class="fa-solid {expanded === o._id
+															? 'fa-angle-up'
+															: 'fa-angle-down'} text-xl self-end"
+													/>
+												</div>
+											</div>
+										</div>
+									</div>
+									{#if expanded === o._id}
+										<div>
+											<label class="font-medium">
+												Label
+												<i
+													class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
+													title="The name of the open"
+												/>
+												<input
+													type="text"
+													class="form-input input text-sm"
+													required
+													maxlength="100"
+													bind:value={o.label}
+												/>
+											</label>
+										</div>
+										<div>
+											<label class="font-medium">
+												Description
+												<i
+													class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
+													title="The title of the question"
+												/>
+												<input
+													type="text"
+													class="form-input input text-sm"
+													maxlength="100"
+													bind:value={o.description}
+												/>
+											</label>
+										</div>
+										<div>
+											<label class="font-medium">
+												Emoji
+												<i
+													class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
+													title="The title of the question"
+												/>
+												<span class="text-2xl">{emoji.get(o.emoji) ?? ''}</span>
+												<input
+													type="text"
+													class="form-input input text-sm"
+													maxlength="100"
+													bind:value={o.emoji}
+												/>
+											</label>
+										</div>
+										<div>
+											<label class="font-medium">
+												Value
+												<i
+													class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
+													title="The value of this option (the text stored and used in placeholders)"
+												/>
+												<input
+													type="text"
+													class="form-input input text-sm"
+													required
+													maxlength="100"
+													bind:value={o.value}
+												/>
+											</label>
+										</div>
+									{/if}
+								</div>
+							</div>
+						{/each}
+					</div>
+					{#if q.options.length < 25}
+						<div class="text-center">
+							<button
+								type="button"
+								class="hover:text-green-300 text-green-500 dark:hover:text-green-500/50 dark:text-green-500 p-2 px-5 rounded-lg font-medium transition duration-300 disabled:cursor-not-allowed"
+								on:click={() => {
+									q.options.push({
+										_id: Date.now().toString(),
+										description: '',
+										emoji: '',
+										label: `Option ${q.options.length + 1}`,
+										value: ''
+									});
+									q.options = q.options;
+								}}
+							>
+								<i class="fa-solid fa-circle-plus" />
+								Add
+							</button>
+						</div>
+					{/if}
+				</div>
+				<div class="flex justify-end gap-8 m-2">
+					<button
+						type="submit"
+						form="questionOptions"
+						class="bg-green-300 hover:bg-green-500 hover:text-white dark:bg-green-500/75 dark:hover:bg-green-500 dark:hover:text-white p-2 px-5 rounded-lg font-medium transition duration-300 disabled:cursor-not-allowed"
+						on:click={closeModal}
+					>
+						<i class="fa-solid fa-check" />
+						Save
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+{/if}

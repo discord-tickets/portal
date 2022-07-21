@@ -15,11 +15,11 @@
 	}
 
 	.input {
-		@apply block my-1 w-full rounded-md shadow-sm bg-gray-100 dark:bg-slate-800 border-transparent focus:border-blurple focus:border-2 focus:bg-white focus:ring-0 font-normal
+		@apply block my-1 w-full rounded-md shadow-sm bg-gray-100 dark:bg-slate-800 border-transparent focus:border-blurple focus:border-2 focus:bg-white focus:ring-0 font-normal disabled:cursor-not-allowed placeholder:text-gray-500 placeholder:dark:text-slate-400
 	}
 
 	.form-checkbox {
-		@apply rounded text-blurple focus:ring-blurple bg-gray-100 dark:bg-slate-800 checked:bg-blurple dark:checked:bg-blurple cursor-pointer p-3 m-2
+		@apply rounded text-blurple focus:ring-blurple bg-gray-100 dark:bg-slate-800 checked:bg-blurple dark:checked:bg-blurple cursor-pointer p-3 m-2 disabled:cursor-not-allowed
 	}
 
 	select option:checked,
@@ -32,6 +32,37 @@
 		@apply bg-blurple/10 dark:bg-blurple/10
 	}
 }
+
+/**
+	MODALS
+*/
+
+.backdrop {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0.5);
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* allow click-through to backdrop */
+  pointer-events: none;
+}
+
+/**
+	SPINNER
+*/
+
 
 .spinner {
 	margin:300px auto;
