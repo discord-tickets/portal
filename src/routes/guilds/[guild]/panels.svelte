@@ -126,7 +126,7 @@
 							title="How will members use the panel?"
 						/>
 						<select class="form-multiselect input font-normal" required bind:value={data.type}>
-							<option value="BUTTON" class="p-1">
+							<option value="BUTTON" class="p-1" disabled={data.categories.length > 5}>
 								<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" default />
 								Buttons
 							</option>
@@ -213,7 +213,7 @@
 						<span class="font-medium">Large image</span>
 						<i
 							class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
-							title="Optional - The embed image"
+							title="Optional - the embed image"
 						/>
 						<input type="url" class="form-input input" bind:value={data.image} />
 					</label>
@@ -223,7 +223,7 @@
 						<span class="font-medium">Small image (thumbnail)</span>
 						<i
 							class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
-							title="Optional - The embed thumbnail"
+							title="Optional - the embed thumbnail"
 						/>
 						<input type="url" class="form-input input" bind:value={data.thumbnail} />
 					</label>
