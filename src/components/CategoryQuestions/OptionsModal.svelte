@@ -33,8 +33,6 @@
 					const temp = [];
 					const order = sortable.toArray();
 					order.forEach((id, i) => (temp[i] = q.options.find((q) => q._id === id)));
-					console.log(q.options);
-					console.log(temp);
 					q.options = temp;
 				}
 			}
