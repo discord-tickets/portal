@@ -205,7 +205,7 @@
 							title="The embed title"
 							required
 						/>
-						<input type="text" class="form-input input" bind:value={data.title} />
+						<input type="text" class="form-input input" required bind:value={data.title} />
 					</label>
 				</div>
 				<div>
