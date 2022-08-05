@@ -45,16 +45,6 @@
 					<p>These are the guilds that you can manage.</p>
 				{/if}
 			</div>
-			{#each guilds as guild}
-				<a href={`/guilds/${guild.id}`}>
-					<div
-						class="bg-gray-100 dark:bg-slate-800 p-4 rounded-xl shadow-sm flex items-center gap-4 font-semibold text-lg link"
-					>
-						<img src={guild.logo} alt="" class="h-12 rounded-full" />
-						<span>{guild.name}</span>
-					</div>
-				</a>
-			{/each}
 			<a
 				href={`https://discord.com/oauth2/authorize?scope=applications.commands%20bot&permissions=268561488&client_id=${client.id}`}
 				target="_blank"
@@ -65,6 +55,16 @@
 					<i class="fa-solid fa-circle-plus mr-2" /><span>Add</span>
 				</div>
 			</a>
+			{#each guilds as guild}
+				<a href={`/guilds/${guild.id}`}>
+					<div
+						class="bg-gray-100 dark:bg-slate-800 p-4 rounded-xl shadow-sm flex items-center gap-4 font-semibold text-lg link"
+					>
+						<img src={guild.logo} alt="" class="h-12 rounded-full" />
+						<span>{guild.name}</span>
+					</div>
+				</a>
+			{/each}
 		</div>
 	</div>
 	<div>
