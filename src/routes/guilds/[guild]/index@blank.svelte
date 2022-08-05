@@ -130,7 +130,11 @@
 			</div>
 			<div class="m-4 grid grid-cols-2 sm:grid-cols-3 2xl:grid-cols-5 gap-4">
 				<div>
-					<h6 class="font-semibold">Avg. response</h6>
+					<h6 class="font-semibold">Resolution time</h6>
+					<p class="text-gray-500 dark:text-slate-400">{guild.stats.avgResolutionTime}</p>
+				</div>
+				<div>
+					<h6 class="font-semibold">Response time</h6>
 					<p class="text-gray-500 dark:text-slate-400">{guild.stats.avgResponseTime}</p>
 				</div>
 				<div>
@@ -145,8 +149,8 @@
 					<h6 class="font-semibold">Tickets</h6>
 					<p class="text-gray-500 dark:text-slate-400">{guild.stats.tickets}</p>
 				</div>
-				<div class="col-span-2">
-					<h6 class="font-semibold">Most popular category</h6>
+				<div>
+					<h6 class="font-semibold">Most used category</h6>
 					<p class="text-gray-500 dark:text-slate-400">
 						{guild.stats.categories.sort((a, b) => b - a)[0]?.name ?? 'None'}
 					</p>

@@ -89,7 +89,11 @@
 					<p class="text-gray-500 dark:text-slate-400">{client.stats.archivedMessages}</p>
 				</div>
 				<div>
-					<h6 class="font-semibold">Avg. response</h6>
+					<h6 class="font-semibold">Resolution time</h6>
+					<p class="text-gray-500 dark:text-slate-400">{client.stats.avgResolutionTime}</p>
+				</div>
+				<div>
+					<h6 class="font-semibold">Response time</h6>
 					<p class="text-gray-500 dark:text-slate-400">{client.stats.avgResponseTime}</p>
 				</div>
 				<div>
@@ -100,7 +104,7 @@
 					<h6 class="font-semibold">Guilds</h6>
 					<p class="text-gray-500 dark:text-slate-400">{client.stats.guilds}</p>
 				</div>
-				<div>
+				<!-- <div>
 					<h6 class="font-semibold">Avg. members</h6>
 					<p class="text-gray-500 dark:text-slate-400">
 						{Math.floor(client.stats.members / client.stats.guilds)}
@@ -109,6 +113,13 @@
 				<div>
 					<h6 class="font-semibold">Total members</h6>
 					<p class="text-gray-500 dark:text-slate-400">{client.stats.members}</p>
+				</div> -->
+				<div>
+					<h6 class="font-semibold">Members</h6>
+					<p class="text-gray-500 dark:text-slate-400">
+						{client.stats.members} total,
+						{Math.floor(client.stats.members / client.stats.guilds)} average
+					</p>
 				</div>
 				<div>
 					<h6 class="font-semibold">Tags</h6>

@@ -39,16 +39,30 @@
 		</a>
 		{#each categories as category}
 			<a href={`./categories/${category.id}`}>
-				<div class="bg-gray-100 dark:bg-slate-800 p-4 rounded-xl shadow-sm link group  flex flex-col-reverse md:flex-row-reverse md:justify-between gap-1">
-					{#if browser}
-						<p
-							class="text-sm float-right text-gray-500 dark:text-slate-400 group-hover:text-white dark:group-hover:text-white transition duration-300"
-						>
-							<i class="fa-solid fa-calendar-days" />
-							Created on
-							{new Intl.DateTimeFormat(navigator.languages[0]).format(new Date(category.createdAt))}
+				<div
+					class="bg-gray-100 dark:bg-slate-800 p-4 rounded-xl shadow-sm link group flex flex-col-reverse md:flex-row-reverse md:justify-between gap-1"
+				>
+					<div
+						class="text-sm float-right text-gray-500 dark:text-slate-400 group-hover:text-white dark:group-hover:text-white transition duration-300 min-w-max text-center md:text-left"
+					>
+						{#if browser}
+							<p>
+								<i class="fa-solid fa-calendar-days mr-2" />
+								Created
+								{new Intl.DateTimeFormat(navigator.languages[0]).format(new Date(category.createdAt))}
+							</p>
+						{/if}
+						<p>
+							<i class="fa-solid fa-clock mr-2" />
+							{category.stats.avgResponseTime}
+							response
 						</p>
-					{/if}
+						<p>
+							<i class="fa-solid fa-square-check mr-2" />
+							{category.stats.avgResolutionTime}
+							resolution
+						</p>
+					</div>
 					<div class="flex items-center gap-4">
 						<span class="text-5xl">
 							{#if category.emoji}
