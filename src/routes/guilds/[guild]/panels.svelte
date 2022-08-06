@@ -134,10 +134,10 @@
 								<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" />
 								Select menu (dropdown)
 							</option>
-							<option value="MESSAGE" class="p-1" disabled={data.categories.length > 1}>
+							<!-- <option value="MESSAGE" class="p-1" disabled={data.categories.length > 1}>
 								<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" />
 								Message
-							</option>
+							</option> -->
 						</select>
 					</label>
 				</div>
