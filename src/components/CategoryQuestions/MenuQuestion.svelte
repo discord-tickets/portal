@@ -3,6 +3,7 @@
 
 	import { openModal } from 'svelte-modals';
 	import OptionsModal from './OptionsModal.svelte';
+	import Required from '../Required.svelte';
 
 	$: state.maxLength = Math.min(25, state.maxLength);
 </script>
@@ -10,6 +11,7 @@
 <div>
 	<label class="font-medium">
 		Label
+		<Required />
 		<i
 			class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 			title="The title of the question"
@@ -23,21 +25,23 @@
 		/>
 	</label>
 </div>
-<label class="font-medium">
-	Maximum values
-	<i
-		class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
-		title="How many choices can be selected?"
-	/>
-	<input
-		type="number"
-		class="form-input input text-sm"
-		required
-		min="1"
-		max="25"
-		bind:value={state.maxLength}
-	/>
-</label>
+<div>
+	<label class="font-medium">
+		Maximum values
+		<i
+			class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
+			title="How many choices can be selected?"
+		/>
+		<input
+			type="number"
+			class="form-input input text-sm"
+			required
+			min="1"
+			max="25"
+			bind:value={state.maxLength}
+		/>
+	</label>
+</div>
 <div>
 	<label class="font-medium">
 		Minimum values
@@ -59,6 +63,7 @@
 <div>
 	<div class="font-medium">
 		Options ({state.options.length}/25)
+		<Required />
 		<i
 			class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 			title="The options that members can choose from"

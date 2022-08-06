@@ -67,6 +67,7 @@
 	import emoji from 'emoji-name-map';
 	import { marked } from 'marked';
 	import CategoryQuestions from '../../../../components/CategoryQuestions/Questions.svelte';
+	import Required from '../../../..//components/Required.svelte';
 	import { getContext } from 'svelte';
 
 	const slowmodes = [
@@ -197,6 +198,7 @@
 				<div>
 					<label class="font-medium">
 						Name
+						<Required />
 						<i
 							class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 							title="The name of the category"
@@ -207,6 +209,9 @@
 				<div>
 					<label class="font-medium">
 						Channel name
+						{#if category.id}
+							<Required />
+						{/if}
 						<i
 							class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 							title="The name of ticket channels"
@@ -215,6 +220,7 @@
 							type="text"
 							class="form-input input"
 							placeholder="ticket-{'{'}num{'}'}"
+							required={!!category.id}
 							bind:value={category.channelName}
 						/>
 					</label>
@@ -248,6 +254,7 @@
 				<div>
 					<label class="font-medium">
 						Description
+						<Required />
 						<i
 							class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 							title="What is this category for?"
@@ -263,6 +270,7 @@
 				<div>
 					<label class="font-medium">
 						Discord category
+						<Required />
 						<i
 							class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 							title="Which category channel should ticket channels be created under?"
@@ -284,6 +292,7 @@
 				<div>
 					<label class="font-medium">
 						Emoji
+						<Required />
 						<i
 							class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 							title="Emoji used for buttons & dropdowns"
@@ -337,6 +346,7 @@
 				<div>
 					<label class="font-medium">
 						Opening message
+						<Required />
 						<i
 							class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 							title="Content to be sent in the opening message of each ticket."
@@ -442,6 +452,7 @@
 				<div>
 					<label class="font-medium">
 						Staff roles
+						<Required />
 						<i
 							class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 							title="Roles that will be able to view tickets."

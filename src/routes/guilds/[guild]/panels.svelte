@@ -33,6 +33,7 @@
 
 	import { page } from '$app/stores';
 	import emoji from 'emoji-name-map';
+	import Required from '../../../components/Required.svelte';
 	
 	const host = import.meta.env.PROD ? '' : import.meta.env.VITE_HOST;
 
@@ -164,6 +165,7 @@
 				<div>
 					<label class="font-medium">
 						<span class="font-medium">Categories</span>
+						<Required />
 						<i
 							class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 							title="The category options to be available"
@@ -200,6 +202,7 @@
 				<div>
 					<label>
 						<span class="font-medium">Title</span>
+						<Required />
 						<i
 							class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 							title="The embed title"

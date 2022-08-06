@@ -45,6 +45,7 @@
 	import zones from '../../../timezones.json';
 	import ms from 'ms';
 	import { fade } from 'svelte/transition';
+	import Required from '../../../components/Required.svelte';
 
 	const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 	const expanded = { workingHours: false };
@@ -211,7 +212,13 @@
 									class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 									title="Add a claim/unclaim button to the opening message (if enabled in category)?"
 								/>
-								<input type="checkbox" id="claimButton" name="claimButton" class="form-checkbox" bind:checked={settings.claimButton} />
+								<input
+									type="checkbox"
+									id="claimButton"
+									name="claimButton"
+									class="form-checkbox"
+									bind:checked={settings.claimButton}
+								/>
 							</label>
 						</div>
 						<div>
@@ -221,7 +228,13 @@
 									class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 									title="Add a close button to the opening message?"
 								/>
-								<input type="checkbox" id="closeButton" name="closeButton" class="form-checkbox" bind:checked={settings.closeButton} />
+								<input
+									type="checkbox"
+									id="closeButton"
+									name="closeButton"
+									class="form-checkbox"
+									bind:checked={settings.closeButton}
+								/>
 							</label>
 						</div>
 					</div>
@@ -338,7 +351,10 @@
 						<div in:fade out:fade>
 							<div class="mx-4">
 								<label>
-									<p class="text-base">Timezone</p>
+									<p class="text-base">
+										Timezone
+										<Required />
+									</p>
 									<input
 										type="text"
 										list="timezones"

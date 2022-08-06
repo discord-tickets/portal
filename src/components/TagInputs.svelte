@@ -2,11 +2,13 @@
 	export let state;
 	import { getContext } from 'svelte';
 	import { marked } from 'marked';
+	import Required from './Required.svelte';
 </script>
 
 <div>
 	<label>
 		<span class="font-medium">Name</span>
+		<Required />
 		<i
 			class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 			title="The tag name - can contain UNICODE emoji (not emoji names)"
@@ -27,6 +29,7 @@
 <div>
 	<label class="font-medium">
 		<span class="font-medium">Content</span>
+		<Required />
 		<i
 			class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 			title="The tag content"

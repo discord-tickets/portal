@@ -5,6 +5,7 @@
 	import Sortable from 'sortablejs';
 	import TextQuestion from './TextQuestion.svelte';
 	import MenuQuestion from './MenuQuestion.svelte';
+	import Required from '../Required.svelte';
 	import { questionsStore } from './store';
 	const host = import.meta.env.PROD ? '' : import.meta.env.VITE_HOST;
 
@@ -106,6 +107,7 @@
 							<div>
 								<label class="font-medium">
 									Type
+									<Required />
 									<i
 										class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 										title="What type of input should the question use?"

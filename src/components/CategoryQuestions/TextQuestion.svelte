@@ -1,10 +1,12 @@
 <script>
 	export let state;
+	import Required from "../Required.svelte";
 </script>
 
 <div>
 	<label class="font-medium">
 		Label
+		<Required />
 		<i
 			class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 			title="The title of the question"

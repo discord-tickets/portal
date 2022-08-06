@@ -8,6 +8,7 @@
 	import { onMount } from 'svelte';
 	import Sortable from 'sortablejs';
 	import emoji from 'emoji-name-map';
+	import Required from '../Required.svelte';
 
 	const qIndex = $questionsStore.findIndex((v) => v._id === id);
 	const q = $questionsStore[qIndex];
@@ -112,6 +113,7 @@
 										<div>
 											<label class="font-medium">
 												Label
+												<Required />
 												<i
 													class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 													title="The name of the open"
@@ -159,6 +161,7 @@
 										<div>
 											<label class="font-medium">
 												Value
+												<Required />
 												<i
 													class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 													title="The value of this option (the text stored and used in placeholders)"
