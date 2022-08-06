@@ -115,10 +115,10 @@
 					<p class="text-gray-500 dark:text-slate-400">{client.stats.members}</p>
 				</div> -->
 				<div>
-					<h6 class="font-semibold">Members</h6>
+					<h6 class="font-semibold">Members (avg)</h6>
 					<p class="text-gray-500 dark:text-slate-400">
-						{client.stats.members} total,
-						{Math.floor(client.stats.members / client.stats.guilds)} average
+						{client.stats.members}
+						({Math.floor(client.stats.members / client.stats.guilds)})
 					</p>
 				</div>
 				<div>
