@@ -31,6 +31,10 @@
 	.dragged {
 		@apply bg-blurple/10 dark:bg-blurple/10
 	}
+
+	.marked {
+		@apply inline-block
+	}
 }
 
 /**

@@ -224,6 +224,20 @@
 							bind:value={category.channelName}
 						/>
 					</label>
+					{#if category.channelName}
+						<p class="text-sm font-medium">Output</p>
+						<div
+							class="block p-3 w-full rounded-md shadow-sm bg-blurple/20 dark:bg-blurple/20 text-sm font-mono"
+						>
+							<i class="fa-solid fa-hashtag text-gray-500 dark:text-slate-400" />
+							<span class="marked">
+								{@html marked
+									.parse(category.channelName.replace(/\n/g, '\n\n'))
+									.replace(/{+\s?num(ber)?\s?}+/gi, 1)
+									.replace(/{+\s?(user)?name\s?}+/gi, getContext('user').username)}
+							</span>
+						</div>
+					{/if}
 				</div>
 				<div>
 					<label for="claiming" class="font-medium">
@@ -365,7 +379,7 @@
 						>
 							{@html marked
 								.parse(category.openingMessage.replace(/\n/g, '\n\n'))
-								.replace(/\{user\}/g, '@' + getContext('user').username)}
+								.replace(/{+\s?(user)?name\s?}+/gi, '@' + getContext('user').username)}
 						</div>
 					{/if}
 				</div>

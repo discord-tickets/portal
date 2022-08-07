@@ -121,18 +121,9 @@
 											else if (q.type === 'MENU') q.maxLength = 1;
 										}}
 									>
-										<option value={null} class="p-1" default disabled>
-											<i class="fa-solid fa-hashtag text-gray-500 dark:text-slate-400" />
-											Select an input type
-										</option>
-										<option value="TEXT" class="p-1">
-											<i class="fa-solid fa-hashtag text-gray-500 dark:text-slate-400" />
-											Text
-										</option>
-										<option value="MENU" class="p-1">
-											<i class="fa-solid fa-hashtag text-gray-500 dark:text-slate-400" />
-											Select menu
-										</option>
+										<option value={null} class="p-1" default disabled>Select an input type</option>
+										<option value="TEXT" class="p-1"> Text </option>
+										<option value="MENU" class="p-1"> Select menu </option>
 									</select>
 								</label>
 							</div>
