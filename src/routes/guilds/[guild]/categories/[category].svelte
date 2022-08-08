@@ -234,6 +234,7 @@
 								{@html marked
 									.parse(category.channelName.replace(/\n/g, '\n\n'))
 									.replace(/{+\s?num(ber)?\s?}+/gi, 1)
+									.replace(/{+\s?(nick|display)(name)?\s?}+/gi, getContext('user').username)
 									.replace(/{+\s?(user)?name\s?}+/gi, getContext('user').username)}
 							</span>
 						</div>
