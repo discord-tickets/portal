@@ -39,7 +39,7 @@
 	{#if state.content}
 		<p class="text-sm font-medium">Output</p>
 		<div
-			class="block p-3 w-full rounded-md shadow-sm bg-blurple/20 dark:bg-blurple/20 text-sm font-mono"
+			class="block p-3 w-full rounded-md shadow-sm bg-blurple/20 dark:bg-blurple/20 text-sm font-mono break-words"
 		>
 			{@html marked.parse(
 				state.content.replace(/\n/g, '\n\n').replace(/{+\s?(user)?name\s?}+/gi, '@' + getContext('user').username)

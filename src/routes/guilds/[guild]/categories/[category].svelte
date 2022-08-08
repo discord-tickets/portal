@@ -227,7 +227,7 @@
 					{#if category.channelName}
 						<p class="text-sm font-medium">Output</p>
 						<div
-							class="block p-3 w-full rounded-md shadow-sm bg-blurple/20 dark:bg-blurple/20 text-sm font-mono"
+							class="block p-3 w-full rounded-md shadow-sm bg-blurple/20 dark:bg-blurple/20 text-sm font-mono break-words"
 						>
 							<i class="fa-solid fa-hashtag text-gray-500 dark:text-slate-400" />
 							<span class="marked">
@@ -376,7 +376,7 @@
 					{#if category.openingMessage}
 						<p class="text-sm font-medium">Output</p>
 						<div
-							class="block p-3 w-full rounded-md shadow-sm bg-blurple/20 dark:bg-blurple/20 text-sm font-mono"
+							class="block p-3 w-full rounded-md shadow-sm bg-blurple/20 dark:bg-blurple/20 text-sm font-mono break-words"
 						>
 							{@html marked
 								.parse(category.openingMessage.replace(/\n/g, '\n\n'))
