@@ -550,7 +550,7 @@
 										category.questions.push({
 											_id: Date.now().toString(),
 											label: `Question ${category.questions.length + 1}`,
-											maxLength: 4000,
+											maxLength: 1000,
 											minLength: 0,
 											options: [],
 											order: category.questions.length,

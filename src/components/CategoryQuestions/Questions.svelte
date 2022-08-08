@@ -117,7 +117,7 @@
 										required
 										bind:value={q.type}
 										on:change={() => {
-											if (q.type === 'TEXT') q.maxLength = 4000;
+											if (q.type === 'TEXT') q.maxLength = 1000;
 											else if (q.type === 'MENU') q.maxLength = 1;
 										}}
 									>

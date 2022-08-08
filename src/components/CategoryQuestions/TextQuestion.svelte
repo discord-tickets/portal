@@ -32,7 +32,7 @@
 			class="form-input input text-sm"
 			required
 			min="1"
-			max="4000"
+			max="1000"
 			bind:value={state.maxLength}
 		/>
 	</label>
@@ -49,7 +49,7 @@
 			class="form-input input text-sm"
 			required
 			min="0"
-			max="4000"
+			max="1000"
 			bind:value={state.minLength}
 		/>
 	</label>
@@ -111,6 +111,6 @@
 			class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 			title="A pre-filled value"
 		/>
-		<textarea class="form-input input text-sm" maxlength="4000" bind:value={state.value} />
+		<textarea class="form-input input text-sm" maxlength="1000" bind:value={state.value} />
 	</label>
 </div>
