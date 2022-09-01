@@ -3,12 +3,7 @@
 	/** @type {import('./__types/[slug]').Load} */
 	export async function load({ params, fetch, session, stuff }) {
 		const url = `${host}/api/admin/guilds/${params.guild}/categories`;
-		const fetchOptions = {
-			credentials: 'include',
-			headers: {
-				'Content-type': 'application/json; charset=UTF-8'
-			}
-		};
+		const fetchOptions = { credentials: 'include' };
 		let response;
 		let body;
 		if (params.category === 'new') {
@@ -59,16 +54,17 @@
 </script>
 
 <script>
-	export let url;
-	export let category;
-	export let channels;
-	export let roles;
+	/** @type {import('./$types').PageData} */ 
+	export let data;
+
 	import ms from 'ms';
 	import emoji from 'emoji-name-map';
 	import { marked } from 'marked';
-	import CategoryQuestions from '../../../../components/CategoryQuestions/Questions.svelte';
-	import Required from '../../../..//components/Required.svelte';
+	import CategoryQuestions from '../../../../../components/CategoryQuestions/Questions.svelte';
+	import Required from '../../../../../Components/Required.svelte';
 	import { getContext } from 'svelte';
+
+	let { category, channels, roles, url } = data;
 
 	const slowmodes = [
 		'5s',

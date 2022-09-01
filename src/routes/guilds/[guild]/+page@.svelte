@@ -1,33 +1,10 @@
-<script context="module">
-	const host = import.meta.env.PROD ? '' : import.meta.env.VITE_HOST;
-	/** @type {import('./__types/[slug]').Load} */
-	export async function load({ params, fetch, session, stuff }) {
-		const url = `${host}/api/admin/guilds/${params.guild}`;
-		const fetchOptions = {
-			credentials: 'include',
-			headers: {
-				'Content-type': 'application/json; charset=UTF-8'
-			}
-		};
-		const response = await fetch(url, fetchOptions);
-		const body = response.status < 500 ? await response.json() : null;
-		return {
-			status: response.status,
-			error: !response.ok ? body?.message || String(response.status) : null,
-			props: {
-				guild: body,
-				problems: await (
-					await fetch(`${host}/api/admin/guilds/${params.guild}/problems`, fetchOptions)
-				).json()
-			}
-		};
-	}
-</script>
-
 <script>
-	export let guild;
-	export let problems;
+	/** @type {import('./$types').PageData} */ 
+	export let data;
+	console.log(data)
 	import { onMount } from 'svelte';
+
+	const { guild, problems } = data;
 
 	let createdAt = '';
 	onMount(() => {

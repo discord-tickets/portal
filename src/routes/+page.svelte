@@ -1,37 +1,8 @@
-<script context="module">
-	const host = import.meta.env.PROD ? '' : import.meta.env.VITE_HOST;
-	/** @type {import('./__types/[slug]').Load} */
-	export async function load({ params, fetch, session, stuff }) {
-		const url = `${host}/api/users/@me`;
-		const fetchOptions = {
-			credentials: 'include',
-			headers: {
-				'Content-type': 'application/json; charset=UTF-8'
-			}
-		};
-		const response = await fetch(url, fetchOptions);
-
-		if (response.status === 401) {
-			return {
-				status: 302,
-				redirect: `${host}/auth/login`
-			};
-		} else {
-			return {
-				status: response.status,
-				props: {
-					client: await (await fetch(`${host}/api/client`, fetchOptions)).json(),
-					guilds: await (await fetch(`${host}/api/admin/guilds`, fetchOptions)).json(),
-					user: response.ok && (await response.json())
-				}
-			};
-		}
-	}
-</script>
-
 <script>
-	export let client;
-	export let guilds;
+	/** @type {import('./$types').PageData} */ 
+	export let data;
+	
+	const { client, guilds } = data;
 </script>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-12">

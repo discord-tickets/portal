@@ -7,7 +7,10 @@
 	import MenuQuestion from './MenuQuestion.svelte';
 	import Required from '../Required.svelte';
 	import { questionsStore } from './store';
-	const host = import.meta.env.PROD ? '' : import.meta.env.VITE_HOST;
+	import { PUBLIC_HOST } from '$env/static/public';
+	import { dev } from '$app/environment';
+
+	const host = dev ? PUBLIC_HOST : '';
 
 	let loading = {};
 	let expanded = null;

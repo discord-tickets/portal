@@ -1,52 +1,13 @@
-<script context="module">
-	const host = import.meta.env.PROD ? '' : import.meta.env.VITE_HOST;
-	/** @type {import('./__types/[slug]').Load} */
-	export async function load({ params, fetch, session, stuff }) {
-		const url = `${host}/api/admin/guilds/${params.guild}/settings`;
-		const fetchOptions = {
-			credentials: 'include',
-			headers: {
-				'Content-type': 'application/json; charset=UTF-8'
-			}
-		};
-		const response = await fetch(url, fetchOptions);
-		const body = response.status < 500 ? await response.json() : null;
-		return {
-			status: response.status,
-			error: !response.ok ? body?.message || String(response.status) : null,
-			props: {
-				url,
-				settings: body,
-				channels: await (
-					await fetch(
-						`${host}/api/admin/guilds/${params.guild}/data?query=channels.cache`,
-						fetchOptions
-					)
-				).json(),
-				locales: await (await fetch(`${host}/api/locales`, fetchOptions)).json(),
-				roles: await (
-					await fetch(
-						`${host}/api/admin/guilds/${params.guild}/data?query=roles.cache`,
-						fetchOptions
-					)
-				).json()
-			}
-		};
-	}
-</script>
-
 <script>
-	export let settings;
-	export let channels;
-	export let locales;
-	export let roles;
-	export let url;
-	// import schema from '../../../schemas/settings';
-	import zones from '../../../timezones.json';
+	/** @type {import('./$types').PageData} */ 
+	export let data;
+
+	import zones from '../../../../timezones.json';
 	import ms from 'ms';
 	import { fade } from 'svelte/transition';
-	import Required from '../../../components/Required.svelte';
-
+	import Required from '../../../../components/Required.svelte';
+	
+	let { settings, channels, locales, roles, url } = data;
 	const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 	const expanded = { workingHours: false };
 

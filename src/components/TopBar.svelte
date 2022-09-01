@@ -2,7 +2,10 @@
 	export let user;
 	export let isDark;
 	const toggle = () => {
-		localStorage.setItem('theme', isDark ? 'light' : 'dark');
+		// localStorage.setItem('theme', isDark ? 'light' : 'dark');
+		const d = new Date();
+		d.setTime(d.getTime() + (365*24*60*60*1000));
+		document.cookie = `theme=${isDark ? 'light' : 'dark'}; expires=${d.toUTCString()}; path=/`
 		window.location = window.location;
 	};
 </script>

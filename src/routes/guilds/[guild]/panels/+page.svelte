@@ -1,46 +1,20 @@
-<script context="module">
-	const host = import.meta.env.PROD ? '' : import.meta.env.VITE_HOST;
-	/** @type {import('./__types/[slug]').Load} */
-	export async function load({ params, fetch, session, stuff }) {
-		const url = `${host}/api/admin/guilds/${params.guild}/categories`;
-		const fetchOptions = {
-			credentials: 'include',
-			headers: {
-				'Content-type': 'application/json; charset=UTF-8'
-			}
-		};
-		const response = await fetch(url, fetchOptions);
-		const body = response.status < 500 ? await response.json() : null;
-		return {
-			status: response.status,
-			error: !response.ok ? body?.message || String(response.status) : null,
-			props: {
-				categories: body,
-				channels: await (
-					await fetch(
-						`${host}/api/admin/guilds/${params.guild}/data?query=channels.cache`,
-						fetchOptions
-					)
-				).json()
-			}
-		};
-	}
-</script>
-
 <script>
-	export let categories;
-	export let channels;
-
+	/** @type {import('./$types').PageData} */ 
+	export let data;
+	
 	import { page } from '$app/stores';
 	import emoji from 'emoji-name-map';
-	import Required from '../../../components/Required.svelte';
+	import Required from '../../../../components/Required.svelte';
+	import { PUBLIC_HOST } from '$env/static/public';
+	import { dev } from '$app/environment';
 	
-	const host = import.meta.env.PROD ? '' : import.meta.env.VITE_HOST;
-
+	const host = dev ? PUBLIC_HOST : '';
+	
+	let { categories, channels } = data;
 	channels = channels.filter((c) => c.type === 0); // text
 	let error = null;
 	let loading = false;
-	let data = {
+	let panel = {
 		categories: [],
 		channel: 'new',
 		description: '',
@@ -58,7 +32,7 @@
 			try {
 			// error = null;
 			loading = true;
-			const json = { ...data };
+			const json = { ...panel };
 			if (json.channel === 'new') json.channel = null;
 			const url = `${host}/api/admin/guilds/${$page.params.guild}/panels`;
 			const response = await fetch(url, {
@@ -82,11 +56,11 @@
 		}
 	};
 
-	$: data.type = data.categories.length > 5
+	$: panel.type = panel.categories.length > 5
 		? 'MENU'
-		: data.categories.length > 1 && data.type === 'MESSAGE'
+		: panel.categories.length > 1 && panel.type === 'MESSAGE'
 			? 'BUTTON'
-			: data.type;
+			: panel.type;
 </script>
 
 <h1 class="m-4 text-4xl font-bold text-center">Create a panel</h1>
@@ -103,17 +77,17 @@
 	{/if}
 	<div class="bg-white dark:bg-slate-700 p-4 rounded-xl shadow-sm">
 		<div class="text-center">
-			{#if data.channel !== 'new' && data.type === 'MESSAGE'}
+			{#if panel.channel !== 'new' && panel.type === 'MESSAGE'}
 				<p class="text-cyan-500 p-2">
 					<i class="fa-solid fa-circle-info text-2xl" />
 					Make sure members can read and send messages in
-					<span class="font-mono">#{getChannelName(data.channel)}</span>.
+					<span class="font-mono">#{getChannelName(panel.channel)}</span>.
 				</p>
-			{:else if data.channel !== 'new' && data.type !== 'MESSAGE'}
+			{:else if panel.channel !== 'new' && panel.type !== 'MESSAGE'}
 				<p class="text-cyan-500 p-2">
 					<i class="fa-solid fa-circle-info text-2xl" />
 					Make sure members can read but not send messages in
-					<span class="font-mono">#{getChannelName(data.channel)}</span>.
+					<span class="font-mono">#{getChannelName(panel.channel)}</span>.
 				</p>
 			{/if}
 		</div>
@@ -126,8 +100,8 @@
 							class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 							title="How will members use the panel?"
 						/>
-						<select class="form-multiselect input font-normal" required bind:value={data.type}>
-							<option value="BUTTON" class="p-1" disabled={data.categories.length > 5}>
+						<select class="form-multiselect input font-normal" required bind:value={panel.type}>
+							<option value="BUTTON" class="p-1" disabled={panel.categories.length > 5}>
 								<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" default />
 								Buttons
 							</option>
@@ -135,7 +109,7 @@
 								<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" />
 								Select menu (dropdown)
 							</option>
-							<!-- <option value="MESSAGE" class="p-1" disabled={data.categories.length > 1}>
+							<!-- <option value="MESSAGE" class="p-1" disabled={panel.categories.length > 1}>
 								<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" />
 								Message
 							</option> -->
@@ -149,7 +123,7 @@
 							class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 							title="The category options to be available"
 						/>
-						<select required class="form-multiselect input font-normal" bind:value={data.channel}>
+						<select required class="form-multiselect input font-normal" bind:value={panel.channel}>
 							<option value="new">Create a new channel</option>
 							<option disabled>------------</option>
 							{#each channels as channel}
@@ -174,7 +148,7 @@
 							multiple
 							required
 							class="form-multiselect input font-normal h-24"
-							bind:value={data.categories}
+							bind:value={panel.categories}
 						>
 							{#each categories as category}
 								<option value={category.id} class="p-1 m-1 rounded">
@@ -195,7 +169,7 @@
 						<textarea
 							class="form-input input h-24"
 							maxlength="1000"
-							bind:value={data.description}
+							bind:value={panel.description}
 						/>
 					</label>
 				</div>
@@ -208,7 +182,7 @@
 							title="The embed title"
 							required
 						/>
-						<input type="text" class="form-input input" required bind:value={data.title} />
+						<input type="text" class="form-input input" required bind:value={panel.title} />
 					</label>
 				</div>
 				<div>
@@ -218,7 +192,7 @@
 							class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 							title="Optional - the embed image"
 						/>
-						<input type="url" class="form-input input" bind:value={data.image} />
+						<input type="url" class="form-input input" bind:value={panel.image} />
 					</label>
 				</div>
 				<div>
@@ -228,7 +202,7 @@
 							class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 							title="Optional - the embed thumbnail"
 						/>
-						<input type="url" class="form-input input" bind:value={data.thumbnail} />
+						<input type="url" class="form-input input" bind:value={panel.thumbnail} />
 					</label>
 				</div>
 				<div class="place-self-center">

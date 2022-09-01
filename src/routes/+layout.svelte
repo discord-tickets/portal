@@ -1,33 +1,7 @@
-<script context="module">
-	const host = import.meta.env.PROD ? '' : import.meta.env.VITE_HOST;
-	/** @type {import('./__types/[slug]').Load} */
-	export async function load({ params, fetch, session, stuff }) {
-		const url = `${host}/api/users/@me`;
-		const response = await fetch(url, {
-			credentials: 'include',
-			headers: {
-				'Content-type': 'application/json; charset=UTF-8'
-			}
-		});
-
-		if (response.status === 401) {
-			return {
-				status: 302,
-				redirect: `${host}/auth/login`
-			};
-		} else {
-			return {
-				status: response.status,
-				props: {
-					user: response.ok && (await response.json())
-				}
-			};
-		}
-	}
-</script>
-
 <script>
-	export let user;
+	/** @type {import('./$types').PageData} */ 
+	export let data;
+
 	import '../app.css';
 	import '@fortawesome/fontawesome-free/css/all.css';
 	import TopBar from '../components/TopBar.svelte';
@@ -36,15 +10,10 @@
 	import { navigating } from '$app/stores';
 	import { Modals, closeModal } from 'svelte-modals';
 
+	const { isDark, user } = data;
 	setContext('user', user);
-	let isDark = false;
 	let mounted = false;
-	onMount(() => {
-		isDark =
-			localStorage.theme === 'dark' ||
-			(!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
-		mounted = true;
-	});
+	onMount(() => { mounted = true; });
 </script>
 
 <svelte:head>

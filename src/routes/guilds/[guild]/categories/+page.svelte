@@ -1,30 +1,10 @@
-<script context="module">
-	const host = import.meta.env.PROD ? '' : import.meta.env.VITE_HOST;
-	/** @type {import('./__types/[slug]').Load} */
-	export async function load({ params, fetch, session, stuff }) {
-		const url = `${host}/api/admin/guilds/${params.guild}/categories`;
-		const fetchOptions = {
-			credentials: 'include',
-			headers: {
-				'Content-type': 'application/json; charset=UTF-8'
-			}
-		};
-		const response = await fetch(url, fetchOptions);
-		const body = response.status < 500 ? await response.json() : null;
-		return {
-			status: response.status,
-			error: !response.ok ? body?.message || String(response.status) : null,
-			props: {
-				categories: body
-			}
-		};
-	}
-</script>
-
 <script>
-	export let categories;
+	/** @type {import('./$types').PageData} */ 
+	export let data;
 	import emoji from 'emoji-name-map';
-	import { browser } from '$app/env';
+	import { browser } from '$app/environment';
+
+	const { categories } = data;
 </script>
 
 <h1 class="m-4 text-4xl font-bold text-center">Categories</h1>

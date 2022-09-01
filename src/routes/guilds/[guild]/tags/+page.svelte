@@ -3,12 +3,7 @@
 	/** @type {import('./__types/[slug]').Load} */
 	export async function load({ params, fetch, session, stuff }) {
 		const url = `${host}/api/admin/guilds/${params.guild}/tags`;
-		const fetchOptions = {
-			credentials: 'include',
-			headers: {
-				'Content-type': 'application/json; charset=UTF-8'
-			}
-		};
+		const fetchOptions = { credentials: 'include' };
 		const response = await fetch(url, fetchOptions);
 		const body = response.status < 500 ? await response.json() : null;
 		return {
@@ -23,15 +18,16 @@
 </script>
 
 <script>
-	export let url;
-	export let tags;
+	/** @type {import('./$types').PageData} */ 
+	export let data;
 
-	import TagInputs from '../../../components/TagInputs.svelte';
-
+	import TagInputs from '../../../../components/TagInputs.svelte';
+	
+	let { url, tags} = data;
 	let shown = tags;
 	let loading = false;
 	let error = null;
-	let data = {
+	let tag = {
 		content: null,
 		name: null,
 		regex: null
@@ -42,7 +38,7 @@
 		try {
 			error = null;
 			loading = true;
-			const json = { ...data };
+			const json = { ...tag };
 
 			const response = await fetch(url, {
 				method: 'POST',
@@ -66,11 +62,11 @@
 		}
 	};
 
-	const save = async (data) => {
+	const save = async (tag) => {
 		try {
 			error = null;
 			loading = true;
-			const json = { ...data };
+			const json = { ...tag };
 
 			const response = await fetch(`${url}/${json.id}`, {
 				method: 'PATCH',
@@ -216,7 +212,7 @@
 			<h3 class="text-center font-bold text-xl">Create a tag</h3>
 			<form on:submit|preventDefault={() => create()} class="text-lg my-4">
 				<div class="grid grid-cols-1 gap-2">
-					<TagInputs bind:state={data} />
+					<TagInputs bind:state={tag} />
 					<button
 						type="submit"
 						disabled={loading}
