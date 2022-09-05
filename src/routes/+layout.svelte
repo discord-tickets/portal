@@ -14,11 +14,18 @@
 	import { openModal } from 'svelte-modals';
 	import WelcomeModal from '../components/WelcomeModal.svelte';
 
-	const { client, isDark, user } = data;
+	const { client, user } = data;
 	setContext('user', user);
 	let mounted = false;
 	let cookies = {};
+	let theme = data.theme;
 	onMount(() => {
+		if (theme === undefined) {
+			theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+			const d = new Date();
+			d.setTime(d.getTime() + ms('1y'));
+			document.cookie = `theme=${theme}; expires=${d.toUTCString()}; path=/`;
+		}
 		cookies = cookie.parse(document.cookie || '');
 		if (!cookies.welcomed) openModal(WelcomeModal, { client });
 		mounted = true;
@@ -54,7 +61,7 @@
 	<title>Discord Tickets</title>
 </svelte:head>
 
-<div class={isDark ? 'dark' : ''}>
+<div class={theme}>
 	<div class="bg-gray-200 dark:bg-slate-900 min-h-screen h-max w-full absolute">
 		<Modals>
 			<div slot="backdrop" class="backdrop" transition:fade on:click={closeModal} />
@@ -88,7 +95,7 @@
 							<div class="cube2" />
 						</div>
 					{:else}
-						<TopBar {user} {isDark} />
+						<TopBar {user} isDark={theme === 'dark'} />
 						<slot />
 						<footer class="text-center my-16">
 							{#if $page.routeId}

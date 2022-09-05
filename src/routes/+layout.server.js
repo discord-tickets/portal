@@ -4,6 +4,6 @@ import cookie from 'cookie';
 export function load({ request }) {
 	const cookies = cookie.parse(request.headers.get('Cookie') || '');
 	return {
-		isDark: cookies.theme === 'dark'
+		theme: cookies.theme
 	};
 }

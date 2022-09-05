@@ -20,7 +20,7 @@ export async function load({ data, fetch }) {
 	} else {
 		return {
 			client: await (await fetch(`${host}/api/client`, { credentials: 'include' })).json(),
-			isDark: data.isDark,
+			theme: data.theme,
 			user: body
 		};
 	}
