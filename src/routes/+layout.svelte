@@ -11,14 +11,17 @@
 	import { Modals, closeModal } from 'svelte-modals';
 	import cookie from 'cookie';
 	import ms from 'ms';
+	import { openModal } from 'svelte-modals';
+	import WelcomeModal from '../components/WelcomeModal.svelte';
 
 	const { client, isDark, user } = data;
 	setContext('user', user);
 	let mounted = false;
 	let cookies = {};
 	onMount(() => {
-		mounted = true;
 		cookies = cookie.parse(document.cookie);
+		if (!cookies.welcomed) openModal(WelcomeModal, { client });
+		mounted = true;
 	});
 
 	const dismissCookies = () => {
@@ -55,6 +58,12 @@
 	<div class="bg-gray-200 dark:bg-slate-900 min-h-screen h-max w-full absolute">
 		<Modals>
 			<div slot="backdrop" class="backdrop" transition:fade on:click={closeModal} />
+			<div slot="loading">
+				<div class="spinner">
+					<div class="cube1" />
+					<div class="cube2" />
+				</div>
+			</div>
 		</Modals>
 		{#if mounted && client.public && !cookies.dismissedCookies}
 			<div
@@ -87,6 +96,7 @@
 									{#each links as link}
 										<a
 											href={link.url}
+											target="_blank"
 											class="bg-gray-50/75 dark:bg-slate-800/75 p-0 px-2 rounded-3xl shadow-sm text-gray-500 dark:text-slate-400 font-medium link"
 										>
 											<i class={link.icon} />
