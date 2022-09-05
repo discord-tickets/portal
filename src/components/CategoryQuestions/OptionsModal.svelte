@@ -50,7 +50,7 @@
 		on:outroend
 	>
 		<div
-			class="pointer-events-auto bg-white dark:bg-slate-700 text-gray-800 dark:text-slate-300 p-4 rounded-xl shadow-sm w-full max-h-full overflow-y-scroll"
+			class="pointer-events-auto bg-white dark:bg-slate-700 text-gray-800 dark:text-slate-300 p-4 rounded-xl shadow-sm w-full max-h-full overflow-y-auto"
 		>
 			<form on:submit|preventDefault={() => {}} id="questionOptions" name="questionOptions">
 				<div class="m-2 sm:m-4 flex flex-col gap-6">
