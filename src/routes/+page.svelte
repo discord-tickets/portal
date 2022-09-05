@@ -50,7 +50,7 @@
 					>
 				</span>
 			</div>
-			<div class="m-4 grid grid-cols-2 sm:grid-cols-3 2xl:grid-cols-5 gap-4">
+			<div class="m-4 grid grid-cols-2 sm:grid-cols-3 gap-4">
 				<div>
 					<h6 class="font-semibold">Activated users</h6>
 					<p class="text-gray-500 dark:text-slate-400">{client.stats.activatedUsers}</p>
