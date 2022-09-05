@@ -1,5 +1,5 @@
 <script>
-	/** @type {import('./$types').PageData} */ 
+	/** @type {import('./$types').PageData} */
 	export let data;
 
 	import '../app.css';
@@ -7,9 +7,10 @@
 	import TopBar from '../components/TopBar.svelte';
 	import { onMount, setContext } from 'svelte';
 	import { fade } from 'svelte/transition';
-	import { navigating } from '$app/stores';
+	import { page, navigating } from '$app/stores';
 	import { Modals, closeModal } from 'svelte-modals';
 	import cookie from 'cookie';
+	import ms from 'ms';
 
 	const { client, isDark, user } = data;
 	setContext('user', user);
@@ -22,10 +23,28 @@
 
 	const dismissCookies = () => {
 		const d = new Date();
-		d.setTime(d.getTime() + (365*24*60*60*1000));
-		document.cookie = `dismissedCookies=true; expires=${d.toUTCString()}; path=/`
+		d.setTime(d.getTime() + ms('1y'));
+		document.cookie = `dismissedCookies=true; expires=${d.toUTCString()}; path=/`;
 		cookies.dismissedCookies = true;
-	}
+	};
+
+	const links = [
+		{
+			icon: 'fa-solid fa-book',
+			name: 'Documentation',
+			url: 'https://discordtickets.app'
+		},
+		{
+			icon: 'fab fa-discord',
+			name: 'Support',
+			url: 'https://lnk.earth/discord'
+		},
+		{
+			icon: 'fa-solid fa-comments',
+			name: 'Feedback',
+			url: 'https://lnk.earth/dsctickets-feedback'
+		}
+	];
 </script>
 
 <svelte:head>
@@ -38,10 +57,16 @@
 			<div slot="backdrop" class="backdrop" transition:fade on:click={closeModal} />
 		</Modals>
 		{#if mounted && client.public && !cookies.dismissedCookies}
-			<div class="bg-blurple text-white font-medium m-0 p-1 sm:px-8 flex flex-row justify-center gap-8 w-full">
+			<div
+				class="bg-blurple text-white font-medium m-0 p-1 sm:px-8 flex flex-row justify-center gap-8 w-full"
+			>
 				<p>Cookies are being used to store credentials and preferences.</p>
 				<p>
-					<i class="fa-sharp fa-solid fa-circle-xmark justify-self-end hover:cursor-pointer" title="Dismiss" on:click={dismissCookies}/>
+					<i
+						class="fa-sharp fa-solid fa-circle-xmark justify-self-end hover:cursor-pointer"
+						title="Dismiss"
+						on:click={dismissCookies}
+					/>
 				</p>
 			</div>
 		{/if}
@@ -56,7 +81,20 @@
 					{:else}
 						<TopBar {user} {isDark} />
 						<slot />
-						<footer class="text-center my-24">
+						<footer class="text-center my-16">
+							{#if $page.routeId}
+								<div class="my-4 flex gap-3 justify-center">
+									{#each links as link}
+										<a
+											href={link.url}
+											class="bg-gray-50/75 dark:bg-slate-800/75 p-0 px-2 rounded-3xl shadow-sm text-gray-500 dark:text-slate-400 font-medium link"
+										>
+											<i class={link.icon} />
+											{link.name}
+										</a>
+									{/each}
+								</div>
+							{/if}
 							<p>
 								<a href="https://discordtickets.app" target="_blank" class="hover:underline"
 									>Discord Tickets</a
@@ -73,7 +111,7 @@
 									>Isaac Saunders</a
 								>
 							</p>
-							<p class="my-4">
+							<!-- <p class="my-4">
 								<a
 									href="https://lnk.earth/discord"
 									target="_blank"
@@ -81,8 +119,8 @@
 								>
 									<i class="fab fa-discord" />
 								</a>
-							</p>
-							<p class="text-xs">
+							</p> -->
+							<p class="text-xs my-4">
 								Discord Tickets is not an official Discord product.
 								<br />
 								It is not affiliated with nor endorsed by Discord Inc.
