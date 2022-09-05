@@ -19,7 +19,7 @@
 	let mounted = false;
 	let cookies = {};
 	onMount(() => {
-		cookies = cookie.parse(document.cookie);
+		cookies = cookie.parse(document.cookie || '');
 		if (!cookies.welcomed) openModal(WelcomeModal, { client });
 		mounted = true;
 	});
