@@ -9,11 +9,23 @@
 	import { fade } from 'svelte/transition';
 	import { navigating } from '$app/stores';
 	import { Modals, closeModal } from 'svelte-modals';
+	import cookie from 'cookie';
 
-	const { isDark, user } = data;
+	const { client, isDark, user } = data;
 	setContext('user', user);
 	let mounted = false;
-	onMount(() => { mounted = true; });
+	let cookies = {};
+	onMount(() => {
+		mounted = true;
+		cookies = cookie.parse(document.cookie);
+	});
+
+	const dismissCookies = () => {
+		const d = new Date();
+		d.setTime(d.getTime() + (365*24*60*60*1000));
+		document.cookie = `dismissedCookies=true; expires=${d.toUTCString()}; path=/`
+		cookies.dismissedCookies = true;
+	}
 </script>
 
 <svelte:head>
@@ -25,6 +37,14 @@
 		<Modals>
 			<div slot="backdrop" class="backdrop" transition:fade on:click={closeModal} />
 		</Modals>
+		{#if mounted && client.public && !cookies.dismissedCookies}
+			<div class="bg-blurple text-white font-medium m-0 p-1 sm:px-8 flex flex-row justify-center gap-8 w-full">
+				<p>Cookies are being used to store credentials and preferences.</p>
+				<p>
+					<i class="fa-sharp fa-solid fa-circle-xmark justify-self-end hover:cursor-pointer" title="Dismiss" on:click={dismissCookies}/>
+				</p>
+			</div>
+		{/if}
 		<div class="m-2 sm:m-6 lg:m-12 ">
 			<div class="max-w-7xl mx-auto">
 				<div class="text-gray-800 dark:text-slate-300">

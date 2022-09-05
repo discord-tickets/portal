@@ -1,6 +1,7 @@
+import { error, redirect } from '@sveltejs/kit';
 import { dev } from '$app/environment';
 import { PUBLIC_HOST } from '$env/static/public';
-import { error, redirect } from '@sveltejs/kit';
+const host = dev ? PUBLIC_HOST : '';
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ data, fetch }) {
@@ -18,6 +19,7 @@ export async function load({ data, fetch }) {
 		throw error(response.status, isJSON ? JSON.stringify(body) : body);
 	} else {
 		return {
+			client: await (await fetch(`${host}/api/client`, { credentials: 'include' })).json(),
 			isDark: data.isDark,
 			user: body
 		};

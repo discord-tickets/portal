@@ -6,7 +6,6 @@ const host = dev ? PUBLIC_HOST : '';
 export async function load({ fetch }) {;
 	const fetchOptions = { credentials: 'include' };
 	return {
-		client: await (await fetch(`${host}/api/client`, fetchOptions)).json(),
 		guilds: await (await fetch(`${host}/api/admin/guilds`, fetchOptions)).json(),
 	};
 }
