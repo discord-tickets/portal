@@ -103,7 +103,7 @@
 												class="text-sm text-gray-500 dark:text-slate-400 group-hover:text-white dark:group-hover:text-white transition duration-300 font-medium"
 											>
 												<!-- Please take a few minutes to answer some questions that help us better understand how the bot is used. -->
-												Please take a few minutes to help use better understand how the bot is used.
+												Please take a few minutes to help us better understand how the bot is used.
 												<span class="font-bold">Respondents can win a £4 Steam gift card.</span>
 											</div>
 										</div>
