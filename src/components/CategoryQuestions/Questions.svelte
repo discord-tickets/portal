@@ -17,14 +17,14 @@
 	$: state = $questionsStore;
 
 	onMount(() => {
-		let sortable = Sortable.create(list, {
+		Sortable.create(list, {
 			animation: 300,
 			handle: '.handle',
 			dragClass: 'dragged',
 			swapThreshold: 0.5,
 			dataIdAttr: 'data-id',
 			store: {
-				get: (sortable) => {
+				get: () => {
 					const order = state.sort((a, b) => a.order - b.order);
 					return order;
 				},

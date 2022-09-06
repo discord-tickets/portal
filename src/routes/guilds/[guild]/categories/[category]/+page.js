@@ -3,7 +3,6 @@ import { PUBLIC_HOST } from '$env/static/public';
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ fetch, params }) {
-
 	const url = `${PUBLIC_HOST}/api/admin/guilds/${params.guild}/categories`;
 	const fetchOptions = { credentials: 'include' };
 

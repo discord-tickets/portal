@@ -6,9 +6,9 @@ export async function load({ data, fetch }) {
 	const url = `${PUBLIC_HOST}/api/users/@me`;
 	const response = await fetch(url, {
 		credentials: 'include',
-		mode: 'cors',
+		mode: 'cors'
 	});
-	const isJSON = response.headers.get('Content-Type')?.includes('json')
+	const isJSON = response.headers.get('Content-Type')?.includes('json');
 	const body = isJSON ? await response.json() : await response.text();
 	if (response.status === 401) {
 		throw redirect(307, `${PUBLIC_HOST}/auth/login`);

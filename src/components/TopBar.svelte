@@ -9,8 +9,8 @@
 		// localStorage.setItem('theme', isDark ? 'light' : 'dark');
 		const d = new Date();
 		d.setTime(d.getTime() + ms('1y'));
-		document.cookie = `theme=${isDark ? 'light' : 'dark'}; expires=${d.toUTCString()}; path=/`
-		window.location = window.location;
+		document.cookie = `theme=${isDark ? 'light' : 'dark'}; expires=${d.toUTCString()}; path=/`;
+		window.location = window.location; // eslint-disable-line
 	};
 </script>
 
@@ -19,7 +19,11 @@
 		<div>
 			<a href="/" class="flex justify-center md:justify-start">
 				<!-- <img src="/logo.png" class="h-8" alt="Discord Tickets" /> -->
-				<img src="https://static.eartharoid.me/discord-tickets/logo/{isDark ? 'white' : 'dark'}.png" class="h-8" alt="Discord Tickets" />
+				<img
+					src="https://static.eartharoid.me/discord-tickets/logo/{isDark ? 'white' : 'dark'}.png"
+					class="h-8"
+					alt="Discord Tickets"
+				/>
 			</a>
 		</div>
 		<div>

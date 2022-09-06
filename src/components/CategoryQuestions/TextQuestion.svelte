@@ -1,6 +1,6 @@
 <script>
 	export let state;
-	import Required from "../Required.svelte";
+	import Required from '../Required.svelte';
 </script>
 
 <div>

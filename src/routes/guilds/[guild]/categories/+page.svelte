@@ -1,5 +1,5 @@
 <script>
-	/** @type {import('./$types').PageData} */ 
+	/** @type {import('./$types').PageData} */
 	export let data;
 	import emoji from 'emoji-name-map';
 	import { browser } from '$app/environment';
@@ -29,7 +29,9 @@
 							<p>
 								<i class="fa-solid fa-calendar-days mr-2" />
 								Created
-								{new Intl.DateTimeFormat(navigator.languages[0]).format(new Date(category.createdAt))}
+								{new Intl.DateTimeFormat(navigator.languages[0]).format(
+									new Date(category.createdAt)
+								)}
 							</p>
 						{/if}
 						<p>

@@ -1,10 +1,10 @@
 <script>
-	/** @type {import('./$types').PageData} */ 
+	/** @type {import('./$types').PageData} */
 	export let data;
 
 	import TagInputs from '../../../../components/TagInputs.svelte';
-	
-	let { url, tags} = data;
+
+	let { url, tags } = data;
 	let shown = tags;
 	let loading = false;
 	let error = null;

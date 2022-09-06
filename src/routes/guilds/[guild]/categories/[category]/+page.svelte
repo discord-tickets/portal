@@ -1,5 +1,5 @@
 <script>
-	/** @type {import('./$types').PageData} */ 
+	/** @type {import('./$types').PageData} */
 	export let data;
 
 	import ms from 'ms';

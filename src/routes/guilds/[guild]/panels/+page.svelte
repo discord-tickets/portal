@@ -1,12 +1,12 @@
 <script>
-	/** @type {import('./$types').PageData} */ 
+	/** @type {import('./$types').PageData} */
 	export let data;
-	
+
 	import { page } from '$app/stores';
 	import emoji from 'emoji-name-map';
 	import Required from '../../../../components/Required.svelte';
 	import { PUBLIC_HOST } from '$env/static/public';
-	
+
 	let { categories, channels } = data;
 	channels = channels.filter((c) => c.type === 0); // text
 	let error = null;
@@ -26,7 +26,7 @@
 	};
 
 	const submit = async () => {
-			try {
+		try {
 			// error = null;
 			loading = true;
 			const json = { ...panel };
@@ -53,9 +53,10 @@
 		}
 	};
 
-	$: panel.type = panel.categories.length > 5
-		? 'MENU'
-		: panel.categories.length > 1 && panel.type === 'MESSAGE'
+	$: panel.type =
+		panel.categories.length > 5
+			? 'MENU'
+			: panel.categories.length > 1 && panel.type === 'MESSAGE'
 			? 'BUTTON'
 			: panel.type;
 </script>

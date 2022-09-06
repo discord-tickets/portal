@@ -1,7 +1,7 @@
 <script>
-	/** @type {import('./$types').PageData} */ 
+	/** @type {import('./$types').PageData} */
 	export let data;
-	
+
 	const { client, guilds } = data;
 </script>
 

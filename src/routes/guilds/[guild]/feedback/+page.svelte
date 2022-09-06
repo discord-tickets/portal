@@ -1,8 +1,8 @@
 <script>
-	/** @type {import('./$types').PageData} */ 
+	/** @type {import('./$types').PageData} */
 	export let data;
 
-	const { client } = data; 
+	const { client } = data;
 </script>
 
 <h1 class="m-4 text-4xl font-bold text-center">Feedback</h1>

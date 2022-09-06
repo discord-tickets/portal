@@ -2,7 +2,7 @@ import { error, redirect } from '@sveltejs/kit';
 import { PUBLIC_HOST } from '$env/static/public';
 
 /** @type {import('./$types').PageLoad} */
-export async function load({ fetch, params}) {
+export async function load({ fetch, params }) {
 	const url = `${PUBLIC_HOST}/api/admin/guilds/${params.guild}`;
 	const fetchOptions = { credentials: 'include' };
 	const response = await fetch(url, fetchOptions);
@@ -15,7 +15,9 @@ export async function load({ fetch, params}) {
 	} else {
 		return {
 			guild: body,
-			problems: await (await fetch(`${PUBLIC_HOST}/api/admin/guilds/${params.guild}/problems`, fetchOptions)).json(),
+			problems: await (
+				await fetch(`${PUBLIC_HOST}/api/admin/guilds/${params.guild}/problems`, fetchOptions)
+			).json()
 		};
 	}
 }

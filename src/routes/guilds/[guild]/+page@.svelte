@@ -1,7 +1,7 @@
 <script>
-	/** @type {import('./$types').PageData} */ 
+	/** @type {import('./$types').PageData} */
 	export let data;
-	console.log(data)
+	console.log(data);
 	import { onMount } from 'svelte';
 
 	const { guild, problems } = data;

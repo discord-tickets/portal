@@ -5,7 +5,7 @@ module.exports = {
 	theme: {
 		extend: {
 			colors: {
-				blurple: '#5865F2',
+				blurple: '#5865F2'
 			}
 		}
 	},

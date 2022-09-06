@@ -7,7 +7,7 @@
 	let error = null;
 	let loading = false;
 
-	const del = async (id) => {
+	const del = async () => {
 		try {
 			const confirmed = confirm(
 				'CONFIRM: Are you sure you want to permanently erase ALL guild data?'
