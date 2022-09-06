@@ -1,10 +1,8 @@
 <script>
 	import { page } from '$app/stores';
 	import { PUBLIC_HOST } from '$env/static/public';
-	import { dev } from '$app/environment';
 
-	const host = dev ? PUBLIC_HOST : '';
-	const url = `${host}/api/admin/guilds/${$page.params.guild}/settings`;
+	const url = `${PUBLIC_HOST}/api/admin/guilds/${$page.params.guild}/settings`;
 
 	let error = null;
 	let loading = false;

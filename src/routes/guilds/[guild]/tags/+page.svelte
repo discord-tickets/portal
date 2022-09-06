@@ -1,22 +1,3 @@
-<script context="module">
-	const host = import.meta.env.PROD ? '' : import.meta.env.VITE_HOST;
-	/** @type {import('./__types/[slug]').Load} */
-	export async function load({ params, fetch, session, stuff }) {
-		const url = `${host}/api/admin/guilds/${params.guild}/tags`;
-		const fetchOptions = { credentials: 'include' };
-		const response = await fetch(url, fetchOptions);
-		const body = response.status < 500 ? await response.json() : null;
-		return {
-			status: response.status,
-			error: !response.ok ? body?.message || String(response.status) : null,
-			props: {
-				url,
-				tags: body
-			}
-		};
-	}
-</script>
-
 <script>
 	/** @type {import('./$types').PageData} */ 
 	export let data;
