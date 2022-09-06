@@ -4,7 +4,7 @@ A web app for configuring the [Discord Tickets](https://discordtickets.app) bot 
 
 > **Note**
 >
-> This is bundled with the bot; you don't need to download and install it separate.
+> This is bundled with the bot; you don't need to download and install it separately.
 
 ## Screenshot
 
