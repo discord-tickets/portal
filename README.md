@@ -1,38 +1,11 @@
-# create-svelte
+# Discord Tickets Settings
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+ A web app for configuring the [Discord Tickets](https://discordtickets.app) bot via the API.
 
-## Creating a project
+ > **Note**
+>
+> This is bundled with the bot; you don't need to download and install it separate. 
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Screenshot
 
-```bash
-# create a new project in the current directory
-npm init svelte
-
-# create a new project in my-app
-npm init svelte my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+![](https://static.eartharoid.me/x/2022/09/2022-09-06-20-59-46-DiscordTickets.png)
