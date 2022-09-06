@@ -1,10 +1,10 @@
 # Discord Tickets Settings
 
- A web app for configuring the [Discord Tickets](https://discordtickets.app) bot via the API.
+A web app for configuring the [Discord Tickets](https://discordtickets.app) bot via the API.
 
- > **Note**
+> **Note**
 >
-> This is bundled with the bot; you don't need to download and install it separate. 
+> This is bundled with the bot; you don't need to download and install it separate.
 
 ## Screenshot
 
