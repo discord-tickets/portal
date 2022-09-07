@@ -4,9 +4,12 @@ import preprocess from 'svelte-preprocess';
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	kit: {
-		adapter: adapter({ out: 'build' })
+		adapter: adapter({ out: 'build' }),
+		alias: {
+			'$components': './src/components'
+		}
 	},
-	preprocess: [preprocess({ postcss: true })]
+	preprocess: [preprocess({ postcss: true })],
 };
 
 export default config;

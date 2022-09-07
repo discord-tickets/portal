@@ -2,7 +2,7 @@
 	/** @type {import('./$types').PageData} */
 	export let data;
 
-	import TagInputs from '../../../../components/TagInputs.svelte';
+	import TagInputs from '$components/TagInputs.svelte';
 
 	let { url, tags } = data;
 	let shown = tags;

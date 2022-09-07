@@ -4,7 +4,7 @@
 
 	import '../app.css';
 	import '@fortawesome/fontawesome-free/css/all.css';
-	import TopBar from '../components/TopBar.svelte';
+	import TopBar from '$components/TopBar.svelte';
 	import { onMount, setContext } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import { page, navigating } from '$app/stores';
@@ -12,7 +12,7 @@
 	import cookie from 'cookie';
 	import ms from 'ms';
 	import { openModal } from 'svelte-modals';
-	import WelcomeModal from '../components/WelcomeModal.svelte';
+	import WelcomeModal from '$components/WelcomeModal.svelte';
 
 	const { client, user } = data;
 	setContext('user', user);

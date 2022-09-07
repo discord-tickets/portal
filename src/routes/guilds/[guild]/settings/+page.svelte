@@ -5,7 +5,7 @@
 	import zones from '../../../../timezones.json';
 	import ms from 'ms';
 	import { fade } from 'svelte/transition';
-	import Required from '../../../../components/Required.svelte';
+	import Required from '$components/Required.svelte';
 
 	let { settings, channels, locales, roles, url } = data;
 	const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];

@@ -5,8 +5,8 @@
 	import ms from 'ms';
 	import emoji from 'emoji-name-map';
 	import { marked } from 'marked';
-	import CategoryQuestions from '../../../../../components/CategoryQuestions/Questions.svelte';
-	import Required from '../../../../../Components/Required.svelte';
+	import CategoryQuestions from '$components/CategoryQuestions/Questions.svelte';
+	import Required from '$components/Required.svelte';
 	import { getContext } from 'svelte';
 
 	let { category, channels, roles, url } = data;

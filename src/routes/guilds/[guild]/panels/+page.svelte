@@ -4,7 +4,7 @@
 
 	import { page } from '$app/stores';
 	import emoji from 'emoji-name-map';
-	import Required from '../../../../components/Required.svelte';
+	import Required from '$components/Required.svelte';
 	import { PUBLIC_HOST } from '$env/static/public';
 
 	let { categories, channels } = data;
