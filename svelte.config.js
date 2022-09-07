@@ -7,9 +7,13 @@ const config = {
 		adapter: adapter({ out: 'build' }),
 		alias: {
 			'$components': './src/components'
-		}
+		},
+		paths: {
+			base: '/settings'
+		},
 	},
 	preprocess: [preprocess({ postcss: true })],
+	trailingSlash: 'never',
 };
 
 export default config;

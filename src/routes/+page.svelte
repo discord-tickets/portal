@@ -2,6 +2,8 @@
 	/** @type {import('./$types').PageData} */
 	export let data;
 
+	import { base } from '$app/paths'
+
 	const { client, guilds } = data;
 </script>
 
@@ -27,7 +29,7 @@
 				</div>
 			</a>
 			{#each guilds as guild}
-				<a href={`/guilds/${guild.id}`}>
+				<a href={`${base}/guilds/${guild.id}`}>
 					<div
 						class="bg-gray-100 dark:bg-slate-800 p-4 rounded-xl shadow-sm flex items-center gap-4 font-semibold text-lg link"
 					>

@@ -1,8 +1,9 @@
 <script>
 	export let user;
 	export let isDark;
-
+	
 	import { PUBLIC_HOST } from '$env/static/public';
+	import { base } from '$app/paths'
 	import ms from 'ms';
 
 	const toggle = () => {
@@ -17,7 +18,7 @@
 <div class="bg-white dark:bg-slate-700 my-8 p-4 rounded-xl shadow-sm">
 	<div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:mx-8">
 		<div>
-			<a href="/" class="flex justify-center md:justify-start">
+			<a href={base} class="flex justify-center md:justify-start">
 				<!-- <img src="/logo.png" class="h-8" alt="Discord Tickets" /> -->
 				<img
 					src="https://static.eartharoid.me/discord-tickets/logo/{isDark ? 'white' : 'dark'}.png"
