@@ -10,7 +10,7 @@ const src = './build/client/';
 const dest = join(src, base);
 const files = fs.readdirSync(src);
 fs.mkdirSync(dest);
-files.forEach(f => {
+files.forEach((f) => {
 	console.log('Moving', f);
 	fs.renameSync(join(src, f), join(dest, f));
 });

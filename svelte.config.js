@@ -6,14 +6,14 @@ const config = {
 	kit: {
 		adapter: adapter({ out: 'build' }),
 		alias: {
-			'$components': './src/components'
+			$components: './src/components'
 		},
 		paths: {
 			base: '/settings'
-		},
+		}
 	},
 	preprocess: [preprocess({ postcss: true })],
-	trailingSlash: 'never',
+	trailingSlash: 'never'
 };
 
 export default config;

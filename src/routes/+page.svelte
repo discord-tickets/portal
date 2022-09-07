@@ -2,7 +2,7 @@
 	/** @type {import('./$types').PageData} */
 	export let data;
 
-	import { base } from '$app/paths'
+	import { base } from '$app/paths';
 
 	const { client, guilds } = data;
 </script>

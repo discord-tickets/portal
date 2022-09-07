@@ -1,9 +1,9 @@
 <script>
 	export let user;
 	export let isDark;
-	
+
 	import { PUBLIC_HOST } from '$env/static/public';
-	import { base } from '$app/paths'
+	import { base } from '$app/paths';
 	import ms from 'ms';
 
 	const toggle = () => {
