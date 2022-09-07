@@ -116,7 +116,7 @@
 												<Required />
 												<i
 													class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
-													title="The name of the open"
+													title="The name of the option"
 												/>
 												<input
 													type="text"
@@ -132,7 +132,7 @@
 												Description
 												<i
 													class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
-													title="The title of the question"
+													title="The description of the option"
 												/>
 												<input
 													type="text"
@@ -147,7 +147,7 @@
 												Emoji
 												<i
 													class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
-													title="The title of the question"
+													title="A default emoji name, or custom emoji ID"
 												/>
 												<span class="text-2xl">{emoji.get(o.emoji) ?? ''}</span>
 												<input
