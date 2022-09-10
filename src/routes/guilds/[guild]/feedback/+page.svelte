@@ -2,6 +2,8 @@
 	/** @type {import('./$types').PageData} */
 	export let data;
 
+	import { base } from '$app/paths';
+
 	const { client } = data;
 </script>
 
@@ -9,7 +11,7 @@
 <div class="text-center max-w-lg mx-auto my-8">
 	<div class="my-8">
 		<img
-			src="/img/undraw_reviews.svg"
+			src={`${base}/img/undraw_reviews.svg`}
 			alt="Reviews illustration"
 			width="70%"
 			height="auto"
