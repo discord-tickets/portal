@@ -29,8 +29,8 @@
 			const json = { ...settings };
 			json.autoClose = settings.autoClose ? ms(settings.autoClose) : null;
 			json.staleAfter = settings.staleAfter ? ms(settings.staleAfter) : null;
-			if (json.autoClose !== null && json.staleAfter === null)
-				throw new Error('autoClose cannot be set unless staleAfter is also set.');
+			// if (json.autoClose !== null && json.staleAfter === null)
+			// 	throw new Error('autoClose cannot be set unless staleAfter is also set.');
 			if (autoTag !== 'custom') json.autoTag = autoTag;
 			else if (!Array.isArray(settings.autoTag)) json.autoTag = []; // it only updates if you select (and optionally deselect) a channel
 			if (settings.logChannel === '') json.logChannel = null;
@@ -87,9 +87,9 @@
 					Auto close after
 					<i
 						class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
-						title="How long should the bot wait AFTER declaring a ticket stale?"
+						title="How long should the bot wait before closing (for close command and stale tickets)?"
 					/>
-					<input type="text" class="form-input input" bind:value={settings.autoClose} />
+					<input type="text" class="form-input input" bind:value={settings.autoClose} required />
 				</label>
 			</div>
 			<div>
