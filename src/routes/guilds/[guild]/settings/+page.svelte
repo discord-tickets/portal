@@ -74,8 +74,9 @@
 		<p class="font-semibold"><i class="fa-solid fa-triangle-exclamation" /> Warning</p>
 		<p>
 			This page is made to be "just about functional".
-			<a href="https://discordtickets.app/configuration/general" class="font-semibold hover:underline"
-				>Read the documentation</a
+			<a
+				href="https://discordtickets.app/configuration/general"
+				class="font-semibold hover:underline">Read the documentation</a
 			>
 			to avoid breaking something.
 		</p>
