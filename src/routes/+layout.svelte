@@ -22,9 +22,7 @@
 	onMount(() => {
 		if (theme === undefined) {
 			theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-			const d = new Date();
-			d.setTime(d.getTime() + ms('1y'));
-			document.cookie = `theme=${theme}; expires=${d.toUTCString()}; path=/`;
+			document.cookie = `theme=${theme}; max-age=${ms('1y')/1000}; path=/`;
 		}
 		cookies = cookie.parse(document.cookie || '');
 		if (!cookies.welcomed) openModal(WelcomeModal, { client });
@@ -34,7 +32,7 @@
 	const dismissCookies = () => {
 		const d = new Date();
 		d.setTime(d.getTime() + ms('1y'));
-		document.cookie = `dismissedCookies=true; expires=${d.toUTCString()}; path=/`;
+		document.cookie = `dismissedCookies=true; max-age=${ms('1y')/1000}; path=/`;
 		cookies.dismissedCookies = true;
 	};
 

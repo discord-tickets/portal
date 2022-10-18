@@ -117,9 +117,7 @@
 							class="bg-gray-100 dark:bg-slate-800 hover:bg-blurple dark:hover:bg-blurple text-blurple hover:text-white dark:hover:text-white p-2 px-5 rounded-lg font-semibold transition duration-300 disabled:cursor-not-allowed"
 							on:click={() => {
 								allowClose = true;
-								const d = new Date();
-								d.setTime(d.getTime() + ms('1y'));
-								document.cookie = `welcomed=true; expires=${d.toUTCString()}; path=/`;
+								document.cookie = `welcomed=true; max-age=${ms('1y')/1000}; path=/`;
 								closeModal();
 							}}
 						>

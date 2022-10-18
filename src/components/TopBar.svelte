@@ -8,9 +8,7 @@
 
 	const toggle = () => {
 		// localStorage.setItem('theme', isDark ? 'light' : 'dark');
-		const d = new Date();
-		d.setTime(d.getTime() + ms('1y'));
-		document.cookie = `theme=${isDark ? 'light' : 'dark'}; expires=${d.toUTCString()}; path=/`;
+		document.cookie = `theme=${isDark ? 'light' : 'dark'}; max-age=${ms('1y')/1000}; path=/`;
 		window.location = window.location; // eslint-disable-line
 	};
 </script>
