@@ -111,7 +111,7 @@
 <div class="mb-8 text-orange-600 dark:text-orange-400 text-center">
 	<p>
 		<i class="fa-solid fa-triangle-exclamation" />
-		<a href="https://discordtickets.app/settings/categories" class="font-semibold hover:underline"
+		<a href="https://discordtickets.app/configuration/categories" class="font-semibold hover:underline"
 			>Read the documentation</a
 		>
 		to avoid problems.
