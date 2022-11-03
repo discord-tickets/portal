@@ -19,13 +19,9 @@
 		/>
 	</div>
 	<div class="my-8 text-lg font-semibold">
-		{#if client.portal}
-			<a href={client.portal + '/feedback'} class="hover:text-blurple transition duration-300">
-				View feedback in the portal
-				<i class="fa-solid fa-arrow-right-long" />
-			</a>
-		{:else}
-			Install the portal to view feedback.
-		{/if}
+		<a href="/feedback" class="hover:text-blurple transition duration-300">
+			View feedback in the portal
+			<i class="fa-solid fa-arrow-right-long" />
+		</a>
 	</div>
 </div>
