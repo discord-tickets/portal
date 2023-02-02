@@ -96,7 +96,7 @@
 						<TopBar {user} isDark={theme === 'dark'} />
 						<slot />
 						<footer class="text-center my-16">
-							{#if $page.routeId}
+							{#if $page.route.id !== '/'}
 								<div class="my-4 flex gap-3 justify-center">
 									{#each links as link}
 										<a
