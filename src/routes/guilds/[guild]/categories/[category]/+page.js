@@ -40,7 +40,7 @@ export async function load({ fetch, params }) {
 	}
 
 	let url = `${env.PUBLIC_HOST}/api/admin/guilds/${params.guild}/categories`;
-	if (params.category !== 'new') url += params.category;
+	if (params.category !== 'new') url += `/${params.category}`;
 
 	return {
 		url,
