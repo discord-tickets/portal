@@ -2,8 +2,8 @@ lockfileVersion: 5.4
 
 specifiers:
   '@fortawesome/fontawesome-free': ^6.2.1
-  '@sveltejs/adapter-node': 1.1.4
-  '@sveltejs/kit': 1.3.9
+  '@sveltejs/adapter-node': ^1.1.4
+  '@sveltejs/kit': ^1.3.9
   '@tailwindcss/forms': ^0.5.3
   autoprefixer: ^10.4.13
   cookie: ^0.5.0
@@ -18,10 +18,10 @@ specifiers:
   prettier-plugin-svelte: ^2.9.0
   sortablejs: ^1.15.0
   svelte: ^3.55.1
-  svelte-modals: 1.2.0-beta.0
+  svelte-modals: ^1.2.1
   svelte-preprocess: ^4.10.7
   tailwindcss: ^3.2.4
-  vite: 4.0.4
+  vite: ^4.0.4
 
 dependencies:
   '@fortawesome/fontawesome-free': 6.2.1
@@ -31,7 +31,7 @@ dependencies:
   ms: 2.1.3
   postcss: 8.4.21
   sortablejs: 1.15.0
-  svelte-modals: 1.2.0-beta.0
+  svelte-modals: 1.2.1_svelte@3.55.1
 
 devDependencies:
   '@sveltejs/adapter-node': 1.1.4_@sveltejs+kit@1.3.9
@@ -556,7 +556,7 @@ packages:
       postcss: ^8.1.0
     dependencies:
       browserslist: 4.21.5
-      caniuse-lite: 1.0.30001449
+      caniuse-lite: 1.0.30001450
       fraction.js: 4.2.0
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -598,7 +598,7 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001449
+      caniuse-lite: 1.0.30001450
       electron-to-chromium: 1.4.284
       node-releases: 2.0.9
       update-browserslist-db: 1.0.10_browserslist@4.21.5
@@ -630,8 +630,8 @@ packages:
     engines: {node: '>= 6'}
     dev: true
 
-  /caniuse-lite/1.0.30001449:
-    resolution: {integrity: sha512-CPB+UL9XMT/Av+pJxCKGhdx+yg1hzplvFJQlJ2n68PyQGMz9L/E2zCyLdOL8uasbouTUgnPl+y0tccI/se+BEw==}
+  /caniuse-lite/1.0.30001450:
+    resolution: {integrity: sha512-qMBmvmQmFXaSxexkjjfMvD5rnDL0+m+dUMZKoDYsGG8iZN29RuYh9eRoMvKsT6uMAWlyUUGDEQGJJYjzCIO9ew==}
     dev: true
 
   /chalk/4.1.2:
@@ -1714,8 +1714,12 @@ packages:
       svelte: 3.55.1
     dev: true
 
-  /svelte-modals/1.2.0-beta.0:
-    resolution: {integrity: sha512-c6bHI9iGryCTUixJ8hHeG6mlus5AJUEBiB2B+iRTergQE429S1vME55XBdc8HU71X8e9xWOcjWAKm3X1oLpg8Q==}
+  /svelte-modals/1.2.1_svelte@3.55.1:
+    resolution: {integrity: sha512-7MEKUx5wb5YppkXWFGeRlYM5FMGEnpix39u9Y6GtCNTMXRDZ7DB2Z50IYLMRTMW5lOsCdtJgFbB0E3iZMKmsAA==}
+    peerDependencies:
+      svelte: ^3.0.0
+    dependencies:
+      svelte: 3.55.1
     dev: false
 
   /svelte-preprocess/4.10.7_pehl75e5jsy22vp33udjja4soi:
@@ -1772,7 +1776,6 @@ packages:
   /svelte/3.55.1:
     resolution: {integrity: sha512-S+87/P0Ve67HxKkEV23iCdAh/SX1xiSfjF1HOglno/YTbSTW7RniICMCofWGdJJbdjw3S+0PfFb1JtGfTXE0oQ==}
     engines: {node: '>= 8'}
-    dev: true
 
   /tailwindcss/3.2.4_postcss@8.4.21:
     resolution: {integrity: sha512-AhwtHCKMtR71JgeYDaswmZXhPcW9iuI9Sp2LvZPo9upDZ7231ZJ7eA9RaURbhpXGVlrjX4cFNlB4ieTetEb7hQ==}

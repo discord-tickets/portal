@@ -7,7 +7,7 @@
 	import MenuQuestion from './MenuQuestion.svelte';
 	import Required from '../Required.svelte';
 	import { questionsStore } from './store';
-	import { PUBLIC_HOST } from '$env/static/public';
+	import { ROOT } from '$lib/constants';
 
 	let loading = {};
 	let expanded = null;
@@ -42,7 +42,7 @@
 			const confirmed = confirm('Are you sure? This will delete all responses.');
 			if (!confirmed) return false;
 			loading[q.id] = true;
-			const url = `${PUBLIC_HOST}/api/admin/guilds/${$page.params.guild}/categories/${$page.params.category}/questions/${q.id}`;
+			const url = `${ROOT}/api/admin/guilds/${$page.params.guild}/categories/${$page.params.category}/questions/${q.id}`;
 			const response = await fetch(url, {
 				credentials: 'include',
 				method: 'DELETE',

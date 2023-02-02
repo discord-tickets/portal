@@ -2,7 +2,7 @@
 	export let user;
 	export let isDark;
 
-	import { PUBLIC_HOST } from '$env/static/public';
+	import { ROOT } from '$lib/constants';
 	import { base } from '$app/paths';
 	import ms from 'ms';
 
@@ -30,7 +30,7 @@
 				class="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left md:float-right flex items-center justify-center md:justify-end"
 			>
 				<a
-					href={`${PUBLIC_HOST}/auth/logout`}
+					href={`${ROOT}/auth/logout`}
 					class="flex items-center justify-center md:justify-end hover:font-medium"
 					title="Logout"
 				>

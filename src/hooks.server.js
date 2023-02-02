@@ -1,5 +1,3 @@
-import crypto from 'crypto';
-
 /** @type {import('@sveltejs/kit').Handle} */
 export async function handle({ event, resolve }) {
 	const response = await resolve(event, {
@@ -10,10 +8,12 @@ export async function handle({ event, resolve }) {
 
 /** @type {import('@sveltejs/kit').HandleServerError} */
 export function handleError({ error }) {
-	const errorId = crypto.randomUUID();
+	const errorId = Date.now().toString(16);
 	console.error(errorId, error);
+	let message =
+		typeof error === 'string' ? error : error?.message || JSON.stringify(error || 'Unknown error');
 	return {
-		error,
+		message: message + ` (id=${errorId})`,
 		errorId
 	};
 }

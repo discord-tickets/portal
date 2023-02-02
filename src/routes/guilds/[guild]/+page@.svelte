@@ -44,7 +44,7 @@
 		{/if}
 		<div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
 			<a
-				href={guild.id + '/settings'}
+				href={guild.id + '/general'}
 				class="bg-gray-100 dark:bg-slate-800 p-4 rounded-xl shadow-sm link"
 			>
 				<i class="fas fa-gears text-4xl mb-4" />

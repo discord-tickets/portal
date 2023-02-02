@@ -1,9 +1,9 @@
 import { error, redirect } from '@sveltejs/kit';
-import { PUBLIC_HOST } from '$env/static/public';
+import { ROOT } from '$lib/constants';
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ fetch, params }) {
-	const url = `${PUBLIC_HOST}/api/admin/guilds/${params.guild}/categories`;
+	const url = `${ROOT}/api/admin/guilds/${params.guild}/categories`;
 	const fetchOptions = { credentials: 'include' };
 
 	let body;
@@ -32,7 +32,7 @@ export async function load({ fetch, params }) {
 		const isJSON = response.headers.get('Content-Type')?.includes('json');
 		body = isJSON ? await response.json() : await response.text();
 		if (response.status === 401) {
-			throw redirect(307, `${PUBLIC_HOST}/auth/login`);
+			throw redirect(307, `${ROOT}/auth/login`);
 		} else if (!response.ok) {
 			throw error(response.status, isJSON ? JSON.stringify(body) : body);
 		}
@@ -43,15 +43,12 @@ export async function load({ fetch, params }) {
 		category: body,
 		channels: await (
 			await fetch(
-				`${PUBLIC_HOST}/api/admin/guilds/${params.guild}/data?query=channels.cache`,
+				`${ROOT}/api/admin/guilds/${params.guild}/data?query=channels.cache`,
 				fetchOptions
 			)
 		).json(),
 		roles: await (
-			await fetch(
-				`${PUBLIC_HOST}/api/admin/guilds/${params.guild}/data?query=roles.cache`,
-				fetchOptions
-			)
+			await fetch(`${ROOT}/api/admin/guilds/${params.guild}/data?query=roles.cache`, fetchOptions)
 		).json()
 	};
 }
