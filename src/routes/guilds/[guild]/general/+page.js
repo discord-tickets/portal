@@ -4,7 +4,10 @@ import { env } from '$env/dynamic/public';
 /** @type {import('./$types').PageLoad} */
 export async function load({ fetch, params }) {
 	const fetchOptions = { credentials: 'include' };
-	const response = await fetch(`${env.PUBLIC_HOST}/api/admin/guilds/${params.guild}/settings`, fetchOptions);
+	const response = await fetch(
+		`${env.PUBLIC_HOST}/api/admin/guilds/${params.guild}/settings`,
+		fetchOptions
+	);
 	const isJSON = response.headers.get('Content-Type')?.includes('json');
 	const body = isJSON ? await response.json() : await response.text();
 	if (response.status === 401) {

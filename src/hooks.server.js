@@ -16,9 +16,8 @@ export function handleError({ error }) {
 
 	process?.emit('sveltekit:error', { error, errorId });
 
-	let message = typeof error === 'string'
-		? error
-		: error?.message || JSON.stringify(error || 'Unknown error');
+	let message =
+		typeof error === 'string' ? error : error?.message || JSON.stringify(error || 'Unknown error');
 
 	return {
 		message: message + ` (id=${errorId})`,
