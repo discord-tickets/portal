@@ -2,7 +2,7 @@ import { error, redirect } from '@sveltejs/kit';
 import { env } from '$env/dynamic/public';
 
 /** @type {import('./$types').PageLoad} */
-export async function load({ fetch, params, url }) {
+export async function load({ fetch, params }) {
 	const fetchOptions = { credentials: 'include' };
 	let body;
 	if (params.category === 'new') {
@@ -39,8 +39,11 @@ export async function load({ fetch, params, url }) {
 		}
 	}
 
+	let url = `${env.PUBLIC_HOST}/api/admin/guilds/${params.guild}/categories`;
+	if (params.category !== 'new') url += params.category;
+
 	return {
-		url: params.category === 'new' ? url : `${url}/${params.category}`,
+		url,
 		category: body,
 		channels: await (
 			await fetch(
