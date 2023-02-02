@@ -27,7 +27,10 @@ export async function load({ fetch, params, url }) {
 			totalLimit: 50
 		};
 	} else {
-		const response = await fetch(`${origin}/api/admin/guilds/${params.guild}/categories/${params.category}`, fetchOptions);
+		const response = await fetch(
+			`${origin}/api/admin/guilds/${params.guild}/categories/${params.category}`,
+			fetchOptions
+		);
 		const isJSON = response.headers.get('Content-Type')?.includes('json');
 		body = isJSON ? await response.json() : await response.text();
 		if (response.status === 401) {

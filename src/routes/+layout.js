@@ -4,7 +4,7 @@ import { getOrigin } from '$lib/constants';
 /** @type {import('./$types').PageLoad} */
 export async function load({ data, fetch, url }) {
 	const origin = getOrigin(url);
-	console.log(origin)
+	console.log(origin);
 	const response = await fetch(`${origin}/api/users/@me`, {
 		credentials: 'include',
 		mode: 'cors'

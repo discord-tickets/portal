@@ -5,7 +5,10 @@ import { getOrigin } from '$lib/constants';
 export async function load({ fetch, params, url }) {
 	const origin = getOrigin(url);
 	const fetchOptions = { credentials: 'include' };
-	const response = await fetch(`${origin}/api/admin/guilds/${params.guild}/categories`, fetchOptions);
+	const response = await fetch(
+		`${origin}/api/admin/guilds/${params.guild}/categories`,
+		fetchOptions
+	);
 	const isJSON = response.headers.get('Content-Type')?.includes('json');
 	const body = isJSON ? await response.json() : await response.text();
 	if (response.status === 401) {

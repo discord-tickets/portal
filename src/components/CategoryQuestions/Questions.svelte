@@ -42,7 +42,9 @@
 			const confirmed = confirm('Are you sure? This will delete all responses.');
 			if (!confirmed) return false;
 			loading[q.id] = true;
-			const url = `${getOrigin(page.url)}/api/admin/guilds/${$page.params.guild}/categories/${$page.params.category}/questions/${q.id}`;
+			const url = `${getOrigin(page.url)}/api/admin/guilds/${$page.params.guild}/categories/${
+				$page.params.category
+			}/questions/${q.id}`;
 			const response = await fetch(url, {
 				credentials: 'include',
 				method: 'DELETE',

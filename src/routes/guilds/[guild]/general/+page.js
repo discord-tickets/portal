@@ -24,7 +24,10 @@ export async function load({ fetch, params, url }) {
 			).json(),
 			locales: await (await fetch(`${origin}/api/locales`, fetchOptions)).json(),
 			roles: await (
-				await fetch(`${origin}/api/admin/guilds/${params.guild}/data?query=roles.cache`, fetchOptions)
+				await fetch(
+					`${origin}/api/admin/guilds/${params.guild}/data?query=roles.cache`,
+					fetchOptions
+				)
 			).json()
 		};
 	}
