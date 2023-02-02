@@ -1,4 +1,4 @@
 import { dev } from '$app/environment';
 import { PUBLIC_HOST } from '$env/static/public';
 
-export const ROOT = dev ? PUBLIC_HOST : '';
+export const getOrigin = url => dev ? PUBLIC_HOST : url.origin;

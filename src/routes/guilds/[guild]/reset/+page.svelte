@@ -1,8 +1,8 @@
 <script>
 	import { page } from '$app/stores';
-	import { ROOT } from '$lib/constants';
-
-	const url = `${ROOT}/api/admin/guilds/${$page.params.guild}/settings`;
+	import { getOrigin } from '$lib/constants';
+	const origin = getOrigin(page.url);
+	const url = `${origin}/api/admin/guilds/${$page.params.guild}/settings`;
 
 	let error = null;
 	let loading = false;
