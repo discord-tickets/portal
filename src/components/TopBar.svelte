@@ -2,9 +2,8 @@
 	export let user;
 	export let isDark;
 
-	import { page } from '$app/stores';
 	import { base } from '$app/paths';
-	import { getOrigin } from '$lib/constants';
+	import { env } from '$env/dynamic/public';
 	import ms from 'ms';
 
 	const toggle = () => {
@@ -31,7 +30,7 @@
 				class="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left md:float-right flex items-center justify-center md:justify-end"
 			>
 				<a
-					href={`${getOrigin(page.url)}/auth/logout`}
+					href={`${env.PUBLIC_HOST}/auth/logout`}
 					class="flex items-center justify-center md:justify-end hover:font-medium"
 					title="Logout"
 				>

@@ -5,7 +5,7 @@
 	import { page } from '$app/stores';
 	import emoji from 'emoji-name-map';
 	import Required from '$components/Required.svelte';
-	import { getOrigin } from '$lib/constants';
+	import { env } from '$env/dynamic/public';
 
 	let { categories, channels } = data;
 	channels = channels.filter((c) => c.type === 0); // text
@@ -31,7 +31,7 @@
 			loading = true;
 			const json = { ...panel };
 			if (json.channel === 'new') json.channel = null;
-			const url = `${getOrigin(page.url)}/api/admin/guilds/${$page.params.guild}/panels`;
+			const url = `${env.PUBLIC_HOST}/api/admin/guilds/${$page.params.guild}/panels`;
 			const response = await fetch(url, {
 				method: 'POST',
 				body: JSON.stringify(json),
