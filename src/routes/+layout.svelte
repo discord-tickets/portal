@@ -102,7 +102,7 @@
 										<a
 											href={link.url}
 											target="_blank"
-											class="bg-gray-50/75 dark:bg-slate-800/75 p-0 px-2 rounded-3xl shadow-sm text-gray-500 dark:text-slate-400 font-medium link"
+											class="bg-gray-50/75 dark:bg-slate-800/75 p-0.5 px-2 rounded-3xl shadow-sm text-gray-500 dark:text-slate-400 font-medium link"
 										>
 											<i class={link.icon} />
 											{link.name}
