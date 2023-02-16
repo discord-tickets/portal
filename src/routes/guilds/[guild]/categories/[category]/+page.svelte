@@ -7,7 +7,30 @@
 	import { marked } from 'marked';
 	import CategoryQuestions from '$components/CategoryQuestions/Questions.svelte';
 	import Required from '$components/Required.svelte';
-	import { getContext } from 'svelte';
+	import { applyPolyfills, defineCustomElements } from '@skyra/discord-components-core/loader';
+	import { getContext, onMount } from 'svelte';
+	import { beforeNavigate } from '$app/navigation';
+
+	let modified = false;
+
+	beforeNavigate((navigation) => {
+		if (modified && !confirm('You have unsaved changes; are you sure you want to leave?')) {
+			navigation.cancel();
+		}
+	});
+
+	onMount(async () => {
+		applyPolyfills().then(() => {
+			defineCustomElements();
+		});
+
+		window.addEventListener('beforeunload', (event) => {
+			if (modified) {
+				event.preventDefault();
+				event.returnValue = '';
+			}
+		});
+	});
 
 	let { category, channels, roles, url } = data;
 
@@ -28,12 +51,11 @@
 	];
 
 	channels = channels.filter((c) => c.type === 4); // category
-	roles = roles
-		.filter((r) => r.name !== '@everyone')
-		.map((r) => ({
-			...r,
-			_style: r.color > 0 ? `color: #${r.color.toString(16).padStart(6, '0')}` : ''
-		}));
+	roles = roles.filter((r) => r.name !== '@everyone');
+	roles.forEach((r) => {
+		r._hexColor = r.color > 0 ? `#${r.color.toString(16).padStart(6, '0')}` : null;
+		r._style = r._hexColor ? `color: ${r._hexColor}` : '';
+	});
 	category.questions.forEach((q) => (q._id = q.id));
 	category.cooldown = category.cooldown ? ms(category.cooldown) : '';
 
@@ -61,8 +83,12 @@
 			});
 			const body = await response.json();
 
-			if (!response.ok) throw body;
-			else window.location = './';
+			if (!response.ok) {
+				throw body;
+			} else {
+				modified = false;
+				window.location = './';
+			}
 		} catch (err) {
 			loadingSubmit = false;
 			error = err;
@@ -103,14 +129,9 @@
 		}
 	};
 
-	$: category.requireTopic = category.questions.length > 0 ? false : category.requireTopic;
+	const getRole = (id) => roles.find((r) => r.id === id);
 
-	// window.addEventListener('beforeunload', event => {
-	// 	if () {
-	// 		event.preventDefault();
-	// 		event.returnValue = '';
-	// 	}
-	// });
+	$: category.requireTopic = category.questions.length > 0 ? false : category.requireTopic;
 </script>
 
 <div class="mb-8 text-orange-600 dark:text-orange-400 text-center">
@@ -139,7 +160,7 @@
 			</div>
 		</div>
 	{/if}
-	<form on:submit|preventDefault={() => submit()} class="my-4">
+	<form on:submit|preventDefault={() => submit()} on:change={() => (modified = true)} class="my-4">
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
 			<div class="grid grid-cols-1 gap-8">
 				<div>
@@ -172,7 +193,7 @@
 						/>
 					</label>
 					{#if category.channelName}
-						<p class="text-sm font-medium">Output</p>
+						<p class="text-sm font-semibold mt-2 mb-1">Preview</p>
 						<div
 							class="block p-3 w-full rounded-md shadow-sm bg-blurple/20 dark:bg-blurple/20 text-sm font-mono break-words"
 						>
@@ -316,19 +337,71 @@
 						<textarea
 							class="form-input input"
 							required
+							rows="4"
 							maxlength="1000"
 							bind:value={category.openingMessage}
 						/>
 					</label>
 					{#if category.openingMessage}
-						<p class="text-sm font-medium">Output</p>
-						<div
-							class="block p-3 w-full rounded-md shadow-sm bg-blurple/20 dark:bg-blurple/20 text-sm font-mono break-words"
+						<p class="text-sm font-semibold mt-2 mb-1">Preview</p>
+						<discord-messages
+							no-background={true}
+							light-theme={data.theme !== 'dark'}
+							class="bloc w-full border-0"
 						>
-							{@html marked
-								.parse(category.openingMessage.replace(/\n/g, '\n\n'))
-								.replace(/{+\s?(user)?name\s?}+/gi, '@' + getContext('user').username)}
-						</div>
+							<discord-message
+								author={data.client.username}
+								avatar={data.client.avatar}
+								bot={true}
+								timestamp={`Today at ${new Date().toLocaleTimeString('default', {
+									hour: 'numeric',
+									minute: 'numeric'
+								})}`}
+								class="py-2"
+							>
+								{#if category.pingRoles?.length > 0}
+									{#each category.pingRoles as id, index}
+										{#if index > 0}
+											{' '}
+										{/if}
+										<discord-mention color={getRole(id)._hexColor} type="role">
+											{getRole(id).name}
+										</discord-mention>
+									{/each}
+									, <br />
+								{/if}
+								<discord-mention highlight>{data.user.username}</discord-mention>
+								has created a new ticket
+								<discord-embed
+									slot="embeds"
+									color={data.settings.primaryColour}
+									image={category.image}
+								>
+									<discord-embed-description slot="description">
+										{@html marked
+											.parse(category.openingMessage)
+											.replace(
+												/{+\s?(user)?name\s?}+/gi,
+												`<discord-mention>${data.user.username}</discord-mention>`
+											)
+											.replace(/{+\s?avgResponseTime\s?}+/gi, data.guild.stats.avgResponseTime)
+											.replace(/{+\s?avgResolutionTime\s?}+/gi, data.guild.stats.avgResolutionTime)}
+									</discord-embed-description>
+									{#if category.requireTopic}
+										<discord-embed-fields slot="fields">
+											<discord-embed-field field-title="Topic">
+												This is a pretty good preview
+											</discord-embed-field>
+										</discord-embed-fields>
+									{/if}
+									{#if data.settings.footer}
+										<discord-embed-footer slot="footer" footer-image={data.client.avatar}>
+											{data.settings.footer}
+										</discord-embed-footer>
+									{/if}
+								</discord-embed>
+							</discord-message>
+						</discord-messages>
 					{/if}
 				</div>
 				<div>
@@ -340,7 +413,7 @@
 						/>
 						<select
 							multiple
-							class="form-multiselect input font-normal"
+							class="form-multiselect input font-normal h-44"
 							bind:value={category.pingRoles}
 						>
 							{#each roles as role}
@@ -382,7 +455,7 @@
 						/>
 						<select
 							multiple
-							class="form-multiselect input font-normal"
+							class="form-multiselect input font-normal h-44"
 							bind:value={category.requiredRoles}
 						>
 							{#each roles as role}
@@ -422,7 +495,7 @@
 						<select
 							multiple
 							required
-							class="form-multiselect input font-normal"
+							class="form-multiselect input font-normal h-44"
 							bind:value={category.staffRoles}
 						>
 							{#each roles as role}

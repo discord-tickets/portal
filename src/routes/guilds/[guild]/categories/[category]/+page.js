@@ -56,6 +56,12 @@ export async function load({ fetch, params }) {
 				`${env.PUBLIC_HOST}/api/admin/guilds/${params.guild}/data?query=roles.cache`,
 				fetchOptions
 			)
+		).json(),
+		settings: await (
+			await fetch(
+				`${env.PUBLIC_HOST}/api/admin/guilds/${params.guild}/settings`,
+				fetchOptions
+			)
 		).json()
 	};
 }
