@@ -6,6 +6,25 @@
 	import ms from 'ms';
 	import { fade } from 'svelte/transition';
 	import Required from '$components/Required.svelte';
+	import { onMount } from 'svelte';
+	import { beforeNavigate } from '$app/navigation';
+
+	let modified = false;
+
+	beforeNavigate((navigation) => {
+		if (modified && !confirm('You have unsaved changes; are you sure you want to leave?')) {
+			navigation.cancel();
+		}
+	});
+
+	onMount(() => {
+		window.addEventListener('beforeunload', (event) => {
+			if (modified) {
+				event.preventDefault();
+				event.returnValue = '';
+			}
+		});
+	});
 
 	let { settings, channels, locales, roles, url } = data;
 	const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -45,8 +64,13 @@
 				}
 			});
 			const body = await response.json();
-			if (!response.ok) throw body;
-			else window.location = './';
+
+			if (!response.ok) {
+				throw body;
+			} else {
+				modified = false;
+				window.location = './';
+			}
 		} catch (err) {
 			loading = false;
 			error = err;
@@ -81,7 +105,7 @@
 			to avoid breaking something.
 		</p>
 	</div>
-	<form on:submit|preventDefault={() => submit()}>
+	<form on:submit|preventDefault={() => submit()} on:change={() => (modified = true)}>
 		<div class="my-4 grid grid-cols-1 gap-8">
 			<div>
 				<label class="font-medium">
