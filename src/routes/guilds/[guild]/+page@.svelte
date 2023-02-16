@@ -8,7 +8,7 @@
 
 	let createdAt = '';
 	onMount(() => {
-		createdAt = new Intl.DateTimeFormat("default").format(new Date(guild.createdAt)); // navigator.languages[0]
+		createdAt = new Intl.DateTimeFormat('default').format(new Date(guild.createdAt)); // navigator.languages[0]
 	});
 
 	const getProblemText = (p) => {

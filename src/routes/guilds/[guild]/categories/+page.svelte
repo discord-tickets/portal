@@ -29,9 +29,7 @@
 							<p>
 								<i class="fa-solid fa-calendar-days mr-2" />
 								Created
-								{new Intl.DateTimeFormat("default").format(
-									new Date(category.createdAt)
-								)}
+								{new Intl.DateTimeFormat('default').format(new Date(category.createdAt))}
 							</p>
 						{/if}
 						<p>

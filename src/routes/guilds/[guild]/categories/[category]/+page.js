@@ -58,10 +58,7 @@ export async function load({ fetch, params }) {
 			)
 		).json(),
 		settings: await (
-			await fetch(
-				`${env.PUBLIC_HOST}/api/admin/guilds/${params.guild}/settings`,
-				fetchOptions
-			)
+			await fetch(`${env.PUBLIC_HOST}/api/admin/guilds/${params.guild}/settings`, fetchOptions)
 		).json()
 	};
 }
