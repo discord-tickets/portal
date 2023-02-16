@@ -28,7 +28,12 @@
 	];
 
 	channels = channels.filter((c) => c.type === 4); // category
-	roles = roles.filter((r) => r.name !== '@everyone');
+	roles = roles
+		.filter((r) => r.name !== '@everyone')
+		.map((r) => ({
+			...r,
+			_style: r.color > 0 ? `color: #${r.color.toString(16).padStart(6, '0')}` : ''
+		}));
 	category.questions.forEach((q) => (q._id = q.id));
 	category.cooldown = category.cooldown ? ms(category.cooldown) : '';
 
@@ -339,8 +344,8 @@
 							bind:value={category.pingRoles}
 						>
 							{#each roles as role}
-								<option value={role.id} class="p-1 m-1 rounded">
-									<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" />
+								<option value={role.id} class="p-1 m-1 rounded" style={role._style}>
+									<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" style={role._style} />
 									{role.name}
 								</option>
 							{/each}
@@ -381,8 +386,8 @@
 							bind:value={category.requiredRoles}
 						>
 							{#each roles as role}
-								<option value={role.id} class="p-1 m-1 rounded">
-									<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" />
+								<option value={role.id} class="p-1 m-1 rounded" style={role._style}>
+									<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" style={role._style} />
 									{role.name}
 								</option>
 							{/each}
@@ -421,8 +426,8 @@
 							bind:value={category.staffRoles}
 						>
 							{#each roles as role}
-								<option value={role.id} class="p-1 m-1 rounded">
-									<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" />
+								<option value={role.id} class="p-1 m-1 rounded" style={role._style}>
+									<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" style={role._style} />
 									{role.name}
 								</option>
 							{/each}
