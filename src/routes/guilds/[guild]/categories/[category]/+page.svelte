@@ -400,6 +400,16 @@
 										</discord-embed-footer>
 									{/if}
 								</discord-embed>
+								<discord-attachments slot="components">
+									<discord-action-row>
+										{#if category.requireTopic || category.questions.length > 0}
+											<discord-button type="secondary">✏️ Edit</discord-button>
+										{/if}
+										{#if data.settings.closeButton}
+											<discord-button type="destructive">✖️ Close</discord-button>
+										{/if}
+									</discord-action-row>
+								</discord-attachments>
 							</discord-message>
 						</discord-messages>
 					{/if}
