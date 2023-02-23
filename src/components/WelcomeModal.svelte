@@ -52,7 +52,7 @@
 						<div class="flex flex-col gap-2">
 							<h4 class="text-center leading-tight text-xl font-semibold">But before you begin</h4>
 							<a
-								href="https://discordtickets.app"
+								href="https://discordtickets.app/configuration/"
 								target="_blank"
 								class="bg-gray-100/50 dark:bg-slate-800/50 p-4 rounded-xl group link"
 							>
