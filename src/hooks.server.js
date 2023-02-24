@@ -9,12 +9,12 @@ export async function handle({ event, resolve }) {
 }
 
 /** @type {import('@sveltejs/kit').HandleServerError} */
-export function handleError({ error }) {
+export function handleError({ error, event }) {
 	const errorId = Date.now().toString(16);
 
-	if (dev) console.error(errorId, error);
+	if (dev || process?.env.NODE_ENV === 'development') console.error(errorId, error, event);
 
-	process?.emit('sveltekit:error', { error, errorId });
+	process?.emit('sveltekit:error', { error, errorId, event });
 
 	let message =
 		typeof error === 'string' ? error : error?.message || JSON.stringify(error || 'Unknown error');
