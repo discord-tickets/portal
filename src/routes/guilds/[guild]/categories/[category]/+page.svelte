@@ -102,7 +102,7 @@
 	const del = async () => {
 		try {
 			const confirmed = confirm(
-				'Are you sure?\nThis will delete all associated tickets (including question answers).'
+				'Are you sure?\nThis will delete all associated tickets (including messages, feedback, etc).'
 			);
 			if (!confirmed) return false;
 			// error = null;
