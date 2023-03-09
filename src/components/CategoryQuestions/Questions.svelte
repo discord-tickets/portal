@@ -123,7 +123,7 @@
 									>
 										<option value={null} class="p-1" default disabled>Select an input type</option>
 										<option value="TEXT" class="p-1"> Text </option>
-										<option value="MENU" class="p-1"> Select menu </option>
+										<option value="MENU" class="p-1" disabled title="Disabled until supported by Discord"> Select menu </option>
 									</select>
 								</label>
 							</div>
