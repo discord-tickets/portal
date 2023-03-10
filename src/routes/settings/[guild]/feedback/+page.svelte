@@ -15,7 +15,10 @@
 		/>
 	</div>
 	<div class="my-8 text-lg font-semibold">
-		<a href={`${base}/${$page.params.guild}/feedback`} class="hover:text-blurple transition duration-300">
+		<a
+			href={`${base}/${$page.params.guild}/feedback`}
+			class="hover:text-blurple transition duration-300"
+		>
 			View feedback in the portal
 			<i class="fa-solid fa-arrow-right-long" />
 		</a>

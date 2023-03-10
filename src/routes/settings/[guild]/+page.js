@@ -1,5 +1,4 @@
 import { error, redirect } from '@sveltejs/kit';
-import { env } from '$env/dynamic/public';
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ fetch, params }) {

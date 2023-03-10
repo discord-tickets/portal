@@ -109,6 +109,7 @@
 										<a
 											href={link.url}
 											target="_blank"
+											rel="noopener noreferrer"
 											class="bg-gray-50/75 dark:bg-slate-800/75 p-0.5 px-2 rounded-3xl shadow-sm text-gray-500 dark:text-slate-400 font-medium link"
 										>
 											<i class={link.icon} />
@@ -118,18 +119,29 @@
 								</div>
 							{/if}
 							<p>
-								<a href="https://discordtickets.app" target="_blank" class="hover:text-blurple dark:hover:text-blurple cursor-pointer transition duration-300"
+								<a
+									href="https://discordtickets.app"
+									target="_blank"
+									rel="noopener noreferrer"
+									class="hover:text-blurple dark:hover:text-blurple cursor-pointer transition duration-300"
 									>Discord Tickets</a
 								>
 								by
-								<a href="https://eartharoid.me" target="_blank" class="hover:text-blurple dark:hover:text-blurple cursor-pointer transition duration-300"
+								<a
+									href="https://eartharoid.me"
+									target="_blank"
+									rel="noopener noreferrer"
+									class="hover:text-blurple dark:hover:text-blurple cursor-pointer transition duration-300"
 									>eartharoid&trade;</a
 								>
 							</p>
 							<p>
 								<i class="fa-solid fa-copyright" />
 								{new Date().getFullYear()}
-								<a href="https://eartharoid.me" target="_blank" class="hover:text-blurple dark:hover:text-blurple cursor-pointer transition duration-300"
+								<a
+									href="https://eartharoid.me"
+									target="_blank"
+									class="hover:text-blurple dark:hover:text-blurple cursor-pointer transition duration-300"
 									>Isaac Saunders</a
 								>
 							</p>

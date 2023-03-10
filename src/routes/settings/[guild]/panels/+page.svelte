@@ -5,7 +5,6 @@
 	import { page } from '$app/stores';
 	import emoji from 'emoji-name-map';
 	import Required from '$components/Required.svelte';
-	import { env } from '$env/dynamic/public';
 
 	let { categories, channels } = data;
 	channels = channels.filter((c) => c.type === 0); // text

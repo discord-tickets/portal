@@ -2,7 +2,6 @@
 	export let state;
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
-	import { env } from '$env/dynamic/public';
 	import Sortable from 'sortablejs';
 	import TextQuestion from './TextQuestion.svelte';
 	import MenuQuestion from './MenuQuestion.svelte';
@@ -123,7 +122,14 @@
 									>
 										<option value={null} class="p-1" default disabled>Select an input type</option>
 										<option value="TEXT" class="p-1"> Text </option>
-										<option value="MENU" class="p-1" disabled title="Disabled until supported by Discord"> Select menu </option>
+										<option
+											value="MENU"
+											class="p-1"
+											disabled
+											title="Disabled until supported by Discord"
+										>
+											Select menu
+										</option>
 									</select>
 								</label>
 							</div>

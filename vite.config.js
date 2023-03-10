@@ -8,19 +8,19 @@ const config = {
 		proxy: {
 			'/api': {
 				target: 'http://127.0.0.1',
-				changeOrigin: true,
+				changeOrigin: true
 			},
 			'/attachments': {
 				target: 'http://127.0.0.1',
-				changeOrigin: true,
+				changeOrigin: true
 			},
 			'/auth': {
 				target: 'http://127.0.0.1',
-				changeOrigin: true,
+				changeOrigin: true
 			},
 			'/avatars': {
 				target: 'http://127.0.0.1',
-				changeOrigin: true,
+				changeOrigin: true
 			}
 		}
 	}

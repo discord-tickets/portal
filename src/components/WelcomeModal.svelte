@@ -54,6 +54,7 @@
 							<a
 								href="https://discordtickets.app/configuration/"
 								target="_blank"
+								rel="noopener noreferrer"
 								class="bg-gray-100/50 dark:bg-slate-800/50 p-4 rounded-xl group link"
 							>
 								<div class="flex items-center gap-2 md:gap-4">
@@ -83,6 +84,7 @@
 							<a
 								href="https://lnk.earth/dsctickets-survey"
 								target="_blank"
+								rel="noopener noreferrer"
 								class="bg-gray-100/50 dark:bg-slate-800/50 border-4 border-blurple p-4 rounded-xl group link"
 							>
 								<div class="flex items-center gap-2 md:gap-4">

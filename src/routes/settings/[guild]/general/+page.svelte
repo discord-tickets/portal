@@ -28,7 +28,7 @@
 	});
 
 	let { settings, channels, locales, roles } = data;
-	
+
 	const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 	const expanded = { workingHours: false };
 

@@ -1,5 +1,4 @@
 import { error, redirect } from '@sveltejs/kit';
-import { env } from '$env/dynamic/public';
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ fetch, params }) {
@@ -46,19 +45,11 @@ export async function load({ fetch, params }) {
 		url,
 		category: body,
 		channels: await (
-			await fetch(
-				`/api/admin/guilds/${params.guild}/data?query=channels.cache`,
-				fetchOptions
-			)
+			await fetch(`/api/admin/guilds/${params.guild}/data?query=channels.cache`, fetchOptions)
 		).json(),
 		roles: await (
-			await fetch(
-				`/api/admin/guilds/${params.guild}/data?query=roles.cache`,
-				fetchOptions
-			)
+			await fetch(`/api/admin/guilds/${params.guild}/data?query=roles.cache`, fetchOptions)
 		).json(),
-		settings: await (
-			await fetch(`/api/admin/guilds/${params.guild}/settings`, fetchOptions)
-		).json()
+		settings: await (await fetch(`/api/admin/guilds/${params.guild}/settings`, fetchOptions)).json()
 	};
 }
