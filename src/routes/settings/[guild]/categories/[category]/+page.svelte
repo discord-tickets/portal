@@ -358,6 +358,7 @@
 									minute: 'numeric'
 								})}`}
 								class="py-2"
+								highlight
 							>
 								{#if category.pingRoles?.length > 0}
 									{#each category.pingRoles as id, index}

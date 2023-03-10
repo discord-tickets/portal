@@ -4,6 +4,6 @@ import { env } from '$env/dynamic/public';
 export async function load({ fetch }) {
 	const fetchOptions = { credentials: 'include' };
 	return {
-		guilds: await (await fetch(`${env.PUBLIC_HOST}/api/admin/guilds`, fetchOptions)).json()
+		guilds: await (await fetch(`/api/admin/guilds`, fetchOptions)).json()
 	};
 }

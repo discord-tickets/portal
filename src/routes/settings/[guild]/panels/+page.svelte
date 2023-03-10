@@ -31,7 +31,7 @@
 			loading = true;
 			const json = { ...panel };
 			if (json.channel === 'new') json.channel = null;
-			const url = `${env.PUBLIC_HOST}/api/admin/guilds/${$page.params.guild}/panels`;
+			const url = `/api/admin/guilds/${$page.params.guild}/panels`;
 			const response = await fetch(url, {
 				method: 'POST',
 				body: JSON.stringify(json),

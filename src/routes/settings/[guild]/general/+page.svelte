@@ -2,7 +2,8 @@
 	/** @type {import('./$types').PageData} */
 	export let data;
 
-	import zones from '../../../../timezones.json';
+	import { page } from '$app/stores';
+	import zones from '$lib/timezones.json';
 	import ms from 'ms';
 	import { fade } from 'svelte/transition';
 	import Required from '$components/Required.svelte';
@@ -26,7 +27,8 @@
 		});
 	});
 
-	let { settings, channels, locales, roles, url } = data;
+	let { settings, channels, locales, roles } = data;
+	
 	const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 	const expanded = { workingHours: false };
 
@@ -55,7 +57,7 @@
 			if (settings.logChannel === '') json.logChannel = null;
 			json.workingHours = settings.workingHours.map((v) => (v.length === 0 ? null : v));
 
-			const response = await fetch(url, {
+			const response = await fetch(`/api/admin/guilds/${$page.params.guild}/settings`, {
 				method: 'PATCH',
 				body: JSON.stringify(json),
 				credentials: 'include',

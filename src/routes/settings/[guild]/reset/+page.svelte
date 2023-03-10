@@ -1,8 +1,7 @@
 <script>
 	import { page } from '$app/stores';
-	import { env } from '$env/dynamic/public';
 
-	const url = `${env.PUBLIC_HOST}/api/admin/guilds/${$page.params.guild}/settings`;
+	const url = `/api/admin/guilds/${$page.params.guild}/settings`;
 
 	let error = null;
 	let loading = false;

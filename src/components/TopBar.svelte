@@ -8,7 +8,7 @@
 
 	const toggle = () => {
 		// localStorage.setItem('theme', isDark ? 'light' : 'dark');
-		document.cookie = `theme=${isDark ? 'light' : 'dark'}; max-age=${ms('1y') / 1000}; path=/`;
+		document.cookie = `theme=${isDark ? 'light' : 'dark'}; max-age=${Math.floor(ms('1y') / 1000)}; path=/`;
 		window.location = window.location; // eslint-disable-line
 	};
 </script>
@@ -16,7 +16,7 @@
 <div class="bg-white dark:bg-slate-700 my-8 p-4 rounded-xl shadow-sm">
 	<div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:mx-8">
 		<div>
-			<a href={base} class="flex justify-center md:justify-start">
+			<a href={base + '/settings'} class="flex justify-center md:justify-start">
 				<!-- <img src="/logo.png" class="h-8" alt="Discord Tickets" /> -->
 				<img
 					src="https://static.eartharoid.me/discord-tickets/logo/{isDark ? 'white' : 'dark'}.png"
@@ -30,7 +30,7 @@
 				class="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left md:float-right flex items-center justify-center md:justify-end"
 			>
 				<a
-					href={`${env.PUBLIC_HOST}/auth/logout`}
+					href={`/auth/logout`}
 					class="flex items-center justify-center md:justify-end hover:font-medium"
 					title="Logout"
 				>

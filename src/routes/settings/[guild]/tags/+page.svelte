@@ -2,9 +2,12 @@
 	/** @type {import('./$types').PageData} */
 	export let data;
 
+	import { page } from '$app/stores';
 	import TagInputs from '$components/TagInputs.svelte';
+	import { toasts, ToastContainer, BootstrapToast } from 'svelte-toasts';
 
-	let { url, tags } = data;
+	const url = `/api/admin/guilds/${$page.params.guild}/tags`;
+	let { tags } = data;
 	let shown = tags;
 	let loading = false;
 	let error = null;
@@ -14,6 +17,14 @@
 		regex: null
 	};
 	let expanded = null;
+	let search = '';
+
+	const filter = (value) => {
+		shown = tags.filter((t) => {
+			const regex = new RegExp(value.replace(/(?=\W)/g, '\\'), 'i');
+			return regex.test(t.name) || regex.test(t.regex) || regex.test(t.content);
+		});
+	};
 
 	const create = async () => {
 		try {
@@ -31,14 +42,27 @@
 			});
 			const body = await response.json();
 
-			if (!response.ok) throw body;
-			else window.location = './tags';
+			if (!response.ok) {
+				throw body;
+			} else {
+				tags.push(body);
+				filter(search);
+				loading = false;
+				toasts.add({
+					description: 'Tag created',
+					type: 'success'
+				});
+			}
 		} catch (err) {
 			loading = false;
 			error = err;
 			window.scroll({
 				top: 0,
 				behavior: 'smooth'
+			});
+			toasts.add({
+				description: 'Tag creation failed',
+				type: 'error'
 			});
 		}
 	};
@@ -59,14 +83,25 @@
 			});
 			const body = await response.json();
 
-			if (!response.ok) throw body;
-			else window.location = './tags';
+			if (!response.ok) {
+				throw body;
+			} else {
+				loading = false;
+				toasts.add({
+					description: 'Tag saved',
+					type: 'success'
+				});
+			}
 		} catch (err) {
 			loading = false;
 			error = err;
 			window.scroll({
 				top: 0,
 				behavior: 'smooth'
+			});
+			toasts.add({
+				description: 'Tag saving failed',
+				type: 'error'
 			});
 		}
 	};
@@ -76,17 +111,21 @@
 			error = null;
 			loading = true;
 
-			const response = await fetch(`${url}/${id}`, {
-				method: 'DELETE',
-				credentials: 'include',
-				headers: {
-					'Content-type': 'application/json; charset=UTF-8'
-				}
-			});
+			const response = await fetch(`${url}/${id}`, { method: 'DELETE' });
 			const body = await response.json();
-
-			if (!response.ok) throw body;
-			else window.location = './tags';
+			console.log(body);
+			if (!response.ok) {
+				throw body;
+			} else {
+				const index = tags.findIndex((t) => t.id === id);
+				tags.splice(index, 1);
+				filter(search);
+				loading = false;
+				toasts.add({
+					description: 'Tag deleted',
+					type: 'success'
+				});
+			}
 		} catch (err) {
 			loading = false;
 			error = err;
@@ -94,14 +133,11 @@
 				top: 0,
 				behavior: 'smooth'
 			});
+			toasts.add({
+				description: 'Tag deletion failed',
+				type: 'error'
+			});
 		}
-	};
-
-	const filter = (value) => {
-		shown = tags.filter((t) => {
-			const regex = new RegExp(value.replace(/(?=\W)/g, '\\'), 'i');
-			return regex.test(t.name) || regex.test(t.regex) || regex.test(t.content);
-		});
 	};
 </script>
 
@@ -133,6 +169,7 @@
 					type="text"
 					class="form-input input"
 					placeholder="Search"
+					bind:value={search}
 					on:input={(event) => filter(event.target.value)}
 				/>
 			</div>
@@ -209,3 +246,7 @@
 		</div>
 	</div>
 </div>
+
+<ToastContainer duration={3000} theme={data.theme} let:data={toasted}>
+	<BootstrapToast data={toasted} />
+</ToastContainer>

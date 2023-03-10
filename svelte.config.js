@@ -9,7 +9,7 @@ const config = {
 			$components: './src/components'
 		},
 		paths: {
-			base: '/settings'
+			// base: '/settings'
 		}
 	},
 	preprocess: [preprocess({ postcss: true })],

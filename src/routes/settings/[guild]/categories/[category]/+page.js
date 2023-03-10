@@ -27,19 +27,19 @@ export async function load({ fetch, params }) {
 		};
 	} else {
 		const response = await fetch(
-			`${env.PUBLIC_HOST}/api/admin/guilds/${params.guild}/categories/${params.category}`,
+			`/api/admin/guilds/${params.guild}/categories/${params.category}`,
 			fetchOptions
 		);
 		const isJSON = response.headers.get('Content-Type')?.includes('json');
 		body = isJSON ? await response.json() : await response.text();
 		if (response.status === 401) {
-			throw redirect(307, `${env.PUBLIC_HOST}/auth/login`);
+			throw redirect(307, `/auth/login`);
 		} else if (!response.ok) {
 			throw error(response.status, isJSON ? JSON.stringify(body) : body);
 		}
 	}
 
-	let url = `${env.PUBLIC_HOST}/api/admin/guilds/${params.guild}/categories`;
+	let url = `/api/admin/guilds/${params.guild}/categories`;
 	if (params.category !== 'new') url += `/${params.category}`;
 
 	return {
@@ -47,18 +47,18 @@ export async function load({ fetch, params }) {
 		category: body,
 		channels: await (
 			await fetch(
-				`${env.PUBLIC_HOST}/api/admin/guilds/${params.guild}/data?query=channels.cache`,
+				`/api/admin/guilds/${params.guild}/data?query=channels.cache`,
 				fetchOptions
 			)
 		).json(),
 		roles: await (
 			await fetch(
-				`${env.PUBLIC_HOST}/api/admin/guilds/${params.guild}/data?query=roles.cache`,
+				`/api/admin/guilds/${params.guild}/data?query=roles.cache`,
 				fetchOptions
 			)
 		).json(),
 		settings: await (
-			await fetch(`${env.PUBLIC_HOST}/api/admin/guilds/${params.guild}/settings`, fetchOptions)
+			await fetch(`/api/admin/guilds/${params.guild}/settings`, fetchOptions)
 		).json()
 	};
 }
