@@ -5,39 +5,87 @@
 	import { base } from '$app/paths';
 
 	const { client, guilds } = data;
+
+	const good = [];
+	const bad = [];
+
+	guilds.forEach((g) => {
+		if (g.added) {
+			good.push(g);
+		} else {
+			bad.push(g);
+		}
+	});
+
+	function getAuthUrl(guildId) {
+		const scopes = ['applications.commands', 'applications.commands.permissions.update', 'bot'];
+		const url = new URL('https://discord.com/oauth2/authorize');
+		url.searchParams.set('scope', scopes.join(' '));
+		url.searchParams.set('client_id', client.id);
+		url.searchParams.set('permissions', '268561488');
+		if (guildId) {
+			url.searchParams.set('guild_id', guildId);
+			url.searchParams.set('disable_guild_select', 'true');
+		}
+		return url.toString();
+	}
 </script>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
 	<div class="text-center">
-		<div class="grid grid-cols-1 gap-4">
-			<div>
-				<h3 class="font-bold text-xl">Guilds</h3>
-				{#if guilds.length === 0}
-					<p class="text-red-600 dark:text-red-400">Your bot isn't in any guilds.</p>
+		<div class="grid grid-cols-1 gap-8">
+			<div class="grid grid-cols-1 gap-4">
+				{#if good.length === 0}
+					<div class="my-4">
+						<h3 class="font-semibold text-xl">Add your bot to a guild to get started</h3>
+					</div>
 				{:else}
-					<p>These are the guilds that you can manage.</p>
+					<div class="my-4">
+						<h3 class="font-semibold text-xl">Manage your guilds</h3>
+					</div>
+					{#each good as guild}
+						<a href={`${base}/guilds/${guild.id}`}>
+							<div
+								class="bg-gray-100 dark:bg-slate-800 p-4 rounded-xl shadow-sm flex items-center gap-4 font-semibold text-lg link"
+							>
+								<img src={guild.logo} alt="" class="h-12 rounded-full" />
+								<span>{guild.name}</span>
+							</div>
+						</a>
+					{/each}
+					{#if bad.length > 0}
+						<hr class="border-white dark:border-slate-700 mt-4" />
+					{/if}
 				{/if}
 			</div>
-			<a
-				href={`https://discord.com/oauth2/authorize?scope=applications.commands%20bot&permissions=268561488&client_id=${client.id}`}
-				target="_blank"
-			>
-				<div
-					class="bg-gray-100 dark:bg-slate-800 p-4 rounded-xl shadow-sm font-semibold text-center text-lg link"
-				>
-					<i class="fa-solid fa-circle-plus mr-2" /><span>Add</span>
+
+			{#if good.length > 0}
+				<div class="my-4">
+					<h4 class="font-semibold">Add your bot to more guilds</h4>
 				</div>
-			</a>
-			{#each guilds as guild}
-				<a href={`${base}/guilds/${guild.id}`}>
+			{/if}
+
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+				{#each bad as guild}
+					<a href={getAuthUrl(guild.id)} target="_blank" rel="noopener noreferrer">
+						<div
+							class="bg-gray-100 dark:bg-slate-800 p-4 rounded-xl shadow-sm flex items-center gap-4 font-semibold link h-full"
+						>
+							<img src={guild.logo} alt="" class="h-12 rounded-full" />
+							<span>{guild.name}</span>
+						</div>
+					</a>
+				{/each}
+				<a href={getAuthUrl()} target="_blank" rel="noopener noreferrer">
 					<div
-						class="bg-gray-100 dark:bg-slate-800 p-4 rounded-xl shadow-sm flex items-center gap-4 font-semibold text-lg link"
+						class="bg-gray-100 dark:bg-slate-800 flex items-center gap-4 p-4 rounded-xl shadow-sm font-semibold text-lg link h-full"
 					>
-						<img src={guild.logo} alt="" class="h-12 rounded-full" />
-						<span>{guild.name}</span>
+						<div class="w-full text-center">
+							<i class="fa-solid fa-circle-plus mr-2" /><span>Add</span>
+						</div>
 					</div>
 				</a>
-			{/each}
+			</div>
 		</div>
 	</div>
 	<div>
@@ -106,10 +154,11 @@
 		</div>
 	</div>
 </div>
+
 <div class="max-w-3xl my-8 mx-auto">
-	<!-- <h2 class="font-bold text-lg mb-2 text-center">Resources</h2> -->
+	<hr class="border-white dark:border-slate-700 mx-24 my-8" />
 	<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-		<a href="https://discordtickets.app" target="_blank">
+		<a href="https://discordtickets.app" target="_blank" rel="noopener noreferrer">
 			<div
 				class="bg-gray-50/75 dark:bg-slate-800/75 p-4 rounded-xl shadow-sm link flex items-center gap-4"
 			>
@@ -120,7 +169,7 @@
 				</div>
 			</div>
 		</a>
-		<a href="https://lnk.earth/discord" target="_blank">
+		<a href="https://lnk.earth/discord" target="_blank" rel="noopener noreferrer">
 			<div
 				class="bg-gray-50/75 dark:bg-slate-800/75 p-4 rounded-xl shadow-sm link flex items-center gap-4"
 			>
