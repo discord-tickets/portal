@@ -18,7 +18,7 @@
 	});
 
 	function getAuthUrl(guildId) {
-		const scopes = ['applications.commands', 'applications.commands.permissions.update', 'bot'];
+		const scopes = ['applications.commands', 'bot'];
 		const url = new URL('https://discord.com/oauth2/authorize');
 		url.searchParams.set('scope', scopes.join(' '));
 		url.searchParams.set('client_id', client.id);
