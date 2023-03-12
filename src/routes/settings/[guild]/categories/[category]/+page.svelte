@@ -408,6 +408,9 @@
 										{#if category.requireTopic || category.questions.length > 0}
 											<discord-button type="secondary">✏️ Edit</discord-button>
 										{/if}
+										{#if category.claiming && data.settings.claimButton}
+											<discord-button type="secondary">🙌 Claim</discord-button>
+										{/if}
 										{#if data.settings.closeButton}
 											<discord-button type="destructive">✖️ Close</discord-button>
 										{/if}
