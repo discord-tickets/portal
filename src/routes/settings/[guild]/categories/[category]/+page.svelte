@@ -376,6 +376,8 @@
 								<discord-embed
 									slot="embeds"
 									color={data.settings.primaryColour}
+									author-image={data.user.avatar}
+									author-name={data.user.username}
 									image={category.image}
 								>
 									<discord-embed-description slot="description">
