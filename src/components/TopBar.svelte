@@ -35,7 +35,7 @@
 					class="flex items-center justify-center md:justify-end hover:font-medium"
 					title="Logout"
 				>
-					<img src={user.avatar} class="h-8 rounded-full" alt="Discord Tickets" />
+					<img src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.webp`} class="h-8 rounded-full" alt="Discord Tickets" />
 					<span class="ml-3">{user.username}</span>
 				</a>
 				<div class="ml-4">
