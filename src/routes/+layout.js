@@ -8,7 +8,7 @@ export async function load({ data, fetch, url }) {
 	if (response.status === 401) {
 		throw redirect(
 			307,
-			`/auth/login?r=${encodeURIComponent(url.pathname + url.searchParams.toString())}`
+			`/auth/login?r=${encodeURIComponent(url.pathname + url.search + url.hash)}`
 		);
 	} else if (!response.ok) {
 		throw error(response.status, isJSON ? JSON.stringify(body) : body);
