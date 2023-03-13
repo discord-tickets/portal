@@ -3,13 +3,15 @@
 	export let isDark;
 
 	import { base } from '$app/paths';
+	import cookie from 'cookie';
 	import ms from 'ms';
 
 	const toggle = () => {
-		// localStorage.setItem('theme', isDark ? 'light' : 'dark');
-		document.cookie = `theme=${isDark ? 'light' : 'dark'}; max-age=${Math.floor(
-			ms('1y') / 1000
-		)}; path=/`;
+		document.cookie = cookie.serialize('theme', isDark ? 'light' : 'dark', {
+			maxAge: ms('1y') / 1000,
+			path: '/',
+			sameSite: 'lax'
+		});
 		window.location = window.location; // eslint-disable-line
 	};
 </script>
