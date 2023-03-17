@@ -29,7 +29,7 @@
 
 	let { settings, channels, locales, roles } = data;
 
-	const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+	const days = ['Sunday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Monday'];
 	const expanded = { workingHours: false };
 
 	channels = channels.filter((c) => c.type === 0); // text
