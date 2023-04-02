@@ -165,7 +165,7 @@
 						/>
 						<textarea
 							class="form-input input h-24"
-							maxlength="1000"
+							maxlength="4096"
 							bind:value={panel.description}
 						/>
 					</label>
