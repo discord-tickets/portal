@@ -45,9 +45,6 @@
 			const response = await fetch(url, {
 				credentials: 'include',
 				method: 'DELETE',
-				headers: {
-					'Content-type': 'application/json; charset=UTF-8'
-				}
 			});
 			loading[q.id] = false;
 			if (!response.ok) {
