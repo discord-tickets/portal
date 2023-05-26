@@ -73,6 +73,13 @@
 			json.questions.forEach((q) => delete q._id);
 			json.cooldown = category.cooldown ? ms(category.cooldown) : null;
 
+			json.questions.forEach((q) => {
+				if (q.type === 'TEXT') {
+					if (q.value.length < q.minLength) throw `The value of the "${q.label}" question is shorter than the minimum length.`;
+					if (q.value.length > q.maxLength) throw `The value of the "${q.label}" question is longer than the maximum length.`;
+				}
+			});
+
 			const response = await fetch(url, {
 				method: category.id ? 'PATCH' : 'POST',
 				body: JSON.stringify(json),
