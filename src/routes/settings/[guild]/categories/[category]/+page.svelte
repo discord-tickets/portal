@@ -7,7 +7,6 @@
 	import { marked } from 'marked';
 	import CategoryQuestions from '$components/CategoryQuestions/Questions.svelte';
 	import Required from '$components/Required.svelte';
-	import { applyPolyfills, defineCustomElements } from '@skyra/discord-components-core/loader';
 	import { getContext, onMount } from 'svelte';
 	import { beforeNavigate } from '$app/navigation';
 
@@ -20,6 +19,7 @@
 	});
 
 	onMount(async () => {
+		const { applyPolyfills, defineCustomElements } = await import('@skyra/discord-components-core/loader');
 		applyPolyfills().then(() => {
 			defineCustomElements();
 		});
