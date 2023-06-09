@@ -118,7 +118,7 @@
 						<span class="font-medium">Channel</span>
 						<i
 							class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
-							title="The category options to be available"
+							title="The channel to send the panel message to"
 						/>
 						<select required class="form-multiselect input font-normal" bind:value={panel.channel}>
 							<option value="new">Create a new channel</option>
