@@ -531,12 +531,12 @@
 							bind:value={category.staffRoles}
 						>
 							{#each roles as role}
-							<option value={role.id} class="p-1 m-1 rounded" style={role._style}>
-								<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" style={role._style} />
-								{role.unicodeEmoji || ''}
-								{role.name}
-							</option>
-						{/each}
+								<option value={role.id} class="p-1 m-1 rounded" style={role._style}>
+									<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" style={role._style} />
+									{role.unicodeEmoji || ''}
+									{role.name}
+								</option>
+							{/each}
 						</select>
 					</label>
 				</div>
