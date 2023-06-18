@@ -8,9 +8,10 @@
 	import { onMount } from 'svelte';
 	import Sortable from 'sortablejs';
 	import emoji from 'emoji-name-map';
+	import { v4 as uuidv4 } from 'uuid';
 	import Required from '../Required.svelte';
 
-	const qIndex = $questionsStore.findIndex((v) => v._id === id);
+	const qIndex = $questionsStore.findIndex((v) => v.id === id);
 	const q = $questionsStore[qIndex];
 
 	onBeforeClose(() => {
@@ -33,7 +34,7 @@
 				set: (sortable) => {
 					const temp = [];
 					const order = sortable.toArray();
-					order.forEach((id, i) => (temp[i] = q.options.find((q) => q._id === id)));
+					order.forEach((id, i) => (temp[i] = q.options.find((q) => q.id === id)));
 					q.options = temp;
 				}
 			}
@@ -66,7 +67,7 @@
 					<div bind:this={list} class="list-group flex flex-col gap-2">
 						{#each q.options as o}
 							<div
-								data-id={o._id}
+								data-id={o.id}
 								class="list-group-item bg-gray-100/50 dark:bg-slate-800/50 p-4 rounded-xl"
 							>
 								<div class="w-full">
@@ -86,7 +87,7 @@
 													class="text-red-300 hover:text-red-500 dark:text-red-500/50 dark:hover:text-red-500 transition duration-300 disabled:cursor-not-allowed"
 													title="Remove"
 													on:click={() => {
-														const i = q.options.findIndex((x) => o._id === x._id);
+														const i = q.options.findIndex((x) => o.id === x.id);
 														q.options.splice(i, 1);
 														q.options = q.options;
 													}}
@@ -95,13 +96,13 @@
 												</button>
 												<div
 													class="select-none text-gray-500 dark:text-slate-400 hover:text-blurple dark:hover:text-blurple cursor-pointer transition duration-300 font-medium flex justify-between"
-													on:click={() => (expanded = expanded === o._id ? null : o._id)}
+													on:click={() => (expanded = expanded === o.id ? null : o.id)}
 												>
 													<span class="text-sm">
-														Click to {expanded === o._id ? 'collapse' : 'expand'}</span
+														Click to {expanded === o.id ? 'collapse' : 'expand'}</span
 													>
 													<i
-														class="fa-solid {expanded === o._id
+														class="fa-solid {expanded === o.id
 															? 'fa-angle-up'
 															: 'fa-angle-down'} text-xl self-end"
 													/>
@@ -109,7 +110,7 @@
 											</div>
 										</div>
 									</div>
-									{#if expanded === o._id}
+									{#if expanded === o.id}
 										<div>
 											<label class="font-medium">
 												Label
@@ -187,7 +188,7 @@
 								class="hover:text-green-300 text-green-500 dark:hover:text-green-500/50 dark:text-green-500 p-2 px-5 rounded-lg font-medium transition duration-300 disabled:cursor-not-allowed"
 								on:click={() => {
 									q.options.push({
-										_id: Date.now().toString(),
+										id: uuidv4(),
 										description: '',
 										emoji: '',
 										label: `Option ${q.options.length + 1}`,

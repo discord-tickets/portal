@@ -71,7 +71,7 @@
 		<button
 			type="button"
 			class="hover:text-yellow-300 text-yellow-500 dark:hover:text-yellow-500/50 dark:text-yellow-500 px-2 rounded-lg font-medium transition duration-300 disabled:cursor-not-allowed"
-			on:click={() => openModal(OptionsModal, { id: state._id })}
+			on:click={() => openModal(OptionsModal, { id: state.id })}
 		>
 			<i class="fa-solid fa-pencil" />
 			Edit

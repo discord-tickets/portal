@@ -29,7 +29,7 @@
 				},
 				set: (sortable) => {
 					const order = sortable.toArray();
-					order.forEach((id, i) => (state.find((q) => q._id === id).order = i));
+					order.forEach((id, i) => (state.find((q) => q.id === id).order = i));
 					state = state;
 				}
 			}
@@ -53,7 +53,7 @@
 				return;
 			}
 		}
-		const i = state.findIndex((x) => q._id === x._id);
+		const i = state.findIndex((x) => q.id === x.id);
 		state.splice(i, 1);
 		state = state;
 		loading = false;
@@ -62,7 +62,7 @@
 
 <div bind:this={list} class="list-group flex flex-col gap-2">
 	{#each state as q}
-		<div data-id={q._id} class="list-group-item bg-gray-100/50 dark:bg-slate-800/50 p-4 rounded-xl">
+		<div data-id={q.id} class="list-group-item bg-gray-100/50 dark:bg-slate-800/50 p-4 rounded-xl">
 			<div class="w-full">
 				<div class="flex items-center gap-2 md:gap-4">
 					<i
@@ -86,18 +86,18 @@
 						</button>
 						<div
 							class="select-none text-gray-500 dark:text-slate-400 hover:text-blurple dark:hover:text-blurple cursor-pointer transition duration-300 font-medium flex justify-between"
-							on:click={() => (expanded = expanded === q._id ? null : q._id)}
+							on:click={() => (expanded = expanded === q.id ? null : q.id)}
 						>
-							<span class="text-sm"> Click to {expanded === q._id ? 'collapse' : 'expand'}</span>
+							<span class="text-sm"> Click to {expanded === q.id ? 'collapse' : 'expand'}</span>
 							<i
-								class="fa-solid {expanded === q._id
+								class="fa-solid {expanded === q.id
 									? 'fa-angle-up'
 									: 'fa-angle-down'} text-xl self-end"
 							/>
 						</div>
 					</div>
 				</div>
-				{#if expanded === q._id}
+				{#if expanded === q.id}
 					<div class="my-4 text-sm">
 						<div class="grid grid-cols-1 gap-3">
 							<div>

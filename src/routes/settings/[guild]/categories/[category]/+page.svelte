@@ -5,6 +5,7 @@
 	import ms from 'ms';
 	import emoji from 'emoji-name-map';
 	import { marked } from 'marked';
+	import { v4 as uuidv4 } from 'uuid';
 	import CategoryQuestions from '$components/CategoryQuestions/Questions.svelte';
 	import Required from '$components/Required.svelte';
 	import { getContext, onMount } from 'svelte';
@@ -56,7 +57,7 @@
 		r._hexColor = r.color > 0 ? `#${r.color.toString(16).padStart(6, '0')}` : null;
 		r._style = r._hexColor ? `color: ${r._hexColor}` : '';
 	});
-	category.questions.forEach((q) => (q._id = q.id));
+
 	category.cooldown = category.cooldown ? ms(category.cooldown) : '';
 
 	let error = null;
@@ -70,7 +71,6 @@
 			const json = { ...category };
 
 			if (category.discordCategory === 'new') json.discordCategory = null;
-			json.questions.forEach((q) => delete q._id);
 			json.cooldown = category.cooldown ? ms(category.cooldown) : null;
 
 			json.questions.forEach((q) => {
@@ -138,6 +138,7 @@
 
 	const getRole = (id) => roles.find((r) => r.id === id);
 
+	$: category.customTopic  = category.questions.find(q => q.id === category.customTopic) ? category.customTopic : null;
 	$: category.requireTopic = category.questions.length > 0 ? false : category.requireTopic;
 </script>
 
@@ -572,7 +573,7 @@
 										</option>
 										<option disabled>------------</option>
 										{#each category.questions as q}
-											<option value={q._id} class="p-1">
+											<option value={q.id} class="p-1">
 												<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" />
 												{q.label}
 											</option>
@@ -591,7 +592,7 @@
 									class="hover:text-green-300 text-green-500 dark:hover:text-green-500/50 dark:text-green-500 p-2 px-5 rounded-lg font-medium transition duration-300 disabled:cursor-not-allowed"
 									on:click={() => {
 										category.questions.push({
-											_id: Date.now().toString(),
+											id: uuidv4(),
 											label: `Question ${category.questions.length + 1}`,
 											maxLength: 1000,
 											minLength: 0,
