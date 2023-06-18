@@ -44,7 +44,7 @@
 			const url = `/api/admin/guilds/${$page.params.guild}/categories/${$page.params.category}/questions/${q.id}`;
 			const response = await fetch(url, {
 				credentials: 'include',
-				method: 'DELETE',
+				method: 'DELETE'
 			});
 			loading[q.id] = false;
 			if (!response.ok) {

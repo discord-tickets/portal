@@ -20,7 +20,9 @@
 	});
 
 	onMount(async () => {
-		const { applyPolyfills, defineCustomElements } = await import('@skyra/discord-components-core/loader');
+		const { applyPolyfills, defineCustomElements } = await import(
+			'@skyra/discord-components-core/loader'
+		);
 		applyPolyfills().then(() => {
 			defineCustomElements();
 		});
@@ -75,8 +77,10 @@
 
 			json.questions.forEach((q) => {
 				if (q.type === 'TEXT') {
-					if (q.value.length < q.minLength) throw `The value of the "${q.label}" question is shorter than the minimum length.`;
-					if (q.value.length > q.maxLength) throw `The value of the "${q.label}" question is longer than the maximum length.`;
+					if (q.value.length < q.minLength)
+						throw `The value of the "${q.label}" question is shorter than the minimum length.`;
+					if (q.value.length > q.maxLength)
+						throw `The value of the "${q.label}" question is longer than the maximum length.`;
 				}
 			});
 
@@ -138,7 +142,9 @@
 
 	const getRole = (id) => roles.find((r) => r.id === id);
 
-	$: category.customTopic  = category.questions.find(q => q.id === category.customTopic) ? category.customTopic : null;
+	$: category.customTopic = category.questions.find((q) => q.id === category.customTopic)
+		? category.customTopic
+		: null;
 	$: category.requireTopic = category.questions.length > 0 ? false : category.requireTopic;
 </script>
 

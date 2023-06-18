@@ -116,7 +116,7 @@
 						class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 						title="How long should the bot wait before closing (for close command and stale tickets)?"
 					/>
-					<input type="text" class="form-input input" bind:value={settings.autoClose} required />
+					<input type="text" class="form-input input" bind:value={settings.autoClose} />
 				</label>
 			</div>
 			<div>
