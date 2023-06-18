@@ -54,7 +54,7 @@
 	];
 
 	channels = channels.filter((c) => c.type === 4); // category
-	roles = roles.filter((r) => r.name !== '@everyone');
+	roles = roles.filter((r) => r.name !== '@everyone').sort((a, b) => b.rawPosition - a.rawPosition);
 	roles.forEach((r) => {
 		r._hexColor = r.color > 0 ? `#${r.color.toString(16).padStart(6, '0')}` : null;
 		r._style = r._hexColor ? `color: ${r._hexColor}` : '';
@@ -449,6 +449,7 @@
 							{#each roles as role}
 								<option value={role.id} class="p-1 m-1 rounded" style={role._style}>
 									<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" style={role._style} />
+									{role.unicodeEmoji || ''}
 									{role.name}
 								</option>
 							{/each}
@@ -491,6 +492,7 @@
 							{#each roles as role}
 								<option value={role.id} class="p-1 m-1 rounded" style={role._style}>
 									<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" style={role._style} />
+									{role.unicodeEmoji || ''}
 									{role.name}
 								</option>
 							{/each}
@@ -529,11 +531,12 @@
 							bind:value={category.staffRoles}
 						>
 							{#each roles as role}
-								<option value={role.id} class="p-1 m-1 rounded" style={role._style}>
-									<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" style={role._style} />
-									{role.name}
-								</option>
-							{/each}
+							<option value={role.id} class="p-1 m-1 rounded" style={role._style}>
+								<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" style={role._style} />
+								{role.unicodeEmoji || ''}
+								{role.name}
+							</option>
+						{/each}
 						</select>
 					</label>
 				</div>
