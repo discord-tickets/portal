@@ -16,9 +16,6 @@
 			const response = await fetch(url, {
 				method: 'DELETE',
 				credentials: 'include',
-				headers: {
-					'Content-type': 'application/json; charset=UTF-8'
-				}
 			});
 			const body = await response.json();
 
