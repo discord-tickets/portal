@@ -15,7 +15,7 @@
 			loading = true;
 			const response = await fetch(url, {
 				method: 'DELETE',
-				credentials: 'include',
+				credentials: 'include'
 			});
 			const body = await response.json();
 
