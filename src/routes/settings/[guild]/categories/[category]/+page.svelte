@@ -77,7 +77,7 @@
 
 			json.questions.forEach((q) => {
 				if (q.type === 'TEXT') {
-					if (q.value.length < q.minLength)
+					if (q.value.length > 0 && q.value.length < q.minLength)
 						throw `The value of the "${q.label}" question is shorter than the minimum length.`;
 					if (q.value.length > q.maxLength)
 						throw `The value of the "${q.label}" question is longer than the maximum length.`;
