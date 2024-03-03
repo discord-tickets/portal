@@ -373,12 +373,15 @@
 							>
 								{#if category.pingRoles?.length > 0}
 									{#each category.pingRoles as id, index}
-										{#if index > 0}
-											{' '}
+										{@const role = getRole(id)}
+										{#if role}
+											{#if index > 0}
+												{' '}
+											{/if}
+											<discord-mention color={role?._hexColor} type="role">
+												{role?.name}
+											</discord-mention>
 										{/if}
-										<discord-mention color={getRole(id)._hexColor} type="role">
-											{getRole(id).name}
-										</discord-mention>
 									{/each}
 									, <br />
 								{/if}
