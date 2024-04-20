@@ -1,0 +1,1 @@
+export const importJSON = (...modules) => ([modules[0].locale_id, [].concat(...modules.map(mod => mod.json))]);

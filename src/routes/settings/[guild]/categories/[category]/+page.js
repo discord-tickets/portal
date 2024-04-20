@@ -1,4 +1,4 @@
-import { error, redirect } from '@sveltejs/kit';
+import { error } from '@sveltejs/kit';
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ fetch, params }) {
@@ -31,9 +31,7 @@ export async function load({ fetch, params }) {
 		);
 		const isJSON = response.headers.get('Content-Type')?.includes('json');
 		body = isJSON ? await response.json() : await response.text();
-		if (response.status === 401) {
-			throw redirect(307, `/auth/login`);
-		} else if (!response.ok) {
+		if (!response.ok) {
 			throw error(response.status, isJSON ? JSON.stringify(body) : body);
 		}
 	}

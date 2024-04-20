@@ -32,7 +32,7 @@
 
 	const dismissCookies = () => {
 		document.cookie = cookie.serialize('dismissedCookies', 'true', {
-			maxAge: ms('1y') / 1000,
+			maxAge: 2592000,
 			path: '/',
 			sameSite: 'lax'
 		});
