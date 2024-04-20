@@ -53,7 +53,7 @@
 						<div class="flex flex-col gap-2">
 							<h4 class="text-center leading-tight text-xl font-semibold">But before you begin</h4>
 							<a
-								href="https://discordtickets.app/configuration/"
+								href="https://lnk.earth/discord"
 								target="_blank"
 								rel="noopener noreferrer"
 								class="bg-gray-100/50 dark:bg-slate-800/50 p-4 rounded-xl group link"
@@ -63,6 +63,36 @@
 										<span
 											class="select-none font-bold text-5xl text-gray-500 dark:text-slate-400 group-hover:text-white dark:group-hover:text-white transition duration-300"
 											>1.</span
+										>
+										<i class="fa-solid fa-user-group text-4xl" />
+										<div class="w-full">
+											<span class="text-lg font-semibold">
+												Join the community
+												<i
+													class="fa-solid fa-arrow-up-right-from-square text-gray-500 dark:text-slate-400 group-hover:text-white dark:group-hover:text-white transition duration-300"
+												/>
+											</span>
+											<div
+												class="text-sm text-gray-500 dark:text-slate-400 group-hover:text-white dark:group-hover:text-white transition duration-300 font-medium"
+											>
+												Join the Planet Earth Discord server to ask questions, get notified about
+												updates, vote on polls or just chat about Discord Tickets.
+											</div>
+										</div>
+									</div>
+								</div>
+							</a>
+							<a
+								href="https://discordtickets.app/configuration/"
+								target="_blank"
+								rel="noopener noreferrer"
+								class="bg-gray-100/50 dark:bg-slate-800/50 p-4 rounded-xl group link"
+							>
+								<div class="flex items-center gap-2 md:gap-4">
+									<div class="w-full flex items-center gap-4">
+										<span
+											class="select-none font-bold text-5xl text-gray-500 dark:text-slate-400 group-hover:text-white dark:group-hover:text-white transition duration-300"
+											>2.</span
 										>
 										<i class="fa-solid fa-person-chalkboard text-4xl" />
 										<div class="w-full">
@@ -82,7 +112,7 @@
 									</div>
 								</div>
 							</a>
-							<a
+							<!-- <a
 								href="https://lnk.earth/dsctickets-survey"
 								target="_blank"
 								rel="noopener noreferrer"
@@ -105,14 +135,13 @@
 											<div
 												class="text-sm text-gray-500 dark:text-slate-400 group-hover:text-white dark:group-hover:text-white transition duration-300 font-medium"
 											>
-												<!-- Please take a few minutes to answer some questions that help us better understand how the bot is used. -->
 												Please take a few minutes to help us better understand how the bot is used.
 												<span class="font-bold">Respondents can win a £4 Steam gift card.</span>
 											</div>
 										</div>
 									</div>
 								</div>
-							</a>
+							</a> -->
 						</div>
 					</div>
 					<div class="flex justify-center gap-8">
