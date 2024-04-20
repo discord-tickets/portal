@@ -5,7 +5,7 @@ export async function load({ data, fetch, url }) {
 	const response = await fetch(`/api/users/@me`);
 	const isJSON = response.headers.get('Content-Type')?.includes('json');
 	const body = isJSON ? await response.json() : await response.text();
-	if (response.status === 401) {
+	if (url.pathname !== '/login' && response.status === 401) {
 		throw redirect(
 			307,
 			`/login?r=${encodeURIComponent(url.pathname + url.search + url.hash)}`
