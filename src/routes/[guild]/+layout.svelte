@@ -1,9 +1,12 @@
 <script>
-	// TODO: i18n, server name and logo (/api/guilds/:id)
+	/** @type {import('./$types').PageData} */
+	export let data;
+
+	const { guild } = data;
 </script>
 
 <svelte:head>
-	<title>SERVER NAME HERE</title>
+	<link rel="icon" href={`${guild.logo}`} />
 </svelte:head>
 
 <div>

@@ -23,7 +23,7 @@
 			</h1>
 			<div class="flex flex-col sm:flex-row items-stretch justify-center gap-4 sm:gap-8 flex-wrap">
 				{#each guilds as guild}
-					{@const slug = parseInt(guild.id).toString(36)}
+					{@const slug = BigInt(guild.id).toString(36)}
 					<a href={`/${slug}`}>
 						<div
 							class="bg-dgrey-300 dark:bg-dgrey-900 border-2 border-dgrey-400 dark:border-dgrey-700 p-4 rounded-lg w-full sm:w-48 hover:shadow-2xl shadow-black hover:scale-105 transition-all duration-300 h-full"
