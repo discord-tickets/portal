@@ -12,7 +12,7 @@ export async function load({ cookies, fetch, request, url }) {
 		if (response.status === 401) {
 			throw redirect(
 				307,
-				`/login?r=${encodeURIComponent(url.pathname + url.search + url.hash)}`
+				`/login?r=${encodeURIComponent(url.pathname + url.search)}`
 			);
 		} else if (!response.ok) {
 			throw error(response.status, isJSON ? JSON.stringify(body) : body);
