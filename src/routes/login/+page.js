@@ -1,13 +1,12 @@
-// import { importJSON } from '$lib/i18n';
+import { importJSON } from '$lib/i18n';
 
 /** @type {import('./$types').PageLoad} */
-export async function load() {
-	// TODO: dynamic locale
-	// const locale = 'en-GB';
-	console.log(import.meta.glob('$lib/locales/**/*'))
+export async function load({ parent, url }) {
+	const { locale } = await parent();
 	return {
-		// translations: importJSON(
-		// 	await import(`$lib/locales/${locale}/index2.json`)
-		// )
+		translations: importJSON(
+			await import(`../../lib/locales/${locale}/misc.json`),
+		),
+		query: url.search
 	};
 }

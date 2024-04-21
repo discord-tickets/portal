@@ -2,29 +2,18 @@
 	/** @type {import('./$types').PageData} */
 	export let data;
 	import TopBar from '$components/TopBar.svelte';
-	import { onMount, setContext } from 'svelte';
+	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import { page, navigating } from '$app/stores';
 	import { Modals, closeModal } from 'svelte-modals';
 	import cookie from 'cookie';
-	import ms from 'ms';
 	import { openModal } from 'svelte-modals';
 	import WelcomeModal from '$components/WelcomeModal.svelte';
 
-	const { client, user } = data;
-	setContext('user', user);
+	const { client, user, theme } = data;
 	let mounted = false;
 	let cookies = {};
-	let theme = data.theme;
 	onMount(() => {
-		if (theme === undefined) {
-			theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-			document.cookie = cookie.serialize('theme', theme, {
-				maxAge: ms('1y') / 1000,
-				path: '/',
-				sameSite: 'lax'
-			});
-		}
 		cookies = cookie.parse(document.cookie || '');
 		if (!cookies.welcomed) openModal(WelcomeModal, { client });
 		mounted = true;
@@ -63,7 +52,6 @@
 	<link rel="icon" href="/favicon.png" />
 </svelte:head>
 
-<div class={theme}>
 	<div class="bg-gray-200 dark:bg-slate-900 min-h-screen h-max w-full absolute">
 		<Modals>
 			<div slot="backdrop" class="backdrop" transition:fade on:click={closeModal} />
@@ -171,4 +159,3 @@
 			</div>
 		</div>
 	</div>
-</div>
