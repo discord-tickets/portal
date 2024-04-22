@@ -13,7 +13,7 @@ export async function load({ parent, fetch }) {
 	}
 	return {
 		translations: importJSON(
-			await import(`$lib/locales/${locale}/misc.json`)
+			await import(`../../lib/locales/${locale}/misc.json`)
 		),
 		guilds
 	};

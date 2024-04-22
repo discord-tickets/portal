@@ -5,15 +5,3 @@ export async function handle({ event, resolve }) {
 	});
 	return response;
 }
-
-/** @type {import('@sveltejs/kit').HandleClientError} */
-export function handleError({ error }) {
-	const errorId = Date.now().toString(16);
-	console.error(errorId, error);
-	let message =
-		typeof error === 'string' ? error : error?.message || JSON.stringify(error || 'Unknown error');
-	return {
-		message: message + ` (id=${errorId})`,
-		errorId
-	};
-}

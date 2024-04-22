@@ -11,16 +11,11 @@ export async function handle({ event, resolve }) {
 /** @type {import('@sveltejs/kit').HandleServerError} */
 export function handleError({ error, event }) {
 	const errorId = Date.now().toString(16);
-
-	if (dev || process?.env.NODE_ENV === 'development') console.error(errorId, error, event);
-
+	if (dev || process?.env.NODE_ENV === 'development') console.error(error);
 	process?.emit('sveltekit:error', { error, errorId, event });
-
-	let message =
-		typeof error === 'string' ? error : error?.message || JSON.stringify(error || 'Unknown error');
-
 	return {
-		message: message + ` (id=${errorId})`,
+		name: 'Internal Server Error',
+		message: error.message,
 		errorId
 	};
 }

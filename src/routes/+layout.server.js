@@ -25,7 +25,7 @@ export async function load({ cookies, fetch, request, url }) {
 			locale = body.locale;
 		} else {
 			const negotiator = new Negotiator(request);
-			locale = negotiator.language();
+			locale = negotiator.language(supportedLocales);
 		}
 		cookies.set('locale', locale, {
 			maxAge: ms('1y') / 1000,
