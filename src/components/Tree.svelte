@@ -1,7 +1,6 @@
 <script>
 	export let entry = [];
 	export let indent = 0;
-	console.log(entry)
 </script>
 
 <div>
