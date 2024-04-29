@@ -10,12 +10,12 @@ export async function load({ cookies, fetch, request, url }) {
 	const body = isJSON ? await response.json() : await response.text();
 	if (url.pathname !== '/login') {
 		if (response.status === 401) {
-			throw redirect(
+			redirect(
 				307,
 				`/login?r=${encodeURIComponent(url.pathname + url.search)}`
 			);
 		} else if (!response.ok) {
-			throw error(response.status, isJSON ? JSON.stringify(body) : body);
+			error(response.status, isJSON ? JSON.stringify(body) : body);
 		}
 	}
 	let locale = cookies.get('locale');

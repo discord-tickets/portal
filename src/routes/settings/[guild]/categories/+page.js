@@ -6,7 +6,7 @@ export async function load({ fetch, params }) {
 	const isJSON = response.headers.get('Content-Type')?.includes('json');
 	const body = isJSON ? await response.json() : await response.text();
 	if (!response.ok) {
-		throw error(response.status, isJSON ? JSON.stringify(body) : body);
+		error(response.status, isJSON ? JSON.stringify(body) : body);
 	} else {
 		return { categories: body };
 	}
