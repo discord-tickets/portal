@@ -279,7 +279,7 @@
 					/>
 					<select class="form-multiselect input" bind:value={settings.logChannel}>
 						<option value="">None</option>
-						<option disabled>------------</option>
+						<hr />
 						{#each channels as channel}
 							<option value={channel.id} class="p-1">
 								<i class="fa-solid fa-hashtag text-gray-500 dark:text-slate-400" />

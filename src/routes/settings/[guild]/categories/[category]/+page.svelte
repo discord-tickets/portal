@@ -272,7 +272,7 @@
 						<select class="form-multiselect input" required bind:value={category.discordCategory}>
 							{#if !category.discordCategory || category.discordCategory === 'new'}
 								<option value="new">Create a new category</option>
-								<option disabled>------------</option>
+								<hr />
 							{/if}
 							{#each channels as channel}
 								<option value={channel.id} class="p-1">
@@ -580,7 +580,7 @@
 											<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" />
 											None
 										</option>
-										<option disabled>------------</option>
+										<hr />
 										{#each category.questions as q}
 											<option value={q.id} class="p-1">
 												<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" />
