@@ -5,6 +5,7 @@
 	import { page } from '$app/stores';
 	import emoji from 'emoji-name-map';
 	import Required from '$components/Required.svelte';
+	import Combobox from '$components/Combobox.svelte';
 
 	let { categories, channels } = data;
 	channels = channels.filter((c) => c.type === 0); // text
@@ -56,8 +57,8 @@
 		panel.categories.length > 5
 			? 'MENU'
 			: panel.categories.length > 1 && panel.type === 'MESSAGE'
-			? 'BUTTON'
-			: panel.type;
+				? 'BUTTON'
+				: panel.type;
 </script>
 
 <h1 class="m-4 text-4xl font-bold text-center">Create a panel</h1>
@@ -134,6 +135,7 @@
 					</label>
 				</div>
 				<div>
+					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="font-medium">
 						<span class="font-medium">Categories</span>
 						<Required />
@@ -141,7 +143,7 @@
 							class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 							title="The category options to be available"
 						/>
-						<select
+						<!-- <select
 							multiple
 							required
 							class="form-multiselect input font-normal h-24"
@@ -153,7 +155,23 @@
 									{category.name}
 								</option>
 							{/each}
-						</select>
+						</select> -->
+
+						<Combobox
+							bind:value={panel.categories}
+							attributes={{
+								required: true,
+								multiple: true
+							}}
+							options={categories.map((c) => {
+								const e = emoji.get(c.emoji);
+								return {
+									value: c.id,
+									label: (e ? e + ' ' : '') + c.name
+								};
+							})}
+							placeholder={'Select one or more categories'}
+						></Combobox>
 					</label>
 				</div>
 				<div>
