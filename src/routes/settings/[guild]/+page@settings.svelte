@@ -129,7 +129,7 @@
 				<div>
 					<h6 class="font-semibold">Most used category</h6>
 					<p class="text-gray-500 dark:text-slate-400">
-						{guild.stats.categories.sort((a, b) => b - a)[0]?.name ?? 'None'}
+						{guild.stats.categories.sort((a, b) => b.tickets - a.tickets)[0]?.name ?? 'None'}
 					</p>
 				</div>
 			</div>
