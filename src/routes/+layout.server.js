@@ -30,7 +30,9 @@ export async function load({ cookies, fetch, request, url }) {
 		cookies.set('locale', locale, {
 			maxAge: ms('1y') / 1000,
 			path: '/',
-			sameSite: 'lax'
+			sameSite: 'lax',
+			secure: false,
+			httpOnly: false,
 		});
 	}
 	return {

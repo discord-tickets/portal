@@ -39,5 +39,8 @@
 				</a>
 			{/each}
 		</div>
+		<div class="m-8 lg:my-24 text-sm">
+			<a href="/auth/logout" class="hover:text-blurple transition-colors duration-300">{t('common:logout')}</a>
+		</div>
 	</div>
 </div>
