@@ -123,7 +123,7 @@
 						/>
 						<select required class="form-multiselect input font-normal" bind:value={panel.channel}>
 							<option value="new">Create a new channel</option>
-							<option disabled>------------</option>
+							<hr />
 							{#each channels as channel}
 								{channel.id}
 								<option value={channel.id} class="p-1">

@@ -76,7 +76,7 @@
 												class="text-sm text-gray-500 dark:text-slate-400 group-hover:text-white dark:group-hover:text-white transition duration-300 font-medium"
 											>
 												Join the Planet Earth Discord server to ask questions, get notified about
-												updates, vote on polls or just chat about Discord Tickets.
+												updates, vote on polls, or just chat.
 											</div>
 										</div>
 									</div>
