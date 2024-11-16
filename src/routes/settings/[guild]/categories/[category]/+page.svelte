@@ -352,86 +352,93 @@
 							bind:value={category.openingMessage}
 						/>
 					</label>
-					{#if category.openingMessage}
-						<p class="text-sm font-semibold mt-2 mb-1">Preview</p>
-						<discord-messages
-							no-background={true}
-							light-theme={data.theme !== 'dark'}
-							class="bloc w-full border-0"
-						>
-							<discord-message
-								author={data.client.username}
-								avatar={data.client.avatar}
-								bot={true}
-								timestamp={`Today at ${new Date().toLocaleTimeString('default', {
-									hour: 'numeric',
-									minute: 'numeric'
-								})}`}
-								class="py-2"
-								highlight
-							>
-								{#if category.pingRoles?.length > 0}
-									{#each category.pingRoles as id, index}
-										{@const role = getRole(id)}
-										{#if role}
-											{#if index > 0}
-												{' '}
-											{/if}
-											<discord-mention color={role?._hexColor} type="role">
-												{role?.name}
-											</discord-mention>
-										{/if}
-									{/each}
-									, <br />
-								{/if}
-								<discord-mention highlight>{data.user.username}</discord-mention>
-								has created a new ticket
-								<discord-embed
-									slot="embeds"
-									color={data.settings.primaryColour}
-									author-image={`https://cdn.discordapp.com/avatars/${data.user.id}/${data.user.avatar}.webp`}
-									author-name={data.user.username}
-									image={category.image}
+					{#key category.pingRoles}
+						{#key category.requireTopic}
+							{#if category.openingMessage}
+								<p class="text-sm font-semibold mt-2 mb-1">Preview</p>
+								<discord-messages
+									no-background={true}
+									light-theme={data.theme !== 'dark'}
+									class="bloc w-full border-0"
 								>
-									<discord-embed-description slot="description">
-										{@html marked
-											.parse(category.openingMessage)
-											.replace(
-												/{+\s?(user)?name\s?}+/gi,
-												`<discord-mention>${data.user.username}</discord-mention>`
-											)
-											.replace(/{+\s?avgResponseTime\s?}+/gi, data.guild.stats.avgResponseTime)
-											.replace(/{+\s?avgResolutionTime\s?}+/gi, data.guild.stats.avgResolutionTime)}
-									</discord-embed-description>
-									{#if category.requireTopic}
-										<discord-embed-fields slot="fields">
-											<discord-embed-field field-title="Topic">
-												This is a pretty good preview
-											</discord-embed-field>
-										</discord-embed-fields>
-									{/if}
-									{#if data.settings.footer}
-										<discord-embed-footer slot="footer" footer-image={data.client.avatar}>
-											{data.settings.footer}
-										</discord-embed-footer>
-									{/if}
-								</discord-embed>
-								<discord-attachments slot="components">
-									<discord-action-row>
-										{#if category.requireTopic || category.questions.length > 0}
-											<discord-button type="secondary">✏️ Edit</discord-button>
+									<discord-message
+										author={data.client.username}
+										avatar={data.client.avatar}
+										bot={true}
+										timestamp={`Today at ${new Date().toLocaleTimeString('default', {
+											hour: 'numeric',
+											minute: 'numeric'
+										})}`}
+										class="py-2"
+										highlight
+									>
+										{#if category.pingRoles?.length > 0}
+											{#each category.pingRoles as id, index}
+												{@const role = getRole(id)}
+												{#if role}
+													{#if index > 0}
+														{' '}
+													{/if}
+													<discord-mention color={role?._hexColor} type="role">
+														{role?.name}
+													</discord-mention>
+												{/if}
+											{/each}
+											, <br />
 										{/if}
-										{#if category.claiming && data.settings.claimButton}
-											<discord-button type="secondary">🙌 Claim</discord-button>
-										{/if}
-										{#if data.settings.closeButton}
-											<discord-button type="destructive">✖️ Close</discord-button>
-										{/if}
-									</discord-action-row>
-								</discord-attachments>
-							</discord-message>
-						</discord-messages>
-					{/if}
+										<discord-mention highlight>{data.user.username}</discord-mention>
+										has created a new ticket
+										<discord-embed
+											slot="embeds"
+											color={data.settings.primaryColour}
+											author-image={`https://cdn.discordapp.com/avatars/${data.user.id}/${data.user.avatar}.webp`}
+											author-name={data.user.username}
+											image={category.image}
+										>
+											<discord-embed-description slot="description">
+												{@html marked
+													.parse(category.openingMessage)
+													.replace(
+														/{+\s?(user)?name\s?}+/gi,
+														`<discord-mention>${data.user.username}</discord-mention>`
+													)
+													.replace(/{+\s?avgResponseTime\s?}+/gi, data.guild.stats.avgResponseTime)
+													.replace(
+														/{+\s?avgResolutionTime\s?}+/gi,
+														data.guild.stats.avgResolutionTime
+													)}
+											</discord-embed-description>
+											{#if category.requireTopic}
+												<discord-embed-fields slot="fields">
+													<discord-embed-field field-title="Topic">
+														This is a pretty good preview
+													</discord-embed-field>
+												</discord-embed-fields>
+											{/if}
+											{#if data.settings.footer}
+												<discord-embed-footer slot="footer" footer-image={data.client.avatar}>
+													{data.settings.footer}
+												</discord-embed-footer>
+											{/if}
+										</discord-embed>
+										<discord-attachments slot="components">
+											<discord-action-row>
+												{#if category.requireTopic || category.questions.length > 0}
+													<discord-button type="secondary">✏️ Edit</discord-button>
+												{/if}
+												{#if category.claiming && data.settings.claimButton}
+													<discord-button type="secondary">🙌 Claim</discord-button>
+												{/if}
+												{#if data.settings.closeButton}
+													<discord-button type="destructive">✖️ Close</discord-button>
+												{/if}
+											</discord-action-row>
+										</discord-attachments>
+									</discord-message>
+								</discord-messages>
+							{/if}
+						{/key}
+					{/key}
 				</div>
 				<div>
 					<label class="font-medium">
