@@ -4,7 +4,6 @@ import { importJSON } from '$lib/i18n';
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ parent, fetch }) {
-
 	// TODO: remove this when the portal section is more complete
 	redirect(302, '/settings');
 
