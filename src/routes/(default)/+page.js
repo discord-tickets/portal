@@ -4,6 +4,10 @@ import { importJSON } from '$lib/i18n';
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ parent, fetch }) {
+
+	// TODO: remove this when the portal section is more complete
+	redirect(302, '/settings');
+
 	const { locale } = await parent();
 	const guilds = await (await fetch(`/api/guilds`)).json();
 	if (guilds.length === 0) {
