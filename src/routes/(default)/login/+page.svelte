@@ -31,7 +31,7 @@
 	</div>
 	<div
 		class="lg:w-1/2 bg-cover bg-no-repeat"
-		style={`background-image: url("/topgg-${theme}.png")`}
+		style={`background-image: url("/assets/topgg-${theme}.png")`}
 	>
 		<div class="bg-gradient-to-br from-blurple/20 to-white/10 dark:to-[#090510]/10">
 			<div class="flex items-center justify-stretch lg:min-h-screen p-8 backdrop-blur-sm">
