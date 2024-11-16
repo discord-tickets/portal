@@ -23,7 +23,7 @@
 					sameSite: 'lax'
 				}
 			);
-			document.location = document.location
+			document.location = document.location;
 		}
 	});
 </script>

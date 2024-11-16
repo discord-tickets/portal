@@ -9,6 +9,7 @@
 	import Required from '$components/Required.svelte';
 	import { onMount } from 'svelte';
 	import { beforeNavigate } from '$app/navigation';
+	import ErrorBox from '$components/ErrorBox.svelte';
 
 	let modified = false;
 
@@ -91,14 +92,7 @@
 <h1 class="m-4 text-4xl font-bold text-center">General settings</h1>
 <div class="m-2 p-4 max-w-lg mx-auto text-lg">
 	{#if error}
-		<div id="error" class="text-center break-words">
-			<div
-				class="bg-red-400 dark:bg-red-500 text-red-800 dark:text-red-400 bg-opacity-40 dark:bg-opacity-20 mb-4 p-6 px-12 rounded-lg text-center max-w-lg inline-block"
-			>
-				<p class="font-semibold text-xl">Error</p>
-				{error.message ?? error}
-			</div>
-		</div>
+		<ErrorBox {error} />
 	{/if}
 	<div class="mb-8 text-orange-600 dark:text-orange-400 text-center">
 		<p class="font-semibold"><i class="fa-solid fa-triangle-exclamation" /> Warning</p>

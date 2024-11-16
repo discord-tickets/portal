@@ -7,7 +7,7 @@ const config = {
 		adapter: adapter({ out: 'build' }),
 		alias: {
 			$components: './src/components'
-		},
+		}
 	},
 	preprocess: [preprocess({ postcss: true })],
 	trailingSlash: 'never'

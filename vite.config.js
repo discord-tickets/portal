@@ -9,7 +9,7 @@ const config = {
 			id_regex: /((?<locale>[a-z0-9-_]+)\/)((_(?<namespace>[a-z0-9-_]+))|[a-z0-9-_]+)\.[a-z]+/i,
 			include: 'src/lib/locales/*/*.json'
 		})
-],
+	],
 	server: {
 		host: '127.0.0.1',
 		proxy: {

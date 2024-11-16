@@ -5,6 +5,7 @@
 	import { page } from '$app/stores';
 	import emoji from 'emoji-name-map';
 	import Required from '$components/Required.svelte';
+	import ErrorBox from '$components/ErrorBox.svelte';
 
 	let { categories, channels } = data;
 	channels = channels.filter((c) => c.type === 0); // text
@@ -63,15 +64,9 @@
 <h1 class="m-4 text-4xl font-bold text-center">Create a panel</h1>
 <div class="m-2 sm:p-4 max-w-3xl mx-auto">
 	{#if error}
-		<div id="error" class="text-center break-words">
-			<div
-				class="bg-red-400 dark:bg-red-500 text-red-800 dark:text-red-400 bg-opacity-40 dark:bg-opacity-20 mb-4 p-6 px-12 rounded-lg text-center max-w-lg inline-block"
-			>
-				<p class="font-semibold text-xl">Error</p>
-				{error.message ?? error}
-			</div>
-		</div>
+		<ErrorBox {error} />
 	{/if}
+
 	<div class="bg-white dark:bg-slate-700 p-4 rounded-xl shadow-sm">
 		<div class="text-center">
 			{#if panel.channel !== 'new' && panel.type === 'MESSAGE'}

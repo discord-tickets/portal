@@ -2,24 +2,9 @@
 	export let boxStyles = '';
 	import { page } from '$app/stores';
 	import Tree from '$components/Tree.svelte';
+	import { flatten } from '$lib/util/data';
+
 	console.error($page.error);
-	function flatten(object) {
-		const entries = [];
-		for (let [k, v] of Object.entries(object)) {
-			if (typeof v === 'string') {
-				try {
-					v = JSON.parse(v);
-					if (typeof v === 'object') {
-						v = flatten(v);
-					}
-				} catch {}
-			} else if (typeof v === 'object') {
-				v = flatten(v);
-			}
-			entries.push([k, v]);
-		}
-		return entries;
-	}
 </script>
 
 <div class="container mx-auto">
@@ -47,14 +32,14 @@
 					<p class="font-mono text-sm">
 						<span class="font-bold text-black dark:text-white">Error</span>
 					</p>
-					<Tree entry={flatten($page.error)}></Tree>
+					<Tree entry={flatten($page.error)} />
 				</div>
 				{#if $page.params && Object.keys($page.params).length > 0}
 					<div>
 						<p class="font-mono text-sm">
 							<span class="font-bold text-black dark:text-white">Parameters</span>
 						</p>
-						<Tree entry={flatten($page.params)}></Tree>
+						<Tree entry={flatten($page.params)} />
 					</div>
 				{/if}
 			</div>

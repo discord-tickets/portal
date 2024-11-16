@@ -26,7 +26,7 @@
 						class="py-1 px-2 text-dgrey-700 bg-dgrey-900/10 hover:bg-dgrey-900/20 dark:bg-dgrey-400/10 dark:hover:bg-dgrey-400/20 dark:text-dgrey-400/75 hover:dark:text-dgrey-400/100 duration-300 rounded-md"
 					>
 						<div class="flex items-center gap-2">
-							<i class="fa-solid fa-user-group"></i>
+							<i class="fa-solid fa-user-group" />
 							{t('common:staff_dashboard')}
 						</div>
 					</a>
@@ -37,7 +37,7 @@
 							class="py-1 px-2 text-dgrey-700 bg-dgrey-900/10 hover:bg-dgrey-900/20 dark:bg-dgrey-400/10 dark:hover:bg-dgrey-400/20 dark:text-dgrey-400/75 hover:dark:text-dgrey-400/100 duration-300 rounded-md"
 						>
 							<div class="flex items-center gap-2">
-								<i class="fa-solid fa-gear"></i>
+								<i class="fa-solid fa-gear" />
 								{t('common:settings_panel')}
 							</div>
 						</a>
@@ -46,7 +46,5 @@
 			</div>
 		</div>
 	{/if}
-	<div>
-		todo
-	</div>
+	<div>todo</div>
 </div>

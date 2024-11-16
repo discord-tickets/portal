@@ -1,11 +1,11 @@
 <div class="flex justify-center h-screen">
-		<div class="flex items-center">
-			<div class="spinner">
-				<div class="cube1" />
-				<div class="cube2" />
-			</div>
+	<div class="flex items-center">
+		<div class="spinner">
+			<div class="cube1" />
+			<div class="cube2" />
 		</div>
 	</div>
+</div>
 
 <style>
 	.spinner {

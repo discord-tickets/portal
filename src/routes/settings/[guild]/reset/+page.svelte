@@ -1,5 +1,6 @@
 <script>
 	import { page } from '$app/stores';
+	import ErrorBox from '$components/ErrorBox.svelte';
 
 	const url = `/api/admin/guilds/${$page.params.guild}/settings`;
 
@@ -35,14 +36,7 @@
 <h1 class="m-4 text-4xl font-bold text-center">Reset</h1>
 <div class="m-2 sm:p-4 max-w-3xl mx-auto text-center">
 	{#if error}
-		<div id="error" class="break-words">
-			<div
-				class="bg-red-400 dark:bg-red-500 text-red-800 dark:text-red-400 bg-opacity-40 dark:bg-opacity-20 mb-4 p-6 px-12 rounded-lg text-center max-w-lg inline-block"
-			>
-				<p class="font-semibold text-xl">Error</p>
-				{error.message ?? error}
-			</div>
-		</div>
+		<ErrorBox {error} />
 	{/if}
 	<div
 		class="bg-red-400 dark:bg-red-500 text-red-800 dark:text-red-400 bg-opacity-40 dark:bg-opacity-20 p-6 px-12 rounded-lg max-w-lg inline-block"

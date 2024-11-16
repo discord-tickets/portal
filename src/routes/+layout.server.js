@@ -10,10 +10,7 @@ export async function load({ cookies, fetch, request, url }) {
 	const body = isJSON ? await response.json() : await response.text();
 	if (url.pathname !== '/login') {
 		if (response.status === 401) {
-			redirect(
-				307,
-				`/login?r=${encodeURIComponent(url.pathname + url.search)}`
-			);
+			redirect(307, `/login?r=${encodeURIComponent(url.pathname + url.search)}`);
 		} else if (!response.ok) {
 			error(response.status, isJSON ? JSON.stringify(body) : body);
 		}
@@ -32,11 +29,11 @@ export async function load({ cookies, fetch, request, url }) {
 			path: '/',
 			sameSite: 'lax',
 			secure: false,
-			httpOnly: false,
+			httpOnly: false
 		});
 	}
 	return {
-		client: await(await fetch(`/api/client`, { credentials: 'include' })).json(),
+		client: await (await fetch(`/api/client`, { credentials: 'include' })).json(),
 		locale,
 		theme: cookies.get('theme'),
 		user: body
