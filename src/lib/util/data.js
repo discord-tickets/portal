@@ -5,10 +5,9 @@ export function flatten(object) {
 	for (let [k, v] of Object.entries(object)) {
 		if (typeof v === 'string') {
 			try {
-				v = JSON.parse(v);
-				if (typeof v === 'object') {
-					v = flatten(v);
-				}
+				let j = JSON.parse(v);
+				if (typeof j === 'object') v = flatten(j);
+				else v = String(j)
 			} catch {
 				/* empty */
 			}
@@ -19,6 +18,5 @@ export function flatten(object) {
 		}
 		entries.push([k, v]);
 	}
-	console.log(entries);
 	return entries;
 }
