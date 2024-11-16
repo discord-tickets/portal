@@ -22,20 +22,21 @@
 				<img src={`${client.avatar}?size=512`} alt="" class="rounded-full h-24 w-24" />
 				<h1 class="font-bold text-2xl lg:text-4xl">{client.username}</h1>
 			</div>
-			<p
+			<!-- <p
 				class="hidden lg:inline text-dgrey-100 dark:text-dgrey-800 font-black text-6xl lg:text-8xl tracking-wide text-center lg:text-left lg:absolute lg:bottom-10 m-0 p-0 select-none"
 			>
 				Portal
-			</p>
+			</p> -->
 		</div>
 	</div>
 	<div
 		class="lg:w-1/2 bg-cover bg-no-repeat"
 		style={`background-image: url("/assets/topgg-${theme}.png")`}
 	>
-		<div class="bg-gradient-to-br from-blurple/20 to-white/10 dark:to-[#090510]/10">
+		<!-- <div class="bg-gradient-to-br from-white/10 to-white/20 dark:from-blurple/20  dark:to-[#090510]/10"> -->
+		<div class="bg-gradient-to-br from-blurple/50 to-blurple/5 dark:from-blurple/20  dark:to-[#090510]/10">
 			<div class="flex items-center justify-stretch lg:min-h-screen p-8 backdrop-blur-sm">
-				<div class="flex flex-col items-center gap-4 w-full">
+				<div class="flex flex-col items-center gap-4 w-full text-black dark:text-dgrey-300">
 					<div class="text-lg font-semibold">
 						{t('please_login')}
 					</div>
