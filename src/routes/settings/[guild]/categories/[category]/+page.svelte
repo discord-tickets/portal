@@ -10,6 +10,7 @@
 	import Required from '$components/Required.svelte';
 	import { getContext, onMount } from 'svelte';
 	import { beforeNavigate } from '$app/navigation';
+	import ErrorBox from '$components/ErrorBox.svelte';
 
 	let modified = false;
 
@@ -74,6 +75,11 @@
 
 			if (category.discordCategory === 'new') json.discordCategory = null;
 			json.cooldown = category.cooldown ? ms(category.cooldown) : null;
+
+			if (json.name.length > 30) throw new Error(`The name is too long (${json.name.length}>30).`);
+
+			if (json.description.length > 100)
+				throw new Error(`The description is too long (${json.description.length}>100).`);
 
 			json.questions.forEach((q) => {
 				if (q.type === 'TEXT') {
@@ -162,14 +168,7 @@
 </h2>
 <div class="m-2 p-4 max-w-5xl mx-auto text-lg">
 	{#if error}
-		<div id="error" class="text-center break-words">
-			<div
-				class="bg-red-400 dark:bg-red-500 text-red-800 dark:text-red-400 bg-opacity-40 dark:bg-opacity-20 mb-4 p-6 px-12 rounded-lg text-center max-w-lg inline-block"
-			>
-				<p class="font-semibold text-xl">Error</p>
-				{error.message ?? error}
-			</div>
-		</div>
+		<ErrorBox {error} />
 	{/if}
 	<form on:submit|preventDefault={() => submit()} on:change={() => (modified = true)} class="my-4">
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
@@ -272,7 +271,7 @@
 						<select class="form-multiselect input" required bind:value={category.discordCategory}>
 							{#if !category.discordCategory || category.discordCategory === 'new'}
 								<option value="new">Create a new category</option>
-								<option disabled>------------</option>
+								<hr />
 							{/if}
 							{#each channels as channel}
 								<option value={channel.id} class="p-1">
@@ -580,7 +579,7 @@
 											<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" />
 											None
 										</option>
-										<option disabled>------------</option>
+										<hr />
 										{#each category.questions as q}
 											<option value={q.id} class="p-1">
 												<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" />

@@ -3,6 +3,7 @@
 	export let data;
 
 	import { page } from '$app/stores';
+	import ErrorBox from '$components/ErrorBox.svelte';
 	import TagInputs from '$components/TagInputs.svelte';
 	import { toasts, ToastContainer, BootstrapToast } from 'svelte-toasts';
 
@@ -152,14 +153,7 @@
 </div>
 <h1 class="m-4 text-4xl font-bold text-center">Tags</h1>
 {#if error}
-	<div id="error" class="text-center break-words">
-		<div
-			class="bg-red-400 dark:bg-red-500 text-red-800 dark:text-red-400 bg-opacity-40 dark:bg-opacity-20 mb-4 p-6 px-12 rounded-lg text-center max-w-lg inline-block"
-		>
-			<p class="font-semibold text-xl">Error</p>
-			{error.message ?? error}
-		</div>
-	</div>
+	<ErrorBox {error} />
 {/if}
 <div class="m-2 md:mt-8 flex flex-col-reverse lg:flex-row gap-12 max-w-5xl mx-auto">
 	<div class="w-full">

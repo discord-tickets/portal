@@ -4,7 +4,7 @@
 
 @layer base {
 	body {
-		background: #2e2e2e;
+		background: #2f3136;
 		scroll-behavior: smooth;
 	}
 }
@@ -15,7 +15,7 @@
 	}
 
 	.input {
-		@apply block my-1 w-full rounded-md shadow-sm bg-gray-100 dark:bg-slate-800 border-transparent focus:border-blurple focus:border-2 focus:bg-white focus:ring-0 font-normal disabled:cursor-not-allowed placeholder:text-gray-500 placeholder:dark:text-slate-400;
+		@apply block my-1 w-full rounded-md shadow-sm bg-gray-100 dark:bg-slate-800 border-transparent focus:ring-blurple focus:ring-2 focus:bg-white font-normal disabled:cursor-not-allowed placeholder:text-gray-500 placeholder:dark:text-slate-400 transition-colors;
 	}
 
 	.form-checkbox {
@@ -36,8 +36,8 @@
 	}
 }
 
-/**
-	MODALS
+/*
+	? MODALS
 */
 
 .backdrop {
@@ -60,78 +60,4 @@
 	align-items: center;
 	/* allow click-through to backdrop */
 	pointer-events: none;
-}
-
-/**
-	SPINNER
-*/
-
-.spinner {
-	margin: 300px auto;
-	width: 40px;
-	height: 40px;
-	position: relative;
-}
-
-.cube1,
-.cube2 {
-	background-color: #5865f2;
-	width: 15px;
-	height: 15px;
-	position: absolute;
-	top: 0;
-	left: 0;
-
-	-webkit-animation: sk-cubemove 1.8s infinite ease-in-out;
-	animation: sk-cubemove 1.8s infinite ease-in-out;
-}
-
-.cube2 {
-	-webkit-animation-delay: -0.9s;
-	animation-delay: -0.9s;
-}
-
-@-webkit-keyframes sk-cubemove {
-	25% {
-		-webkit-transform: translateX(42px) rotate(-90deg) scale(0.5);
-	}
-
-	50% {
-		-webkit-transform: translateX(42px) translateY(42px) rotate(-180deg);
-	}
-
-	75% {
-		-webkit-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
-	}
-
-	100% {
-		-webkit-transform: rotate(-360deg);
-	}
-}
-
-@keyframes sk-cubemove {
-	25% {
-		transform: translateX(42px) rotate(-90deg) scale(0.5);
-		-webkit-transform: translateX(42px) rotate(-90deg) scale(0.5);
-	}
-
-	50% {
-		transform: translateX(42px) translateY(42px) rotate(-179deg);
-		-webkit-transform: translateX(42px) translateY(42px) rotate(-179deg);
-	}
-
-	50.1% {
-		transform: translateX(42px) translateY(42px) rotate(-180deg);
-		-webkit-transform: translateX(42px) translateY(42px) rotate(-180deg);
-	}
-
-	75% {
-		transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
-		-webkit-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
-	}
-
-	100% {
-		transform: rotate(-360deg);
-		-webkit-transform: rotate(-360deg);
-	}
 }

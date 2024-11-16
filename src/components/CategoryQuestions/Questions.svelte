@@ -84,8 +84,9 @@
 								<i class="fa-solid fa-xmark" />
 							{/if}
 						</button>
-						<div
-							class="select-none text-gray-500 dark:text-slate-400 hover:text-blurple dark:hover:text-blurple cursor-pointer transition duration-300 font-medium flex justify-between"
+						<button
+							type="button"
+							class="select-none w-full text-gray-500 dark:text-slate-400 hover:text-blurple dark:hover:text-blurple cursor-pointer transition duration-300 font-medium flex justify-between"
 							on:click={() => (expanded = expanded === q.id ? null : q.id)}
 						>
 							<span class="text-sm"> Click to {expanded === q.id ? 'collapse' : 'expand'}</span>
@@ -94,7 +95,7 @@
 									? 'fa-angle-up'
 									: 'fa-angle-down'} text-xl self-end"
 							/>
-						</div>
+						</button>
 					</div>
 				</div>
 				{#if expanded === q.id}

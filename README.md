@@ -1,8 +1,8 @@
-# Discord Tickets Settings
+# Discord Tickets Portal
 
-A web app for configuring the [Discord Tickets](https://discordtickets.app) bot via the API.
+A web app for interacting with the [Discord Tickets](https://discordtickets.app) bot via the API.
 
-> **Note**
+> [!NOTE]
 >
 > This is bundled with the bot; you don't need to download and install it separately.
 
