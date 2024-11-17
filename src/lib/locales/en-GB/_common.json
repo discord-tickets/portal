@@ -1,6 +1,8 @@
 {
-	"title": "{guild} - {client} Portal",
-	"staff_dashboard": "Staff Dashboard",
+	"language": "Language",
+	"logout": "Log out",
 	"settings_panel": "Settings Panel",
-	"logout": "Log out"
+	"staff_dashboard": "Staff Dashboard",
+	"theme": "Theme",
+	"title": "{guild} - {client} Portal"
 }

@@ -1,6 +1,6 @@
 {
 	"login_title": "Log in - {username} Portal",
-	"please_login": "You need to be logged in to view this page",
+	"please_login": "Log in to the Portal to view this page",
 	"select_server": "Select a server",
 	"select_server_title": "{username} Portal",
 	"continue_with_discord": "Continue with Discord"

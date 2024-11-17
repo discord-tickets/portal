@@ -8,10 +8,11 @@
 	import ms from 'ms';
 	import { onMount, setContext } from 'svelte';
 
-	const { client, user, theme } = data;
+	const { client, user, theme, locale } = data;
 	setContext('client', client);
 	setContext('user', user);
 	setContext('theme', theme);
+	setContext('locale', locale);
 	onMount(() => {
 		if (theme === undefined) {
 			document.cookie = cookie.serialize(
