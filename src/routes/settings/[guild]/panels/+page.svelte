@@ -2,6 +2,7 @@
 	import { run, preventDefault } from 'svelte/legacy';
 
 	import { page } from '$app/stores';
+	import MultiSelect from 'svelte-multiselect';
 	import emoji from 'emoji-name-map';
 	import Required from '$components/Required.svelte';
 	import ErrorBox from '$components/ErrorBox.svelte';
@@ -27,6 +28,12 @@
 		thumbnail: ''
 	});
 
+	let selectedCategories = $state([]);
+	const categoryOptions = categories.reduce((acc, c) => {
+		acc[(emoji.get(c.emoji) ?? '') + c.name] = c.id;
+		return acc;
+	}, {});
+
 	const getChannelName = (id) => {
 		return channels.find((c) => c.id === id)?.name;
 	};
@@ -37,6 +44,7 @@
 			loading = true;
 			const json = { ...panel };
 			if (json.channel === 'new') json.channel = null;
+			json.categories = selectedCategories.map((name) => categoryOptions[name]);
 			const url = `/api/admin/guilds/${$page.params.guild}/panels`;
 			const response = await fetch(url, {
 				method: 'POST',
@@ -144,30 +152,23 @@
 							class="fa-solid fa-circle-question cursor-help text-gray-500 dark:text-slate-400"
 							title="The category options to be available"
 						></i>
-						<select
-							multiple
-							required
-							class="input form-multiselect h-24 font-normal"
-							bind:value={panel.categories}
-						>
-							{#each categories as category}
-								<option value={category.id} class="m-1 rounded p-1">
-									{emoji.get(category.emoji) ?? ''}
-									{category.name}
-								</option>
-							{/each}
-						</select>
-					</label>
-				</div>
-				<div>
-					<label class="font-medium">
-						<span class="font-medium">Description</span>
-						<i
-							class="fa-solid fa-circle-question cursor-help text-gray-500 dark:text-slate-400"
-							title="Optional - the embed description"
-						></i>
-						<textarea class="input form-input h-24" maxlength="4096" bind:value={panel.description}
-						></textarea>
+						<MultiSelect
+							bind:selected={selectedCategories}
+							outerDivClass="text-base my-1 p-2 rounded-md border-transparent bg-gray-100 dark:bg-slate-800 font-normal shadow-sm transition-colors has-[:focus]:ring-2 has-[:focus]:ring-blurple"
+							inputClass="p-0 rounded-md bg-transparent transition-colors border-0 focus:ring-0"
+							ulSelectedClass="bg-gray-100 dark:bg-slate-800 text-gray-800 dark:text-slate-300"
+							liSelectedClass="bg-blurple text-white text-sm font-semibold font-mono"
+							ulOptionsClass="bg-white dark:bg-slate-900 p-2 max-h-48 overflow-y-auto"
+							liOptionClass="rounded-md"
+							liActiveOptionClass="bg-blurple text-white"
+							liUserMsgClass="text-red-700 dark:text-red-500 bg-red-400/40 dark:bg-red-500/20"
+							liActiveUserMsgClass=""
+							maxSelectMsgClass="text-xs"
+							noMatchingOptionsMsg="Create a category in the categories section"
+							required={true}
+							maxSelect={panel.type === 'MENU' ? 25 : 5}
+							options={Object.keys(categoryOptions)}
+						/>
 					</label>
 				</div>
 				<div>
@@ -200,6 +201,17 @@
 							title="Optional - the embed thumbnail"
 						></i>
 						<input type="url" class="input form-input" bind:value={panel.thumbnail} />
+					</label>
+				</div>
+				<div>
+					<label class="font-medium">
+						<span class="font-medium">Description</span>
+						<i
+							class="fa-solid fa-circle-question cursor-help text-gray-500 dark:text-slate-400"
+							title="Optional - the embed description"
+						></i>
+						<textarea class="input form-input h-24" maxlength="4096" bind:value={panel.description}
+						></textarea>
 					</label>
 				</div>
 				<div class="place-self-center">

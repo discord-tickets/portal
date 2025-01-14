@@ -43,6 +43,7 @@
 		"sortablejs": "^1.15.3",
 		"svelte": "^5.2.2",
 		"svelte-modals": "^2.0.0",
+		"svelte-multiselect": "11.0.0-rc.1",
 		"svelte-preprocess": "^6.0.3",
 		"svelte-toasts": "^1.1.2",
 		"tailwind-merge": "^2.5.4",
