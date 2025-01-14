@@ -1,5 +1,4 @@
 <script>
-
 	import { modals } from 'svelte-modals';
 	// import OptionsModal from './OptionsModal.svelte';
 	import Required from '../Required.svelte';
@@ -15,8 +14,7 @@
 		set maxLength(input) {
 			_maxLength = Math.min(25, input);
 		}
-	}
-
+	};
 </script>
 
 <div>
@@ -24,12 +22,12 @@
 		Label
 		<Required />
 		<i
-			class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
+			class="fa-solid fa-circle-question cursor-help text-gray-500 dark:text-slate-400"
 			title="The title of the question"
 		></i>
 		<input
 			type="text"
-			class="form-input input text-sm"
+			class="input form-input text-sm"
 			required
 			maxlength="45"
 			bind:value={question.label}
@@ -40,12 +38,12 @@
 	<label class="font-medium">
 		Maximum values
 		<i
-			class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
+			class="fa-solid fa-circle-question cursor-help text-gray-500 dark:text-slate-400"
 			title="How many choices can be selected?"
 		></i>
 		<input
 			type="number"
-			class="form-input input text-sm"
+			class="input form-input text-sm"
 			required
 			min="1"
 			max="25"
@@ -57,12 +55,12 @@
 	<label class="font-medium">
 		Minimum values
 		<i
-			class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
+			class="fa-solid fa-circle-question cursor-help text-gray-500 dark:text-slate-400"
 			title="The minimum number of select choices"
 		></i>
 		<input
 			type="number"
-			class="form-input input text-sm"
+			class="input form-input text-sm"
 			default="1"
 			required
 			min="0"
@@ -76,12 +74,12 @@
 		Options ({question.options.length}/25)
 		<Required />
 		<i
-			class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
+			class="fa-solid fa-circle-question cursor-help text-gray-500 dark:text-slate-400"
 			title="The options that members can choose from"
 		></i>
 		<button
 			type="button"
-			class="hover:text-yellow-300 text-yellow-500 dark:hover:text-yellow-500/50 dark:text-yellow-500 px-2 rounded-lg font-medium transition duration-300 disabled:cursor-not-allowed"
+			class="rounded-lg px-2 font-medium text-yellow-500 transition duration-300 hover:text-yellow-300 disabled:cursor-not-allowed dark:text-yellow-500 dark:hover:text-yellow-500/50"
 			onclick={() => modals.open(OptionsModal, { id: question.id })}
 		>
 			<i class="fa-solid fa-pencil"></i>
@@ -89,7 +87,7 @@
 		</button>
 	</div>
 	<div>
-		<ul class="list-disc list-inside">
+		<ul class="list-inside list-disc">
 			{#each question.options as option}
 				<li>{option.label}</li>
 			{/each}
@@ -101,12 +99,12 @@
 		<label class="font-medium">
 			Placeholder
 			<i
-				class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
+				class="fa-solid fa-circle-question cursor-help text-gray-500 dark:text-slate-400"
 				title="The placeholder (label)"
 			></i>
 			<input
 				type="text"
-				class="form-input input text-sm"
+				class="input form-input text-sm"
 				maxlength="150"
 				bind:value={question.placeholder}
 			/>

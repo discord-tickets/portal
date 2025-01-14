@@ -3,8 +3,8 @@
 	import { page } from '$app/stores';
 </script>
 
-<h1 class="m-4 text-4xl font-bold text-center">Feedback</h1>
-<div class="text-center max-w-lg mx-auto my-8">
+<h1 class="m-4 text-center text-4xl font-bold">Feedback</h1>
+<div class="mx-auto my-8 max-w-lg text-center">
 	<div class="my-8">
 		<img
 			src={`${base}/img/undraw_reviews.svg`}
@@ -17,7 +17,7 @@
 	<div class="my-8 text-lg font-semibold">
 		<a
 			href={`${base}/${$page.params.guild}/feedback`}
-			class="hover:text-blurple transition duration-300"
+			class="transition duration-300 hover:text-blurple"
 		>
 			View feedback in the portal
 			<i class="fa-solid fa-arrow-right-long"></i>

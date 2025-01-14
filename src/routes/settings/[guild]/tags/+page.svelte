@@ -1,21 +1,22 @@
+<!-- @migration-task Error while migrating Svelte code: Cannot reassign or bind to each block argument in runes mode. Use the array and index variables instead (e.g. `array[i] = value` instead of `entry = value`) -->
 <script>
 	import { preventDefault } from 'svelte/legacy';
-
-	
 
 	import { page } from '$app/stores';
 	import ErrorBox from '$components/ErrorBox.svelte';
 	import TagInputs from '$components/TagInputs.svelte';
 	import { toasts, ToastContainer, BootstrapToast } from 'svelte-toasts';
+	import { tagsState as tS } from '$components/state.svelte';
 	/** @type {{data: import('./$types').PageData}} */
 	let { data } = $props();
 
 	const url = `/api/admin/guilds/${$page.params.guild}/tags`;
 	let { tags } = data;
-	let shown = $state(tags);
+	tS.tags = tags;
+	let shown = $state(tS.tags);
 	let loading = $state(false);
 	let error = $state(null);
-	let tag = $state({
+	let touch = $state({
 		content: null,
 		name: null,
 		regex: null
@@ -24,7 +25,7 @@
 	let search = $state('');
 
 	const filter = (value) => {
-		shown = tags.filter((t) => {
+		shown = tS.tags.filter((t) => {
 			const regex = new RegExp(value.replace(/(?=\W)/g, '\\'), 'i');
 			return regex.test(t.name) || regex.test(t.regex) || regex.test(t.content);
 		});
@@ -34,7 +35,7 @@
 		try {
 			error = null;
 			loading = true;
-			const json = { ...tag };
+			const json = { ...touch };
 
 			const response = await fetch(url, {
 				method: 'POST',
@@ -49,8 +50,13 @@
 			if (!response.ok) {
 				throw body;
 			} else {
-				tags.push(body);
+				tS.tags.push(body);
 				filter(search);
+				touch = {
+					content: null,
+					name: null,
+					regex: null
+				};
 				loading = false;
 				toasts.add({
 					description: 'Tag created',
@@ -121,8 +127,8 @@
 			if (!response.ok) {
 				throw body;
 			} else {
-				const index = tags.findIndex((t) => t.id === id);
-				tags.splice(index, 1);
+				const index = tS.tags.findIndex((t) => t.id === id);
+				tS.tags.splice(index, 1);
 				filter(search);
 				loading = false;
 				toasts.add({
@@ -145,7 +151,7 @@
 	};
 </script>
 
-<div class="mb-8 text-orange-600 dark:text-orange-400 text-center">
+<div class="mb-8 text-center text-orange-600 dark:text-orange-400">
 	<p>
 		<i class="fa-solid fa-triangle-exclamation"></i>
 		<a href="https://discordtickets.app/configuration/tags" class="font-semibold hover:underline"
@@ -154,27 +160,27 @@
 		to avoid problems.
 	</p>
 </div>
-<h1 class="m-4 text-4xl font-bold text-center">Tags</h1>
+<h1 class="m-4 text-center text-4xl font-bold">Tags</h1>
 {#if error}
 	<ErrorBox {error} />
 {/if}
-<div class="m-2 md:mt-8 flex flex-col-reverse lg:flex-row gap-12 max-w-5xl mx-auto">
+<div class="m-2 mx-auto flex max-w-5xl flex-col-reverse gap-12 md:mt-8 lg:flex-row">
 	<div class="w-full">
 		<div class="grid grid-cols-1 gap-4">
 			<div>
 				<input
 					type="text"
-					class="form-input input"
+					class="input form-input"
 					placeholder="Search"
 					bind:value={search}
 					oninput={(event) => filter(event.target.value)}
 				/>
 			</div>
-			{#each shown as tag}
-				<div class="bg-white dark:bg-slate-700 p-4 rounded-xl shadow-sm">
-					<span class="font-semibold text-lg">{tag.name}</span>
+			{#each shown as tag, i}
+				<div class="rounded-xl bg-white p-4 shadow-sm dark:bg-slate-700">
+					<span class="text-lg font-semibold">{tag.name}</span>
 					<p
-						class="select-none text-gray-500 dark:text-slate-400 hover:text-blurple dark:hover:text-blurple cursor-pointer transition duration-300"
+						class="cursor-pointer select-none text-gray-500 transition duration-300 hover:text-blurple dark:text-slate-400 dark:hover:text-blurple"
 						onclick={() => (expanded = expanded === tag.id ? null : tag.id)}
 					>
 						<i
@@ -187,13 +193,13 @@
 					{#if expanded === tag.id}
 						<div class="m-2">
 							<form onsubmit={preventDefault(() => save(tag))} id={tag.id} name={tag.name}>
-								<TagInputs bind:state={tag} />
+								<TagInputs bind:tag={tS.tags[i]} />
 							</form>
 							<div class="mt-4 flex flex-grow gap-4">
 								<button
 									type="button"
 									disabled={loading}
-									class="flex-1 bg-red-300 hover:bg-red-500 hover:text-white dark:bg-red-500/75 dark:hover:bg-red-500 dark:hover:text-white p-2 px-5 rounded-lg font-medium transition duration-300 disabled:cursor-not-allowed"
+									class="flex-1 rounded-lg bg-red-300 p-2 px-5 font-medium transition duration-300 hover:bg-red-500 hover:text-white disabled:cursor-not-allowed dark:bg-red-500/75 dark:hover:bg-red-500 dark:hover:text-white"
 									onclick={() => del(tag.id)}
 								>
 									{#if loading}
@@ -208,7 +214,7 @@
 									for={tag.id}
 									form={tag.id}
 									disabled={loading}
-									class="flex-1 bg-green-300 hover:bg-green-500 hover:text-white dark:bg-green-500/75 dark:hover:bg-green-500 dark:hover:text-white p-2 px-5 rounded-lg font-medium transition duration-300 disabled:cursor-not-allowed"
+									class="flex-1 rounded-lg bg-green-300 p-2 px-5 font-medium transition duration-300 hover:bg-green-500 hover:text-white disabled:cursor-not-allowed dark:bg-green-500/75 dark:hover:bg-green-500 dark:hover:text-white"
 								>
 									{#if loading}
 										<i class="fa-solid fa-spinner animate-spin"></i>
@@ -223,15 +229,15 @@
 		</div>
 	</div>
 	<div class="w-full">
-		<div class="bg-white dark:bg-slate-700 p-4 rounded-xl shadow-sm">
-			<h3 class="text-center font-bold text-xl">Create a tag</h3>
-			<form onsubmit={preventDefault(() => create())} class="text-lg my-4">
+		<div class="rounded-xl bg-white p-4 shadow-sm dark:bg-slate-700">
+			<h3 class="text-center text-xl font-bold">Create a tag</h3>
+			<form onsubmit={preventDefault(() => create())} class="my-4 text-lg">
 				<div class="grid grid-cols-1 gap-2">
-					<TagInputs bind:state={tag} />
+					<TagInputs bind:tag={touch} />
 					<button
 						type="submit"
 						disabled={loading}
-						class="mt-4 bg-green-300 hover:bg-green-500 hover:text-white dark:bg-green-500/75 dark:hover:bg-green-500 dark:hover:text-white p-2 px-5 rounded-lg font-medium transition duration-300 disabled:cursor-not-allowed"
+						class="mt-4 rounded-lg bg-green-300 p-2 px-5 font-medium transition duration-300 hover:bg-green-500 hover:text-white disabled:cursor-not-allowed dark:bg-green-500/75 dark:hover:bg-green-500 dark:hover:text-white"
 					>
 						{#if loading}
 							<i class="fa-solid fa-spinner animate-spin"></i>
@@ -244,7 +250,7 @@
 	</div>
 </div>
 
-<ToastContainer duration={3000} theme={data.theme} >
+<ToastContainer duration={3000} theme={data.theme}>
 	{#snippet children({ data: toasted })}
 		<BootstrapToast data={toasted} />
 	{/snippet}

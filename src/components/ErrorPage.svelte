@@ -9,16 +9,16 @@
 </script>
 
 <div class="container mx-auto">
-	<div class="flex justify-center my-12 lg:my-24">
+	<div class="my-12 flex justify-center lg:my-24">
 		<div class="flex flex-col gap-8">
-			<h1 class="font-bold text-4xl text-black dark:text-white text-center">
+			<h1 class="text-center text-4xl font-bold text-black dark:text-white">
 				Sorry, something went wrong.
 			</h1>
-			<p class="text-xl text-center">
+			<p class="text-center text-xl">
 				Your request failed with HTTP status
 				<span class="font-mono">{$page.status}</span>.
 			</p>
-			<div class={`${boxStyles} rounded-lg py-4 px-6 text-sm flex flex-col gap-4`}>
+			<div class={`${boxStyles} flex flex-col gap-4 rounded-lg px-6 py-4 text-sm`}>
 				<div class="font-mono text-xs">
 					<p class="my-2">
 						<span class="font-bold text-black dark:text-white">URL:</span>

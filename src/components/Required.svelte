@@ -1,1 +1,1 @@
-<i class="fa-solid fa-asterisk text-pink-600 dark:text-pink-400 cursor-help" title="Required"></i>
+<i class="fa-solid fa-asterisk cursor-help text-pink-600 dark:text-pink-400" title="Required"></i>

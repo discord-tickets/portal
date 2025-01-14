@@ -1,4 +1,4 @@
-<div class="flex justify-center h-screen">
+<div class="flex h-screen justify-center">
 	<div class="flex items-center">
 		<div class="spinner">
 			<div class="cube1"></div>

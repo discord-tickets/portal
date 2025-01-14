@@ -5,7 +5,7 @@ module.exports = {
 		sourceType: 'module',
 		ecmaVersion: 2020,
 		extraFileExtensions: ['.svelte'],
-		tsconfigRootDir: __dirname,
+		tsconfigRootDir: __dirname
 	},
 	env: {
 		browser: true,

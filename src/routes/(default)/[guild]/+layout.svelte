@@ -1,5 +1,4 @@
 <script>
-	
 	/** @type {{data: import('./$types').PageData, children?: import('svelte').Snippet}} */
 	let { data, children } = $props();
 

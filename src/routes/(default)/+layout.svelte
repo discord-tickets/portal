@@ -15,7 +15,7 @@
 </script>
 
 <div
-	class="bg-dgrey-100 dark:bg-dgrey-800 text-dgrey-600 dark:text-dgrey-300 min-h-screen h-max w-full absolute"
+	class="absolute h-max min-h-screen w-full bg-dgrey-100 text-dgrey-600 dark:bg-dgrey-800 dark:text-dgrey-300"
 >
 	<!-- <Modals>
 		{#snippet backdrop({ close })}

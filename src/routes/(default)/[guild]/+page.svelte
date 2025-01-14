@@ -1,6 +1,4 @@
 <script>
-	
-
 	import { page } from '$app/stores';
 	import { I18nLite } from '@eartharoid/i18n';
 	/** @type {{data: import('./$types').PageData}} */
@@ -17,14 +15,14 @@
 <div>
 	{#if guild.privilegeLevel > 0}
 		<!-- text-dgrey-600/75 -->
-		<div class="bg-dgrey-400 dark:bg-dgrey-950 p-1 w-full text-xs">
+		<div class="w-full bg-dgrey-400 p-1 text-xs dark:bg-dgrey-950">
 			<div class="container mx-auto">
 				<div class="flex justify-center gap-8">
 					<!-- underline decoration-dotted hover:decoration-solid -->
 					<!-- short slug-id from url -->
 					<a
 						href={`/${$page.params.guild}/staff`}
-						class="py-1 px-2 text-dgrey-700 bg-dgrey-900/10 hover:bg-dgrey-900/20 dark:bg-dgrey-400/10 dark:hover:bg-dgrey-400/20 dark:text-dgrey-400/75 hover:dark:text-dgrey-400/100 duration-300 rounded-md"
+						class="rounded-md bg-dgrey-900/10 px-2 py-1 text-dgrey-700 duration-300 hover:bg-dgrey-900/20 dark:bg-dgrey-400/10 dark:text-dgrey-400/75 dark:hover:bg-dgrey-400/20 hover:dark:text-dgrey-400/100"
 					>
 						<div class="flex items-center gap-2">
 							<i class="fa-solid fa-user-group"></i>
@@ -35,7 +33,7 @@
 						<!-- real id from guild -->
 						<a
 							href={`/settings/${guild.id}`}
-							class="py-1 px-2 text-dgrey-700 bg-dgrey-900/10 hover:bg-dgrey-900/20 dark:bg-dgrey-400/10 dark:hover:bg-dgrey-400/20 dark:text-dgrey-400/75 hover:dark:text-dgrey-400/100 duration-300 rounded-md"
+							class="rounded-md bg-dgrey-900/10 px-2 py-1 text-dgrey-700 duration-300 hover:bg-dgrey-900/20 dark:bg-dgrey-400/10 dark:text-dgrey-400/75 dark:hover:bg-dgrey-400/20 hover:dark:text-dgrey-400/100"
 						>
 							<div class="flex items-center gap-2">
 								<i class="fa-solid fa-gear"></i>

@@ -7,9 +7,9 @@
 	console.error(error);
 </script>
 
-<div id="error" class="break-words max-w-xl mx-auto my-8 overflow-x-auto">
-	<div class={`${boxStyles} rounded-lg py-4 px-6 text-sm flex flex-col gap-4`}>
-		<p class="font-bold text-xl my-2 text-black dark:text-white text-center">
+<div id="error" class="mx-auto my-8 max-w-xl overflow-x-auto break-words">
+	<div class={`${boxStyles} flex flex-col gap-4 rounded-lg px-6 py-4 text-sm`}>
+		<p class="my-2 text-center text-xl font-bold text-black dark:text-white">
 			Sorry, something went wrong.
 		</p>
 		<div>

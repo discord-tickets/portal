@@ -12,32 +12,32 @@
 	<link rel="icon" href={`${client.avatar}?size=32`} />
 </svelte:head>
 
-<div class="flex flex-col lg:flex-row gap-0">
-	<div class="lg:w-1/2 bg-dgrey-400 dark:bg-dgrey-950 lg:min-h-screen">
-		<div class="flex justify-center lg:min-h-screen p-8">
+<div class="flex flex-col gap-0 lg:flex-row">
+	<div class="bg-dgrey-400 dark:bg-dgrey-950 lg:min-h-screen lg:w-1/2">
+		<div class="flex justify-center p-8 lg:min-h-screen">
 			<div class="flex items-center gap-8">
-				<img src={`${client.avatar}?size=512`} alt="" class="rounded-full h-24 w-24" />
-				<h1 class="font-bold text-2xl lg:text-4xl">{client.username}</h1>
+				<img src={`${client.avatar}?size=512`} alt="" class="h-24 w-24 rounded-full" />
+				<h1 class="text-2xl font-bold lg:text-4xl">{client.username}</h1>
 			</div>
 			<p
-				class="hidden lg:inline text-dgrey-100 dark:text-dgrey-800 font-black text-6xl lg:text-8xl tracking-wide text-center lg:text-left lg:absolute lg:bottom-10 m-0 p-0"
+				class="m-0 hidden p-0 text-center text-6xl font-black tracking-wide text-dgrey-100 dark:text-dgrey-800 lg:absolute lg:bottom-10 lg:inline lg:text-left lg:text-8xl"
 			>
 				Portal
 			</p>
 		</div>
 	</div>
 	<div class="lg:w-1/2">
-		<div class="flex items-center justify-stretch lg:min-h-screen p-8">
-			<div class="flex flex-col items-center gap-4 w-full">
+		<div class="flex items-center justify-stretch p-8 lg:min-h-screen">
+			<div class="flex w-full flex-col items-center gap-4">
 				<div class="text-lg font-semibold">
 					{t('please_login')}
 				</div>
 				<a
 					href={'/auth/login' + query}
-					class="bg-blurple hover:bg-blurple/75 text-white p-2 px-5 rounded-lg font-semibold transition duration-300 focus:outline-none border-2 border-white/50 dark:border-white/25 focus:ring-2 ring-blurple"
+					class="rounded-lg border-2 border-white/50 bg-blurple p-2 px-5 font-semibold text-white ring-blurple transition duration-300 hover:bg-blurple/75 focus:outline-none focus:ring-2 dark:border-white/25"
 				>
 					<span class="flex flex-row items-center gap-2">
-						<i class="fa-brands fa-discord" />
+						<i class="fa-brands fa-discord"></i>
 						{t('continue_with_discord')}
 					</span>
 				</a>
