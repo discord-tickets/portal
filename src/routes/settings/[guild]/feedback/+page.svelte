@@ -7,7 +7,7 @@
 <div class="mx-auto my-8 max-w-lg text-center">
 	<div class="my-8">
 		<img
-			src={`${base}/img/undraw_reviews.svg`}
+			src={`${base}/assets/undraw_reviews.svg`}
 			alt="Reviews illustration"
 			width="70%"
 			height="auto"

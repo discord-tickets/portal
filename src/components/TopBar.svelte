@@ -6,7 +6,7 @@
 	let { user, isDark } = $props();
 
 	const toggle = () => {
-		document.cookie = cookie.serialize('theme', isDark ? 'light' : 'dark', {
+		document.cookie = cookie.serialize('theme', theme === 'dark' ? 'light' : 'dark', {
 			maxAge: ms('1y') / 1000,
 			path: '/',
 			sameSite: 'lax'
@@ -20,11 +20,7 @@
 		<div>
 			<a href={base + '/settings'} class="flex justify-center md:justify-start">
 				<!-- <img src="/logo.png" class="h-8" alt="Discord Tickets" /> -->
-				<img
-					src="https://static.eartharoid.me/discord-tickets/logo/{isDark ? 'white' : 'dark'}.png"
-					class="h-8"
-					alt="Discord Tickets"
-				/>
+				<img src="/assets/wordmark-{theme}.png" class="h-8" alt="Discord Tickets" />
 			</a>
 		</div>
 		<div>
@@ -44,7 +40,7 @@
 					<span class="ml-3">{user.username}</span>
 				</a>
 				<div class="ml-4">
-					{#if isDark}
+					{#if theme === 'dark'}
 						<i
 							class="fa-solid fa-moon cursor-pointer p-1 text-lg transition duration-300 hover:text-blurple"
 							title="Switch to light mode"

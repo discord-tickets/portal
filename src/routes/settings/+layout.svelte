@@ -84,7 +84,7 @@
 				{#if $navigating || !mounted}
 					<Spinner />
 				{:else}
-					<TopBar {user} isDark={theme === 'dark'} />
+					<TopBar {user} {theme} />
 					{@render children?.()}
 					<footer class="my-16 text-center">
 						<div class="mb-6 p-2 text-sm">
