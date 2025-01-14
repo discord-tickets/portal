@@ -1,6 +1,7 @@
 <script>
-	/** @type {import('./$types').PageData} */
-	export let data;
+	
+	/** @type {{data: import('./$types').PageData, children?: import('svelte').Snippet}} */
+	let { data, children } = $props();
 
 	const { guild } = data;
 </script>
@@ -10,5 +11,5 @@
 </svelte:head>
 
 <div>
-	<slot />
+	{@render children?.()}
 </div>

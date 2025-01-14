@@ -1,3 +1,4 @@
+<!-- @migration-task Error while migrating Svelte code: `<i>` is invalid inside `<option>` -->
 <script>
 	/** @type {import('./$types').PageData} */
 	export let data;
@@ -138,7 +139,7 @@
 						>
 							{#each channels as channel}
 								<option value={channel.id} class="p-1 m-1 rounded">
-									<i class="fa-solid fa-hashtag text-gray-500 dark:text-slate-400" />
+									<!-- <i class="fa-solid fa-hashtag text-gray-500 dark:text-slate-400" /> -->
 									{channel.name}
 								</option>
 							{/each}
@@ -176,7 +177,7 @@
 					>
 						{#each roles as role}
 							<option value={role.id} class="p-1 m-1 rounded" style={role._style}>
-								<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" style={role._style} />
+								<!-- <i class="fa-solid fa-at text-gray-500 dark:text-slate-400" style={role._style} /> -->
 								{role.unicodeEmoji || ''}
 								{role.name}
 							</option>
@@ -257,7 +258,7 @@
 					<select class="form-multiselect input" bind:value={settings.locale}>
 						{#each locales as locale}
 							<option value={locale} class="p-1">
-								<i class="fa-solid fa-hashtag text-gray-500 dark:text-slate-400" />
+								<!-- <i class="fa-solid fa-hashtag text-gray-500 dark:text-slate-400" /> -->
 								{locale}
 							</option>
 						{/each}
@@ -276,7 +277,7 @@
 						<hr />
 						{#each channels as channel}
 							<option value={channel.id} class="p-1">
-								<i class="fa-solid fa-hashtag text-gray-500 dark:text-slate-400" />
+								<!-- <i class="fa-solid fa-hashtag text-gray-500 dark:text-slate-400" /> -->
 								{channel.name}
 							</option>
 						{/each}

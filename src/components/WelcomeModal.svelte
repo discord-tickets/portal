@@ -1,13 +1,14 @@
 <script>
-	export let isOpen;
-	export let client;
+	import { preventDefault } from 'svelte/legacy';
 
 	import { fly } from 'svelte/transition';
-	import { closeModal, onBeforeClose } from 'svelte-modals';
+	import { modals, onBeforeClose, exitBeforeEnter } from 'svelte-modals';
 	import cookie from 'cookie';
 	import ms from 'ms';
+	/** @type {{isOpen: any, client: any}} */
+	let { isOpen, client } = $props();
 
-	let allowClose = false;
+	let allowClose = $state(false);
 	onBeforeClose(() => allowClose);
 </script>
 
@@ -16,13 +17,12 @@
 		role="dialog"
 		class="modal my-4 sm:my-12 md:my-24 lg:my-32 max-w-lg mx-auto"
 		transition:fly={{ y: 50 }}
-		on:introstart
-		on:outroend
+		use:exitBeforeEnter 
 	>
 		<div
 			class="pointer-events-auto bg-white dark:bg-slate-700 text-gray-800 dark:text-slate-300 p-4 rounded-xl shadow-sm w-full max-h-full overflow-y-auto"
 		>
-			<form on:submit|preventDefault={() => {}} id="questionOptions" name="questionOptions">
+			<form onsubmit={preventDefault(() => {})} id="questionOptions" name="questionOptions">
 				<div class="m-2 sm:m-4 flex flex-col gap-6">
 					<div class="text-center">
 						<h2 class="text-3xl font-bold">Getting started</h2>
@@ -64,13 +64,13 @@
 											class="select-none font-bold text-5xl text-gray-500 dark:text-slate-400 group-hover:text-white dark:group-hover:text-white transition duration-300"
 											>1.</span
 										>
-										<i class="fa-solid fa-user-group text-4xl" />
+										<i class="fa-solid fa-user-group text-4xl"></i>
 										<div class="w-full">
 											<span class="text-lg font-semibold">
 												Join the community
 												<i
 													class="fa-solid fa-arrow-up-right-from-square text-gray-500 dark:text-slate-400 group-hover:text-white dark:group-hover:text-white transition duration-300"
-												/>
+												></i>
 											</span>
 											<div
 												class="text-sm text-gray-500 dark:text-slate-400 group-hover:text-white dark:group-hover:text-white transition duration-300 font-medium"
@@ -94,13 +94,13 @@
 											class="select-none font-bold text-5xl text-gray-500 dark:text-slate-400 group-hover:text-white dark:group-hover:text-white transition duration-300"
 											>2.</span
 										>
-										<i class="fa-solid fa-person-chalkboard text-4xl" />
+										<i class="fa-solid fa-person-chalkboard text-4xl"></i>
 										<div class="w-full">
 											<span class="text-lg font-semibold">
 												Follow the guide
 												<i
 													class="fa-solid fa-arrow-up-right-from-square text-gray-500 dark:text-slate-400 group-hover:text-white dark:group-hover:text-white transition duration-300"
-												/>
+												></i>
 											</span>
 											<div
 												class="text-sm text-gray-500 dark:text-slate-400 group-hover:text-white dark:group-hover:text-white transition duration-300 font-medium"
@@ -147,18 +147,18 @@
 					<div class="flex justify-center gap-8">
 						<button
 							class="bg-gray-100 dark:bg-slate-800 hover:bg-blurple dark:hover:bg-blurple text-blurple hover:text-white dark:hover:text-white p-2 px-5 rounded-lg font-semibold transition duration-300 disabled:cursor-not-allowed"
-							on:click={() => {
+							onclick={() => {
 								allowClose = true;
 								document.cookie = cookie.serialize('welcomed', 'true', {
 									maxAge: ms('1y') / 1000,
 									path: '/',
 									sameSite: 'lax'
 								});
-								closeModal();
+								modals.close()
 							}}
 						>
 							Start
-							<i class="fa-solid fa-arrow-right" />
+							<i class="fa-solid fa-arrow-right"></i>
 						</button>
 					</div>
 				</div>

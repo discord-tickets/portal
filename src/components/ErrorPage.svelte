@@ -1,8 +1,9 @@
 <script>
-	export let boxStyles = '';
 	import { page } from '$app/stores';
 	import Tree from '$components/Tree.svelte';
 	import { flatten } from '$lib/util/data';
+	/** @type {{boxStyles?: string}} */
+	let { boxStyles = '' } = $props();
 
 	console.error($page.error);
 </script>

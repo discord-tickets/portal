@@ -20,7 +20,7 @@
 			class="hover:text-blurple transition duration-300"
 		>
 			View feedback in the portal
-			<i class="fa-solid fa-arrow-right-long" />
+			<i class="fa-solid fa-arrow-right-long"></i>
 		</a>
 	</div>
 </div>

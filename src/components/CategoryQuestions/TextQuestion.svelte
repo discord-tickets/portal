@@ -1,5 +1,6 @@
+<!-- @migration-task Error while migrating Svelte code: `<i>` is invalid inside `<option>` -->
 <script>
-	export let state;
+	let { question = $bindable() } = $props();
 	import Required from '../Required.svelte';
 </script>
 
@@ -16,7 +17,7 @@
 			class="form-input input text-sm"
 			required
 			maxlength="45"
-			bind:value={state.label}
+			bind:value={question.label}
 		/>
 	</label>
 </div>
@@ -33,7 +34,7 @@
 			required
 			min="1"
 			max="1000"
-			bind:value={state.maxLength}
+			bind:value={question.maxLength}
 		/>
 	</label>
 </div>
@@ -50,7 +51,7 @@
 			required
 			min="0"
 			max="1000"
-			bind:value={state.minLength}
+			bind:value={question.minLength}
 		/>
 	</label>
 </div>
@@ -65,7 +66,7 @@
 			type="text"
 			class="form-input input text-sm"
 			maxlength="100"
-			bind:value={state.placeholder}
+			bind:value={question.placeholder}
 		/>
 	</label>
 </div>
@@ -81,7 +82,7 @@
 			id="required"
 			name="required"
 			class="form-checkbox"
-			bind:checked={state.required}
+			bind:checked={question.required}
 		/>
 	</label>
 </div>
@@ -92,13 +93,13 @@
 			class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 			title="How big should the input box be?"
 		/>
-		<select class="form-multiselect input" required bind:value={state.style}>
+		<select class="form-multiselect input" required bind:value={question.style}>
 			<option value={1} class="p-1">
-				<i class="fa-solid fa-hashtag text-gray-500 dark:text-slate-400" />
+				<!-- <i class="fa-solid fa-hashtag text-gray-500 dark:text-slate-400" /> -->
 				Short (single-line)
 			</option>
 			<option value={2} class="p-1">
-				<i class="fa-solid fa-hashtag text-gray-500 dark:text-slate-400" />
+				<!-- <i class="fa-solid fa-hashtag text-gray-500 dark:text-slate-400" /> -->
 				Long (multi-line)
 			</option>
 		</select>
@@ -111,6 +112,6 @@
 			class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 			title="A pre-filled value"
 		/>
-		<textarea class="form-input input text-sm" maxlength="1000" bind:value={state.value} />
+		<textarea class="form-input input text-sm" maxlength="1000" bind:value={question.value} />
 	</label>
 </div>

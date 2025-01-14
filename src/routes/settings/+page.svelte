@@ -1,8 +1,9 @@
 <script>
-	/** @type {import('./$types').PageData} */
-	export let data;
+	
 
 	import { base } from '$app/paths';
+	/** @type {{data: import('./$types').PageData}} */
+	let { data } = $props();
 
 	const { client, guilds } = data;
 
@@ -81,7 +82,7 @@
 						class="bg-gray-100 dark:bg-slate-800 flex items-center gap-4 p-3 rounded-xl shadow-sm font-semibold text-lg link h-full"
 					>
 						<div class="w-full text-center">
-							<i class="fa-solid fa-circle-plus mr-2" /><span>Add</span>
+							<i class="fa-solid fa-circle-plus mr-2"></i><span>Add</span>
 						</div>
 					</div>
 				</a>
@@ -162,7 +163,7 @@
 			<div
 				class="bg-gray-50/75 dark:bg-slate-800/75 p-4 rounded-xl shadow-sm link flex items-center gap-4"
 			>
-				<i class="fa-solid fa-book text-5xl" />
+				<i class="fa-solid fa-book text-5xl"></i>
 				<div>
 					<p class="text-lg font-semibold">Documentation</p>
 					<p>Follow the guide and find answers</p>
@@ -173,7 +174,7 @@
 			<div
 				class="bg-gray-50/75 dark:bg-slate-800/75 p-4 rounded-xl shadow-sm link flex items-center gap-4"
 			>
-				<i class="fa-solid fa-circle-question text-5xl" />
+				<i class="fa-solid fa-circle-question text-5xl"></i>
 				<div>
 					<p class="text-lg font-semibold">Support</p>
 					<p>Get help on Discord</p>

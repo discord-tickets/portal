@@ -1,12 +1,13 @@
 <script>
-	/** @type {import('./$types').PageData} */
-	export let data;
+	
 
 	import { onMount } from 'svelte';
+	/** @type {{data: import('./$types').PageData}} */
+	let { data } = $props();
 
 	const { guild, problems } = data;
 
-	let createdAt = '';
+	let createdAt = $state('');
 	onMount(() => {
 		createdAt = new Intl.DateTimeFormat('default').format(new Date(guild.createdAt)); // navigator.languages[0]
 	});
@@ -26,7 +27,7 @@
 				<div
 					class="p-2 rounded-xl bg-orange-400/20 dark:bg-orange-500/20 text-orange-600 dark:text-orange-400 border-orange-600 dark:border-orange-400 border-2 font-medium"
 				>
-					<i class="fa-solid fa-triangle-exclamation text-2xl float-left mr-2" />
+					<i class="fa-solid fa-triangle-exclamation text-2xl float-left mr-2"></i>
 					{@html getProblemText(problem)}
 				</div>
 			</div>
@@ -35,9 +36,9 @@
 			<div class="m-4">
 				<a href={guild.id + '/categories/new'}>
 					<div class="p-2 rounded-xl border-blurple bg-blurple/20 border-2 link font-medium">
-						<i class="fa-solid fa-circle-info text-2xl float-left" />
+						<i class="fa-solid fa-circle-info text-2xl float-left"></i>
 						Create a category to get started
-						<i class="fa-solid fa-arrow-right-long" />
+						<i class="fa-solid fa-arrow-right-long"></i>
 					</div>
 				</a>
 			</div>
@@ -47,42 +48,42 @@
 				href={guild.id + '/general'}
 				class="bg-gray-100 dark:bg-slate-800 p-4 rounded-xl shadow-sm link"
 			>
-				<i class="fas fa-gears text-4xl mb-4" />
+				<i class="fas fa-gears text-4xl mb-4"></i>
 				<p class="font-semibold text-center text-lg">General</p>
 			</a>
 			<a
 				href={guild.id + '/categories'}
 				class="bg-gray-100 dark:bg-slate-800 p-4 rounded-xl shadow-sm link"
 			>
-				<i class="fas fa-list text-4xl mb-4" />
+				<i class="fas fa-list text-4xl mb-4"></i>
 				<p class="font-semibold text-center text-lg">Categories</p>
 			</a>
 			<a
 				href={guild.id + '/panels'}
 				class="bg-gray-100 dark:bg-slate-800 p-4 rounded-xl shadow-sm link"
 			>
-				<i class="fas fa-sliders text-4xl mb-4" />
+				<i class="fas fa-sliders text-4xl mb-4"></i>
 				<p class="font-semibold text-center text-lg">Panels</p>
 			</a>
 			<a
 				href={guild.id + '/feedback'}
 				class="bg-gray-100 dark:bg-slate-800 p-4 rounded-xl shadow-sm link"
 			>
-				<i class="fas fa-comments text-4xl mb-4" />
+				<i class="fas fa-comments text-4xl mb-4"></i>
 				<p class="font-semibold text-center text-lg">Feedback</p>
 			</a>
 			<a
 				href={guild.id + '/tags'}
 				class="bg-gray-100 dark:bg-slate-800 p-4 rounded-xl shadow-sm link"
 			>
-				<i class="fas fa-tags text-4xl mb-4" />
+				<i class="fas fa-tags text-4xl mb-4"></i>
 				<p class="font-semibold text-center text-lg">Tags</p>
 			</a>
 			<a
 				href={guild.id + '/reset'}
 				class="bg-red-300 dark:bg-red-500/20 hover:bg-red-500 dark:hover:bg-red-500 p-4 rounded-xl shadow-sm transition duration-300"
 			>
-				<i class="fas fa-triangle-exclamation text-4xl mb-4" />
+				<i class="fas fa-triangle-exclamation text-4xl mb-4"></i>
 				<p class="font-semibold text-center text-lg">Reset</p>
 			</a>
 		</div>
@@ -99,7 +100,7 @@
 					</span>
 					<br />
 					<span class="text-gray-500 dark:text-slate-400">
-						<i class="fa-solid fa-calendar-days" />
+						<i class="fa-solid fa-calendar-days"></i>
 						Added on
 						{createdAt}
 					</span>

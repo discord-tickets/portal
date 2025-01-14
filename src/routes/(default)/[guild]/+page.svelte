@@ -1,9 +1,10 @@
 <script>
-	/** @type {import('./$types').PageData} */
-	export let data;
+	
 
 	import { page } from '$app/stores';
 	import { I18nLite } from '@eartharoid/i18n';
+	/** @type {{data: import('./$types').PageData}} */
+	let { data } = $props();
 	const { client, guild, translations } = data;
 	const i18n = new I18nLite();
 	const t = i18n.loadParsed(...translations).createTranslator();
@@ -26,7 +27,7 @@
 						class="py-1 px-2 text-dgrey-700 bg-dgrey-900/10 hover:bg-dgrey-900/20 dark:bg-dgrey-400/10 dark:hover:bg-dgrey-400/20 dark:text-dgrey-400/75 hover:dark:text-dgrey-400/100 duration-300 rounded-md"
 					>
 						<div class="flex items-center gap-2">
-							<i class="fa-solid fa-user-group" />
+							<i class="fa-solid fa-user-group"></i>
 							{t('common:staff_dashboard')}
 						</div>
 					</a>
@@ -37,7 +38,7 @@
 							class="py-1 px-2 text-dgrey-700 bg-dgrey-900/10 hover:bg-dgrey-900/20 dark:bg-dgrey-400/10 dark:hover:bg-dgrey-400/20 dark:text-dgrey-400/75 hover:dark:text-dgrey-400/100 duration-300 rounded-md"
 						>
 							<div class="flex items-center gap-2">
-								<i class="fa-solid fa-gear" />
+								<i class="fa-solid fa-gear"></i>
 								{t('common:settings_panel')}
 							</div>
 						</a>

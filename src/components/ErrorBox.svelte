@@ -1,8 +1,8 @@
 <script>
-	export let error = {};
-	export let boxStyles = 'bg-red-400/40 dark:bg-red-500/20'; // default is for settings
 	import Tree from '$components/Tree.svelte';
 	import { flatten } from '$lib/util/data';
+	/** @type {{error?: any, boxStyles?: string}} */
+	let { error = {}, boxStyles = 'bg-red-400/40 dark:bg-red-500/20' } = $props();
 
 	console.error(error);
 </script>

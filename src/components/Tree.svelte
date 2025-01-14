@@ -1,8 +1,9 @@
 <script>
+	import Tree from './Tree.svelte';
 	import { marked } from 'marked';
 
-	export let entry = [];
-	export let indent = 0;
+	/** @type {{entry?: any, indent?: number}} */
+	let { entry = [], indent = 0 } = $props();
 </script>
 
 <div>
@@ -14,7 +15,7 @@
 					class="pl-2 border-l-2 border-black/25 dark:border-white/25 border-dotted rounded-bl-xl"
 				>
 					<p class="font-bold text-red-700 dark:text-red-500">{child[0]}</p>
-					<svelte:self entry={child[1]} indent={indent + 6} />
+					<Tree entry={child[1]} indent={indent + 6} />
 				</div>
 			</div>
 		{/each}

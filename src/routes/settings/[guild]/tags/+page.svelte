@@ -1,24 +1,27 @@
 <script>
-	/** @type {import('./$types').PageData} */
-	export let data;
+	import { preventDefault } from 'svelte/legacy';
+
+	
 
 	import { page } from '$app/stores';
 	import ErrorBox from '$components/ErrorBox.svelte';
 	import TagInputs from '$components/TagInputs.svelte';
 	import { toasts, ToastContainer, BootstrapToast } from 'svelte-toasts';
+	/** @type {{data: import('./$types').PageData}} */
+	let { data } = $props();
 
 	const url = `/api/admin/guilds/${$page.params.guild}/tags`;
 	let { tags } = data;
-	let shown = tags;
-	let loading = false;
-	let error = null;
-	let tag = {
+	let shown = $state(tags);
+	let loading = $state(false);
+	let error = $state(null);
+	let tag = $state({
 		content: null,
 		name: null,
 		regex: null
-	};
-	let expanded = null;
-	let search = '';
+	});
+	let expanded = $state(null);
+	let search = $state('');
 
 	const filter = (value) => {
 		shown = tags.filter((t) => {
@@ -144,7 +147,7 @@
 
 <div class="mb-8 text-orange-600 dark:text-orange-400 text-center">
 	<p>
-		<i class="fa-solid fa-triangle-exclamation" />
+		<i class="fa-solid fa-triangle-exclamation"></i>
 		<a href="https://discordtickets.app/configuration/tags" class="font-semibold hover:underline"
 			>Read the documentation</a
 		>
@@ -164,7 +167,7 @@
 					class="form-input input"
 					placeholder="Search"
 					bind:value={search}
-					on:input={(event) => filter(event.target.value)}
+					oninput={(event) => filter(event.target.value)}
 				/>
 			</div>
 			{#each shown as tag}
@@ -172,18 +175,18 @@
 					<span class="font-semibold text-lg">{tag.name}</span>
 					<p
 						class="select-none text-gray-500 dark:text-slate-400 hover:text-blurple dark:hover:text-blurple cursor-pointer transition duration-300"
-						on:click={() => (expanded = expanded === tag.id ? null : tag.id)}
+						onclick={() => (expanded = expanded === tag.id ? null : tag.id)}
 					>
 						<i
 							class="fa-solid {expanded === tag.id
 								? 'fa-angle-up'
 								: 'fa-angle-down'} float-right text-xl"
-						/>
+						></i>
 						<span class="text-sm"> Click to {expanded === tag.id ? 'collapse' : 'expand'}</span>
 					</p>
 					{#if expanded === tag.id}
 						<div class="m-2">
-							<form on:submit|preventDefault={() => save(tag)} id={tag.id} name={tag.name}>
+							<form onsubmit={preventDefault(() => save(tag))} id={tag.id} name={tag.name}>
 								<TagInputs bind:state={tag} />
 							</form>
 							<div class="mt-4 flex flex-grow gap-4">
@@ -191,12 +194,12 @@
 									type="button"
 									disabled={loading}
 									class="flex-1 bg-red-300 hover:bg-red-500 hover:text-white dark:bg-red-500/75 dark:hover:bg-red-500 dark:hover:text-white p-2 px-5 rounded-lg font-medium transition duration-300 disabled:cursor-not-allowed"
-									on:click={() => del(tag.id)}
+									onclick={() => del(tag.id)}
 								>
 									{#if loading}
-										<i class="fa-solid fa-spinner animate-spin" />
+										<i class="fa-solid fa-spinner animate-spin"></i>
 									{:else}
-										<i class="fa-solid fa-trash" />
+										<i class="fa-solid fa-trash"></i>
 									{/if}
 									Delete
 								</button>
@@ -208,7 +211,7 @@
 									class="flex-1 bg-green-300 hover:bg-green-500 hover:text-white dark:bg-green-500/75 dark:hover:bg-green-500 dark:hover:text-white p-2 px-5 rounded-lg font-medium transition duration-300 disabled:cursor-not-allowed"
 								>
 									{#if loading}
-										<i class="fa-solid fa-spinner animate-spin" />
+										<i class="fa-solid fa-spinner animate-spin"></i>
 									{/if}
 									Save
 								</button>
@@ -222,7 +225,7 @@
 	<div class="w-full">
 		<div class="bg-white dark:bg-slate-700 p-4 rounded-xl shadow-sm">
 			<h3 class="text-center font-bold text-xl">Create a tag</h3>
-			<form on:submit|preventDefault={() => create()} class="text-lg my-4">
+			<form onsubmit={preventDefault(() => create())} class="text-lg my-4">
 				<div class="grid grid-cols-1 gap-2">
 					<TagInputs bind:state={tag} />
 					<button
@@ -231,7 +234,7 @@
 						class="mt-4 bg-green-300 hover:bg-green-500 hover:text-white dark:bg-green-500/75 dark:hover:bg-green-500 dark:hover:text-white p-2 px-5 rounded-lg font-medium transition duration-300 disabled:cursor-not-allowed"
 					>
 						{#if loading}
-							<i class="fa-solid fa-spinner animate-spin" />
+							<i class="fa-solid fa-spinner animate-spin"></i>
 						{/if}
 						Create
 					</button>
@@ -241,6 +244,8 @@
 	</div>
 </div>
 
-<ToastContainer duration={3000} theme={data.theme} let:data={toasted}>
-	<BootstrapToast data={toasted} />
+<ToastContainer duration={3000} theme={data.theme} >
+	{#snippet children({ data: toasted })}
+		<BootstrapToast data={toasted} />
+	{/snippet}
 </ToastContainer>

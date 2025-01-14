@@ -1,18 +1,19 @@
-<script>
-	export let isOpen;
-	export let id;
+<!-- <script>
+	import { preventDefault } from 'svelte/legacy';
 
 	import { fly } from 'svelte/transition';
-	import { closeModal, onBeforeClose } from 'svelte-modals';
+	import { modals, onBeforeClose, exitBeforeEnter } from 'svelte-modals';
 	import { questionsStore } from './store';
 	import { onMount } from 'svelte';
 	import Sortable from 'sortablejs';
 	import emoji from 'emoji-name-map';
 	import { v4 as uuidv4 } from 'uuid';
 	import Required from '../Required.svelte';
+	/** @type {{isOpen: any, id: any}} */
+	let { isOpen, id } = $props();
 
 	const qIndex = $questionsStore.findIndex((v) => v.id === id);
-	const q = $questionsStore[qIndex];
+	const q = $state($questionsStore[qIndex]);
 
 	onBeforeClose(() => {
 		const temp = $questionsStore;
@@ -21,8 +22,8 @@
 		return true;
 	});
 
-	let expanded = null;
-	let list;
+	let expanded = $state(null);
+	let list = $state();
 	onMount(() => {
 		Sortable.create(list, {
 			animation: 300,
@@ -47,16 +48,15 @@
 		role="dialog"
 		class="modal my-4 sm:my-12 md:my-24 lg:my-32 max-w-lg mx-auto"
 		transition:fly={{ y: 50 }}
-		on:introstart
-		on:outroend
+		use:exitBeforeEnter
 	>
 		<div
 			class="pointer-events-auto bg-white dark:bg-slate-700 text-gray-800 dark:text-slate-300 p-4 rounded-xl shadow-sm w-full max-h-full overflow-y-auto"
 		>
-			<form on:submit|preventDefault={() => {}} id="questionOptions" name="questionOptions">
+			<form onsubmit={preventDefault(() => {})} id="questionOptions" name="questionOptions">
 				<div class="m-2 sm:m-4 flex flex-col gap-6">
 					<div class="flex items-center gap-5">
-						<i class="fa-regular fa-rectangle-list text-4xl" />
+						<i class="fa-regular fa-rectangle-list text-4xl"></i>
 						<div>
 							<h3 class="leading-tight text-2xl font-bold">{q.label}</h3>
 							<h4 class="leading-tight text-lg font-semibold text-gray-500 dark:text-slate-400">
@@ -74,7 +74,7 @@
 									<div class="flex items-center gap-2 md:gap-4">
 										<i
 											class="handle fa-solid fa-grip-vertical text-gray-500 dark:text-slate-400 cursor-move"
-										/>
+										></i>
 
 										<div class="w-full flex items-center gap-4">
 											{#if emoji.get(o.emoji)}
@@ -86,17 +86,17 @@
 													type="button"
 													class="text-red-300 hover:text-red-500 dark:text-red-500/50 dark:hover:text-red-500 transition duration-300 disabled:cursor-not-allowed"
 													title="Remove"
-													on:click={() => {
+													onclick={() => {
 														const i = q.options.findIndex((x) => o.id === x.id);
 														q.options.splice(i, 1);
 														q.options = q.options;
 													}}
 												>
-													<i class="fa-solid fa-xmark" />
+													<i class="fa-solid fa-xmark"></i>
 												</button>
 												<div
 													class="select-none text-gray-500 dark:text-slate-400 hover:text-blurple dark:hover:text-blurple cursor-pointer transition duration-300 font-medium flex justify-between"
-													on:click={() => (expanded = expanded === o.id ? null : o.id)}
+													onclick={() => (expanded = expanded === o.id ? null : o.id)}
 												>
 													<span class="text-sm">
 														Click to {expanded === o.id ? 'collapse' : 'expand'}</span
@@ -105,7 +105,7 @@
 														class="fa-solid {expanded === o.id
 															? 'fa-angle-up'
 															: 'fa-angle-down'} text-xl self-end"
-													/>
+													></i>
 												</div>
 											</div>
 										</div>
@@ -118,7 +118,7 @@
 												<i
 													class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 													title="The name of the option"
-												/>
+												></i>
 												<input
 													type="text"
 													class="form-input input text-sm"
@@ -134,7 +134,7 @@
 												<i
 													class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 													title="The description of the option"
-												/>
+												></i>
 												<input
 													type="text"
 													class="form-input input text-sm"
@@ -149,7 +149,7 @@
 												<i
 													class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 													title="A default emoji name, or custom emoji ID"
-												/>
+												></i>
 												<span class="text-2xl">{emoji.get(o.emoji) ?? ''}</span>
 												<input
 													type="text"
@@ -166,7 +166,7 @@
 												<i
 													class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 													title="The value of this option (the text stored and used in placeholders)"
-												/>
+												></i>
 												<input
 													type="text"
 													class="form-input input text-sm"
@@ -186,7 +186,7 @@
 							<button
 								type="button"
 								class="hover:text-green-300 text-green-500 dark:hover:text-green-500/50 dark:text-green-500 p-2 px-5 rounded-lg font-medium transition duration-300 disabled:cursor-not-allowed"
-								on:click={() => {
+								onclick={() => {
 									q.options.push({
 										id: uuidv4(),
 										description: '',
@@ -197,7 +197,7 @@
 									q.options = q.options;
 								}}
 							>
-								<i class="fa-solid fa-circle-plus" />
+								<i class="fa-solid fa-circle-plus"></i>
 								Add
 							</button>
 						</div>
@@ -208,13 +208,13 @@
 						type="submit"
 						form="questionOptions"
 						class="bg-green-300 hover:bg-green-500 hover:text-white dark:bg-green-500/75 dark:hover:bg-green-500 dark:hover:text-white p-2 px-5 rounded-lg font-medium transition duration-300 disabled:cursor-not-allowed"
-						on:click={closeModal}
+						onclick={modals.close()}
 					>
-						<i class="fa-solid fa-check" />
+						<i class="fa-solid fa-check"></i>
 						Save
 					</button>
 				</div>
 			</form>
 		</div>
 	</div>
-{/if}
+{/if} -->

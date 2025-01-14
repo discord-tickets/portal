@@ -1,8 +1,9 @@
 <script>
-	/** @type {import('./$types').PageData} */
-	export let data;
+	
 	import emoji from 'emoji-name-map';
 	import { browser } from '$app/environment';
+	/** @type {{data: import('./$types').PageData}} */
+	let { data } = $props();
 
 	const { categories } = data;
 </script>
@@ -14,7 +15,7 @@
 			<div
 				class="bg-gray-100 dark:bg-slate-800 p-4 rounded-xl shadow-sm font-semibold text-center text-lg link"
 			>
-				<i class="fa-solid fa-circle-plus mr-2" /><span>Create</span>
+				<i class="fa-solid fa-circle-plus mr-2"></i><span>Create</span>
 			</div>
 		</a>
 		{#each categories as category}
@@ -27,18 +28,18 @@
 					>
 						{#if browser}
 							<p>
-								<i class="fa-solid fa-calendar-days mr-2" />
+								<i class="fa-solid fa-calendar-days mr-2"></i>
 								Created
 								{new Intl.DateTimeFormat('default').format(new Date(category.createdAt))}
 							</p>
 						{/if}
 						<p>
-							<i class="fa-solid fa-clock mr-2" />
+							<i class="fa-solid fa-clock mr-2"></i>
 							{category.stats.avgResponseTime}
 							response
 						</p>
 						<p>
-							<i class="fa-solid fa-square-check mr-2" />
+							<i class="fa-solid fa-square-check mr-2"></i>
 							{category.stats.avgResolutionTime}
 							resolution
 						</p>

@@ -1,22 +1,21 @@
 <script>
-	/** @type {import('./$types').PageData} */
-	export let data;
 	import TopBar from '$components/TopBar.svelte';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import { page, navigating } from '$app/stores';
-	import { Modals, closeModal } from 'svelte-modals';
+	import { Modals, modals } from 'svelte-modals';
 	import cookie from 'cookie';
-	import { openModal } from 'svelte-modals';
 	import WelcomeModal from '$components/WelcomeModal.svelte';
 	import Spinner from '$components/Spinner.svelte';
+	/** @type {{data: import('./$types').PageData, children?: import('svelte').Snippet}} */
+	let { data, children } = $props();
 
 	const { client, user, theme } = data;
-	let mounted = false;
-	let cookies = {};
+	let mounted = $state(false);
+	let cookies = $state({});
 	onMount(() => {
 		cookies = cookie.parse(document.cookie || '');
-		if (!cookies.welcomed) openModal(WelcomeModal, { client });
+		if (!cookies.welcomed) modals.open(WelcomeModal, { client });
 		mounted = true;
 	});
 
@@ -55,16 +54,14 @@
 
 <div class="bg-gray-200 dark:bg-slate-900 min-h-screen h-max w-full absolute">
 	<Modals>
-		<div
-			slot="backdrop"
-			class="backdrop"
-			transition:fade
-			on:click={closeModal}
-			on:keypress={closeModal}
-		/>
-		<div slot="loading">
-			<Spinner />
-		</div>
+		{#snippet backdrop()}
+			<div class="backdrop" transition:fade onclick={modals.close} onkeypress={modals.close}></div>
+		{/snippet}
+		{#snippet loading()}
+			<div>
+				<Spinner />
+			</div>
+		{/snippet}
 	</Modals>
 	{#if mounted && client.public && !cookies.dismissedCookies}
 		<div
@@ -75,9 +72,9 @@
 				<i
 					class="fa-sharp fa-solid fa-circle-xmark justify-self-end hover:cursor-pointer"
 					title="Dismiss"
-					on:click={dismissCookies}
-					on:keypress={dismissCookies}
-				/>
+					onclick={dismissCookies}
+					onkeypress={dismissCookies}
+				></i>
 			</p>
 		</div>
 	{/if}
@@ -88,14 +85,14 @@
 					<Spinner />
 				{:else}
 					<TopBar {user} isDark={theme === 'dark'} />
-					<slot />
+					{@render children?.()}
 					<footer class="text-center my-16">
 						<div class="text-sm p-2 mb-6">
 							<a
 								href="/"
 								class="text-gray-500 dark:text-slate-400 hover:text-blurple dark:hover:text-blurple cursor-pointer transition duration-300"
 							>
-								<i class="fa-solid fa-arrow-left" />
+								<i class="fa-solid fa-arrow-left"></i>
 								Back to the portal
 							</a>
 						</div>
@@ -108,7 +105,7 @@
 										rel="noopener noreferrer"
 										class="bg-gray-50/75 dark:bg-slate-800/75 p-0.5 px-2 rounded-3xl shadow-sm text-gray-500 dark:text-slate-400 font-medium link"
 									>
-										<i class={link.icon} />
+										<i class={link.icon}></i>
 										{link.name}
 									</a>
 								{/each}
@@ -132,7 +129,7 @@
 							>
 						</p>
 						<p>
-							<i class="fa-solid fa-copyright" />
+							<i class="fa-solid fa-copyright"></i>
 							{new Date().getFullYear()}
 							<a
 								href="https://eartharoid.me"

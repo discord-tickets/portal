@@ -1,3 +1,4 @@
+<!-- @migration-task Error while migrating Svelte code: `<i>` is invalid inside `<option>` -->
 <script>
 	/** @type {import('./$types').PageData} */
 	export let data;
@@ -94,11 +95,11 @@
 						/>
 						<select class="form-multiselect input font-normal" required bind:value={panel.type}>
 							<option value="BUTTON" class="p-1" disabled={panel.categories.length > 5}>
-								<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" default />
+								<!-- <i class="fa-solid fa-at text-gray-500 dark:text-slate-400" default /> -->
 								Buttons
 							</option>
 							<option value="MENU" class="p-1">
-								<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" />
+								<!-- <i class="fa-solid fa-at text-gray-500 dark:text-slate-400" /> -->
 								Select menu (dropdown)
 							</option>
 							<!-- <option value="MESSAGE" class="p-1" disabled={panel.categories.length > 1}>
@@ -121,7 +122,7 @@
 							{#each channels as channel}
 								{channel.id}
 								<option value={channel.id} class="p-1">
-									<i class="fa-solid fa-hashtag text-gray-500 dark:text-slate-400" />
+									<!-- <i class="fa-solid fa-hashtag text-gray-500 dark:text-slate-400" /> -->
 									{channel.name}
 								</option>
 							{/each}

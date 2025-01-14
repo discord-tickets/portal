@@ -1,12 +1,13 @@
 <script>
-	/** @type {import('./$types').PageData} */
-	export let data;
+	
 
 	import '../app.css';
 	import '@fortawesome/fontawesome-free/css/all.css';
 	import cookie from 'cookie';
 	import ms from 'ms';
 	import { onMount, setContext } from 'svelte';
+	/** @type {{data: import('./$types').PageData, children?: import('svelte').Snippet}} */
+	let { data, children } = $props();
 
 	const { client, user, theme } = data;
 	setContext('client', client);
@@ -29,5 +30,5 @@
 </script>
 
 <div class={theme}>
-	<slot />
+	{@render children?.()}
 </div>

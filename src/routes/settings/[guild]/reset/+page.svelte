@@ -4,8 +4,8 @@
 
 	const url = `/api/admin/guilds/${$page.params.guild}/settings`;
 
-	let error = null;
-	let loading = false;
+	let error = $state(null);
+	let loading = $state(false);
 
 	const del = async () => {
 		try {
@@ -51,12 +51,12 @@
 			type="button"
 			disabled={loading}
 			class="mt-4 bg-red-300 hover:bg-red-500 hover:text-white dark:bg-red-500/50 dark:hover:bg-red-500 dark:hover:text-white p-2 px-5 rounded-lg font-medium transition duration-300 disabled:cursor-not-allowed"
-			on:click={del}
+			onclick={del}
 		>
 			{#if loading}
-				<i class="fa-solid fa-spinner animate-spin" />
+				<i class="fa-solid fa-spinner animate-spin"></i>
 			{:else}
-				<i class="fa-solid fa-trash" />
+				<i class="fa-solid fa-trash"></i>
 			{/if}
 			Delete
 		</button>

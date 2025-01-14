@@ -1,10 +1,10 @@
 <script>
-	export let user;
-	export let isDark;
 
 	import { base } from '$app/paths';
 	import cookie from 'cookie';
 	import ms from 'ms';
+	/** @type {{user: any, isDark: any}} */
+	let { user, isDark } = $props();
 
 	const toggle = () => {
 		document.cookie = cookie.serialize('theme', isDark ? 'light' : 'dark', {
@@ -49,14 +49,14 @@
 						<i
 							class="fa-solid fa-moon text-lg p-1 cursor-pointer hover:text-blurple transition duration-300"
 							title="Switch to light mode"
-							on:click={() => toggle()}
-						/>
+							onclick={() => toggle()}
+						></i>
 					{:else}
 						<i
 							class="fa-solid fa-sun text-lg p-1 cursor-pointer hover:text-blurple transition duration-300"
 							title="Switch to dark mode"
-							on:click={() => toggle()}
-						/>
+							onclick={() => toggle()}
+						></i>
 					{/if}
 				</div>
 			</div>

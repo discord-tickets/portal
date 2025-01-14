@@ -1,8 +1,9 @@
 <script>
-	export let state;
 	import { getContext } from 'svelte';
 	import { marked } from 'marked';
 	import Required from './Required.svelte';
+	/** @type {{state: any}} */
+	let { state = $bindable() } = $props();
 </script>
 
 <div>
@@ -12,7 +13,7 @@
 		<i
 			class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 			title="The tag name - can contain UNICODE emoji (not emoji names)"
-		/>
+		></i>
 		<input type="text" class="form-input input" required bind:value={state.name} />
 	</label>
 </div>
@@ -22,7 +23,7 @@
 		<i
 			class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 			title="Optional - regex to trigger this tag"
-		/>
+		></i>
 		<input type="text" class="form-input input" bind:value={state.regex} />
 	</label>
 </div>
@@ -33,8 +34,8 @@
 		<i
 			class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
 			title="The tag content"
-		/>
-		<textarea class="form-input input h-24" maxlength="1000" required bind:value={state.content} />
+		></i>
+		<textarea class="form-input input h-24" maxlength="1000" required bind:value={state.content}></textarea>
 	</label>
 	{#if state.content}
 		<p class="text-sm font-medium">Output</p>

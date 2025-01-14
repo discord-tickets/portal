@@ -1,8 +1,9 @@
 <script>
-	/** @type {import('./$types').PageData} */
-	export let data;
+	
 
 	import { I18nLite } from '@eartharoid/i18n';
+	/** @type {{data: import('./$types').PageData}} */
+	let { data } = $props();
 	const { client, guilds, translations } = data;
 	const i18n = new I18nLite();
 	const t = i18n.loadParsed(...translations).createTranslator();
