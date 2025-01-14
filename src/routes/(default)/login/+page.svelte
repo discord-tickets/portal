@@ -21,26 +21,26 @@
 	<div
 		class="min-h-screen bg-gradient-to-bl from-blurple/50 to-white/10 dark:from-blurple/25 dark:to-blurple/5"
 	>
-		<div class="flex flex-col lg:flex-row gap-0 backdrop-blur-sm">
-			<div class="lg:w-1/2 lg:min-h-screen">
+		<div class="flex flex-col gap-0 backdrop-blur-sm lg:flex-row">
+			<div class="lg:min-h-screen lg:w-1/2">
 				<!-- bg-dgrey-400 dark:bg-dgrey-950 -->
-				<div class="flex justify-center lg:min-h-screen p-8">
+				<div class="flex justify-center p-8 lg:min-h-screen">
 					<div class="flex items-center gap-8">
-						<img src={`${client.avatar}?size=512`} alt="" class="rounded-full h-24 w-24" />
-						<h1 class="font-bold text-2xl lg:text-4xl">{client.username}</h1>
+						<img src={`${client.avatar}?size=512`} alt="" class="h-24 w-24 rounded-full" />
+						<h1 class="text-2xl font-bold lg:text-4xl">{client.username}</h1>
 					</div>
 				</div>
 			</div>
 			<div class="lg:w-1/2">
-				<div class="flex items-center justify-center lg:justify-stretch lg:min-h-screen">
-					<div class="bg-dgrey-100 dark:bg-dgrey-900 m-4 rounded-lg shadow-2xl">
+				<div class="flex items-center justify-center lg:min-h-screen lg:justify-stretch">
+					<div class="m-4 rounded-lg bg-dgrey-100 shadow-2xl dark:bg-dgrey-900">
 						<div class="flex flex-col items-center gap-6 p-8 sm:p-12">
 							<div class="text-lg font-semibold">
 								{t('please_login')}
 							</div>
 							<a
 								href={'/auth/login' + query}
-								class="bg-blurple hover:bg-blurple/75 text-white p-2 px-5 rounded-lg font-semibold transition duration-300 focus:outline-none border-2 border-white/50 dark:border-white/25 focus:ring-2 ring-blurple"
+								class="rounded-lg border-2 border-white/50 bg-blurple p-2 px-5 font-semibold text-white ring-blurple transition duration-300 hover:bg-blurple/75 focus:outline-none focus:ring-2 dark:border-white/25"
 							>
 								<span class="flex flex-row items-center gap-2">
 									<i class="fa-brands fa-discord"></i>
@@ -49,22 +49,18 @@
 							</a>
 						</div>
 						<div
-							class="bg-dgrey-400 dark:bg-dgrey-950 p-1.5 rounded-b-lg text-xs dark:text-dgrey-400/75"
+							class="rounded-b-lg bg-dgrey-400 p-1.5 text-xs dark:bg-dgrey-950 dark:text-dgrey-400/75"
 						>
 							<div class="flex justify-evenly">
 								<!-- py-1 px-2 text-dgrey-700 bg-dgrey-900/10 hover:bg-dgrey-900/20 dark:bg-dgrey-400/10 dark:hover:bg-dgrey-400/20 dark:text-dgrey-400/75 hover:dark:text-dgrey-400/100 duration-300 rounded-md -->
-								<div
-									class=""
-								>
+								<div class="">
 									<div class="flex items-center gap-2">
 										<i class="fa-solid fa-globe" />
 										{t('common:language')}
 									</div>
 								</div>
 
-								<div
-									class=""
-								>
+								<div class="">
 									<div class="flex items-center gap-2">
 										<i class="fa-solid {theme === 'dark' ? 'fa-moon' : 'fa-sun'}" />
 										{t('common:theme')}
