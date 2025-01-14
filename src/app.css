@@ -11,15 +11,15 @@
 
 @layer components {
 	.link {
-		@apply hover:bg-blurple dark:hover:bg-blurple hover:text-white dark:hover:text-white transition duration-300;
+		@apply transition duration-300 hover:bg-blurple hover:text-white dark:hover:bg-blurple dark:hover:text-white;
 	}
 
 	.input {
-		@apply block my-1 w-full rounded-md shadow-sm bg-gray-100 dark:bg-slate-800 border-transparent focus:ring-blurple focus:ring-2 focus:bg-white font-normal disabled:cursor-not-allowed placeholder:text-gray-500 placeholder:dark:text-slate-400 transition-colors;
+		@apply my-1 block w-full rounded-md border-transparent bg-gray-100 font-normal shadow-sm transition-colors placeholder:text-gray-500 focus:bg-white focus:ring-2 focus:ring-blurple disabled:cursor-not-allowed dark:bg-slate-800 placeholder:dark:text-slate-400;
 	}
 
 	.form-checkbox {
-		@apply rounded text-blurple focus:ring-blurple bg-gray-100 dark:bg-slate-800 checked:bg-blurple dark:checked:bg-blurple cursor-pointer p-3 m-2 disabled:cursor-not-allowed;
+		@apply m-2 cursor-pointer rounded bg-gray-100 p-3 text-blurple checked:bg-blurple focus:ring-blurple disabled:cursor-not-allowed dark:bg-slate-800 dark:checked:bg-blurple;
 	}
 
 	select option:checked,

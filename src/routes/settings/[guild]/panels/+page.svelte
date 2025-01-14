@@ -1,17 +1,23 @@
 <script>
-	/** @type {import('./$types').PageData} */
-	export let data;
+	import { run, preventDefault } from 'svelte/legacy';
 
 	import { page } from '$app/stores';
 	import emoji from 'emoji-name-map';
 	import Required from '$components/Required.svelte';
 	import ErrorBox from '$components/ErrorBox.svelte';
+	/**
+	 * @typedef {Object} Props
+	 * @property {import('./$types').PageData} data
+	 */
 
-	let { categories, channels } = data;
+	/** @type {Props} */
+	let { data } = $props();
+
+	let { categories, channels } = $state(data);
 	channels = channels.filter((c) => c.type === 0); // text
-	let error = null;
-	let loading = false;
-	let panel = {
+	let error = $state(null);
+	let loading = $state(false);
+	let panel = $state({
 		categories: [],
 		channel: 'new',
 		description: '',
@@ -19,7 +25,7 @@
 		title: '',
 		type: 'BUTTON',
 		thumbnail: ''
-	};
+	});
 
 	const getChannelName = (id) => {
 		return channels.find((c) => c.id === id)?.name;
@@ -53,52 +59,54 @@
 		}
 	};
 
-	$: panel.type =
-		panel.categories.length > 5
-			? 'MENU'
-			: panel.categories.length > 1 && panel.type === 'MESSAGE'
-			? 'BUTTON'
-			: panel.type;
+	run(() => {
+		panel.type =
+			panel.categories.length > 5
+				? 'MENU'
+				: panel.categories.length > 1 && panel.type === 'MESSAGE'
+					? 'BUTTON'
+					: panel.type;
+	});
 </script>
 
-<h1 class="m-4 text-4xl font-bold text-center">Create a panel</h1>
-<div class="m-2 sm:p-4 max-w-3xl mx-auto">
+<h1 class="m-4 text-center text-4xl font-bold">Create a panel</h1>
+<div class="m-2 mx-auto max-w-3xl sm:p-4">
 	{#if error}
 		<ErrorBox {error} />
 	{/if}
 
-	<div class="bg-white dark:bg-slate-700 p-4 rounded-xl shadow-sm">
+	<div class="rounded-xl bg-white p-4 shadow-sm dark:bg-slate-700">
 		<div class="text-center">
 			{#if panel.channel !== 'new' && panel.type === 'MESSAGE'}
-				<p class="text-cyan-500 p-2">
-					<i class="fa-solid fa-circle-info text-2xl" />
+				<p class="p-2 text-cyan-500">
+					<i class="fa-solid fa-circle-info text-2xl"></i>
 					Make sure members can read and send messages in
 					<span class="font-mono">#{getChannelName(panel.channel)}</span>.
 				</p>
 			{:else if panel.channel !== 'new' && panel.type !== 'MESSAGE'}
-				<p class="text-cyan-500 p-2">
-					<i class="fa-solid fa-circle-info text-2xl" />
+				<p class="p-2 text-cyan-500">
+					<i class="fa-solid fa-circle-info text-2xl"></i>
 					Make sure members can read but not send messages in
 					<span class="font-mono">#{getChannelName(panel.channel)}</span>.
 				</p>
 			{/if}
 		</div>
-		<form on:submit|preventDefault={() => submit()} class="text-lg my-4">
-			<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+		<form onsubmit={preventDefault(() => submit())} class="my-4 text-lg">
+			<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
 				<div>
 					<label>
 						<span class="font-medium">Type</span>
 						<i
-							class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
+							class="fa-solid fa-circle-question cursor-help text-gray-500 dark:text-slate-400"
 							title="How will members use the panel?"
-						/>
-						<select class="form-multiselect input font-normal" required bind:value={panel.type}>
+						></i>
+						<select class="input form-multiselect font-normal" required bind:value={panel.type}>
 							<option value="BUTTON" class="p-1" disabled={panel.categories.length > 5}>
-								<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" default />
+								<!-- <i class="fa-solid fa-at text-gray-500 dark:text-slate-400" default /> -->
 								Buttons
 							</option>
 							<option value="MENU" class="p-1">
-								<i class="fa-solid fa-at text-gray-500 dark:text-slate-400" />
+								<!-- <i class="fa-solid fa-at text-gray-500 dark:text-slate-400" /> -->
 								Select menu (dropdown)
 							</option>
 							<!-- <option value="MESSAGE" class="p-1" disabled={panel.categories.length > 1}>
@@ -112,16 +120,16 @@
 					<label class="font-medium">
 						<span class="font-medium">Channel</span>
 						<i
-							class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
+							class="fa-solid fa-circle-question cursor-help text-gray-500 dark:text-slate-400"
 							title="The channel to send the panel message to"
-						/>
-						<select required class="form-multiselect input font-normal" bind:value={panel.channel}>
+						></i>
+						<select required class="input form-multiselect font-normal" bind:value={panel.channel}>
 							<option value="new">Create a new channel</option>
 							<hr />
 							{#each channels as channel}
 								{channel.id}
 								<option value={channel.id} class="p-1">
-									<i class="fa-solid fa-hashtag text-gray-500 dark:text-slate-400" />
+									<!-- <i class="fa-solid fa-hashtag text-gray-500 dark:text-slate-400" /> -->
 									{channel.name}
 								</option>
 							{/each}
@@ -133,17 +141,17 @@
 						<span class="font-medium">Categories</span>
 						<Required />
 						<i
-							class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
+							class="fa-solid fa-circle-question cursor-help text-gray-500 dark:text-slate-400"
 							title="The category options to be available"
-						/>
+						></i>
 						<select
 							multiple
 							required
-							class="form-multiselect input font-normal h-24"
+							class="input form-multiselect h-24 font-normal"
 							bind:value={panel.categories}
 						>
 							{#each categories as category}
-								<option value={category.id} class="p-1 m-1 rounded">
+								<option value={category.id} class="m-1 rounded p-1">
 									{emoji.get(category.emoji) ?? ''}
 									{category.name}
 								</option>
@@ -155,14 +163,11 @@
 					<label class="font-medium">
 						<span class="font-medium">Description</span>
 						<i
-							class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
+							class="fa-solid fa-circle-question cursor-help text-gray-500 dark:text-slate-400"
 							title="Optional - the embed description"
-						/>
-						<textarea
-							class="form-input input h-24"
-							maxlength="4096"
-							bind:value={panel.description}
-						/>
+						></i>
+						<textarea class="input form-input h-24" maxlength="4096" bind:value={panel.description}
+						></textarea>
 					</label>
 				</div>
 				<div>
@@ -170,41 +175,41 @@
 						<span class="font-medium">Title</span>
 						<Required />
 						<i
-							class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
+							class="fa-solid fa-circle-question cursor-help text-gray-500 dark:text-slate-400"
 							title="The embed title"
 							required
-						/>
-						<input type="text" class="form-input input" required bind:value={panel.title} />
+						></i>
+						<input type="text" class="input form-input" required bind:value={panel.title} />
 					</label>
 				</div>
 				<div>
 					<label>
 						<span class="font-medium">Large image</span>
 						<i
-							class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
+							class="fa-solid fa-circle-question cursor-help text-gray-500 dark:text-slate-400"
 							title="Optional - the embed image"
-						/>
-						<input type="url" class="form-input input" bind:value={panel.image} />
+						></i>
+						<input type="url" class="input form-input" bind:value={panel.image} />
 					</label>
 				</div>
 				<div>
 					<label>
 						<span class="font-medium">Small image (thumbnail)</span>
 						<i
-							class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
+							class="fa-solid fa-circle-question cursor-help text-gray-500 dark:text-slate-400"
 							title="Optional - the embed thumbnail"
-						/>
-						<input type="url" class="form-input input" bind:value={panel.thumbnail} />
+						></i>
+						<input type="url" class="input form-input" bind:value={panel.thumbnail} />
 					</label>
 				</div>
 				<div class="place-self-center">
 					<button
 						type="submit"
 						disabled={loading}
-						class="mt-4 bg-green-300 hover:bg-green-500 hover:text-white dark:bg-green-500/50 dark:hover:bg-green-500 dark:hover:text-white p-2 px-5 rounded-lg font-medium transition duration-300 disabled:cursor-not-allowed"
+						class="mt-4 rounded-lg bg-green-300 p-2 px-5 font-medium transition duration-300 hover:bg-green-500 hover:text-white disabled:cursor-not-allowed dark:bg-green-500/50 dark:hover:bg-green-500 dark:hover:text-white"
 					>
 						{#if loading}
-							<i class="fa-solid fa-spinner animate-spin" />
+							<i class="fa-solid fa-spinner animate-spin"></i>
 						{/if}
 						Create
 					</button>
@@ -212,9 +217,9 @@
 			</div>
 		</form>
 	</div>
-	<div class="mt-8 text-center text-base max-w-lg mx-auto">
-		<div class="p-2 rounded-xl border-cyan-500 bg-cyan-500/20 border-2">
-			<i class="fa-solid fa-circle-info text-2xl text-cyan-500" />
+	<div class="mx-auto mt-8 max-w-lg text-center text-base">
+		<div class="rounded-xl border-2 border-cyan-500 bg-cyan-500/20 p-2">
+			<i class="fa-solid fa-circle-info text-2xl text-cyan-500"></i>
 			<br />
 			Looking to edit or remove a panel? Just delete the message or channel in Discord.
 		</div>

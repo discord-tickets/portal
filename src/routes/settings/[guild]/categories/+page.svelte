@@ -1,44 +1,44 @@
 <script>
-	/** @type {import('./$types').PageData} */
-	export let data;
 	import emoji from 'emoji-name-map';
 	import { browser } from '$app/environment';
+	/** @type {{data: import('./$types').PageData}} */
+	let { data } = $props();
 
 	const { categories } = data;
 </script>
 
-<h1 class="m-4 text-4xl font-bold text-center">Categories</h1>
-<div class="m-2 p-4 max-w-lg mx-auto">
+<h1 class="m-4 text-center text-4xl font-bold">Categories</h1>
+<div class="m-2 mx-auto max-w-lg p-4">
 	<div class="grid grid-cols-1 gap-4">
 		<a href="./categories/new">
 			<div
-				class="bg-gray-100 dark:bg-slate-800 p-4 rounded-xl shadow-sm font-semibold text-center text-lg link"
+				class="link rounded-xl bg-gray-100 p-4 text-center text-lg font-semibold shadow-sm dark:bg-slate-800"
 			>
-				<i class="fa-solid fa-circle-plus mr-2" /><span>Create</span>
+				<i class="fa-solid fa-circle-plus mr-2"></i><span>Create</span>
 			</div>
 		</a>
 		{#each categories as category}
 			<a href={`./categories/${category.id}`}>
 				<div
-					class="bg-gray-100 dark:bg-slate-800 p-4 rounded-xl shadow-sm link group flex flex-col-reverse md:flex-row-reverse md:justify-between gap-1"
+					class="link group flex flex-col-reverse gap-1 rounded-xl bg-gray-100 p-4 shadow-sm dark:bg-slate-800 md:flex-row-reverse md:justify-between"
 				>
 					<div
-						class="text-sm float-right text-gray-500 dark:text-slate-400 group-hover:text-white dark:group-hover:text-white transition duration-300 min-w-max text-center md:text-left"
+						class="float-right min-w-max text-center text-sm text-gray-500 transition duration-300 group-hover:text-white dark:text-slate-400 dark:group-hover:text-white md:text-left"
 					>
 						{#if browser}
 							<p>
-								<i class="fa-solid fa-calendar-days mr-2" />
+								<i class="fa-solid fa-calendar-days mr-2"></i>
 								Created
 								{new Intl.DateTimeFormat('default').format(new Date(category.createdAt))}
 							</p>
 						{/if}
 						<p>
-							<i class="fa-solid fa-clock mr-2" />
+							<i class="fa-solid fa-clock mr-2"></i>
 							{category.stats.avgResponseTime}
 							response
 						</p>
 						<p>
-							<i class="fa-solid fa-square-check mr-2" />
+							<i class="fa-solid fa-square-check mr-2"></i>
 							{category.stats.avgResolutionTime}
 							resolution
 						</p>

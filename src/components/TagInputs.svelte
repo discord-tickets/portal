@@ -1,8 +1,9 @@
 <script>
-	export let state;
 	import { getContext } from 'svelte';
 	import { marked } from 'marked';
 	import Required from './Required.svelte';
+	/** @type {{tag: any}} */
+	let { tag = $bindable() } = $props();
 </script>
 
 <div>
@@ -10,20 +11,20 @@
 		<span class="font-medium">Name</span>
 		<Required />
 		<i
-			class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
+			class="fa-solid fa-circle-question cursor-help text-gray-500 dark:text-slate-400"
 			title="The tag name - can contain UNICODE emoji (not emoji names)"
-		/>
-		<input type="text" class="form-input input" required bind:value={state.name} />
+		></i>
+		<input type="text" class="input form-input" required bind:value={tag.name} />
 	</label>
 </div>
 <div>
 	<label>
 		<span class="font-medium">Auto tag regular expression</span>
 		<i
-			class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
+			class="fa-solid fa-circle-question cursor-help text-gray-500 dark:text-slate-400"
 			title="Optional - regex to trigger this tag"
-		/>
-		<input type="text" class="form-input input" bind:value={state.regex} />
+		></i>
+		<input type="text" class="input form-input" bind:value={tag.regex} />
 	</label>
 </div>
 <div>
@@ -31,18 +32,19 @@
 		<span class="font-medium">Content</span>
 		<Required />
 		<i
-			class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
+			class="fa-solid fa-circle-question cursor-help text-gray-500 dark:text-slate-400"
 			title="The tag content"
-		/>
-		<textarea class="form-input input h-24" maxlength="1000" required bind:value={state.content} />
+		></i>
+		<textarea class="input form-input h-24" maxlength="1000" required bind:value={tag.content}
+		></textarea>
 	</label>
-	{#if state.content}
+	{#if tag.content}
 		<p class="text-sm font-medium">Output</p>
 		<div
-			class="block p-3 w-full rounded-md shadow-sm bg-blurple/20 dark:bg-blurple/20 text-sm font-mono break-words"
+			class="block w-full break-words rounded-md bg-blurple/20 p-3 font-mono text-sm shadow-sm dark:bg-blurple/20"
 		>
 			{@html marked.parse(
-				state.content
+				tag.content
 					.replace(/\n/g, '\n\n')
 					.replace(/{+\s?(user)?name\s?}+/gi, '@' + getContext('user').username)
 			)}

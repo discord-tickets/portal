@@ -1,19 +1,17 @@
 <script>
-	export let state;
+	import { run } from 'svelte/legacy';
+
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import Sortable from 'sortablejs';
 	import TextQuestion from './TextQuestion.svelte';
 	import MenuQuestion from './MenuQuestion.svelte';
 	import Required from '../Required.svelte';
-	import { questionsStore } from './store';
+	import { questionsState as qS } from '../state.svelte.js';
 
-	let loading = {};
-	let expanded = null;
-	let list;
-
-	questionsStore.set(state);
-	$: state = $questionsStore;
+	let loading = $state({});
+	let expanded = $state(null);
+	let list = $state();
 
 	onMount(() => {
 		Sortable.create(list, {
@@ -24,20 +22,19 @@
 			dataIdAttr: 'data-id',
 			store: {
 				get: () => {
-					const order = state.sort((a, b) => a.order - b.order);
+					const order = qS.questions.sort((a, b) => a.order - b.order);
 					return order;
 				},
 				set: (sortable) => {
 					const order = sortable.toArray();
-					order.forEach((id, i) => (state.find((q) => q.id === id).order = i));
-					state = state;
+					order.forEach((id, i) => (qS.questions.find((q) => q.id === id).order = i));
 				}
 			}
 		});
 	});
 
 	const del = async (q) => {
-		if (q.id) {
+		if (q._real !== false) {
 			const confirmed = confirm('Are you sure? This will delete all responses.');
 			if (!confirmed) return false;
 			loading[q.id] = true;
@@ -53,48 +50,46 @@
 				return;
 			}
 		}
-		const i = state.findIndex((x) => q.id === x.id);
-		state.splice(i, 1);
-		state = state;
+		const i = qS.questions.findIndex((x) => q.id === x.id);
+		qS.questions.splice(i, 1);
 		loading = false;
 	};
 </script>
 
 <div bind:this={list} class="list-group flex flex-col gap-2">
-	{#each state as q}
-		<div data-id={q.id} class="list-group-item bg-gray-100/50 dark:bg-slate-800/50 p-4 rounded-xl">
+	{#each qS.questions as q, i}
+		<div data-id={q.id} class="list-group-item rounded-xl bg-gray-100/50 p-4 dark:bg-slate-800/50">
 			<div class="w-full">
 				<div class="flex items-center gap-2 md:gap-4">
-					<i
-						class="handle fa-solid fa-grip-vertical text-gray-500 dark:text-slate-400 cursor-move"
-					/>
+					<i class="handle fa-solid fa-grip-vertical cursor-move text-gray-500 dark:text-slate-400"
+					></i>
 
 					<div class="w-full">
 						{q.label}
 						<button
 							type="button"
 							disabled={loading[q.id]}
-							class="text-red-300 hover:text-red-500 dark:text-red-500/50 dark:hover:text-red-500 transition duration-300 disabled:cursor-not-allowed"
+							class="text-red-300 transition duration-300 hover:text-red-500 disabled:cursor-not-allowed dark:text-red-500/50 dark:hover:text-red-500"
 							title="Remove"
-							on:click={() => del(q)}
+							onclick={() => del(q)}
 						>
 							{#if loading[q.id]}
-								<i class="fa-solid fa-spinner animate-spin" />
+								<i class="fa-solid fa-spinner animate-spin"></i>
 							{:else}
-								<i class="fa-solid fa-xmark" />
+								<i class="fa-solid fa-xmark"></i>
 							{/if}
 						</button>
 						<button
 							type="button"
-							class="select-none w-full text-gray-500 dark:text-slate-400 hover:text-blurple dark:hover:text-blurple cursor-pointer transition duration-300 font-medium flex justify-between"
-							on:click={() => (expanded = expanded === q.id ? null : q.id)}
+							class="flex w-full cursor-pointer select-none justify-between font-medium text-gray-500 transition duration-300 hover:text-blurple dark:text-slate-400 dark:hover:text-blurple"
+							onclick={() => (expanded = expanded === q.id ? null : q.id)}
 						>
 							<span class="text-sm"> Click to {expanded === q.id ? 'collapse' : 'expand'}</span>
 							<i
 								class="fa-solid {expanded === q.id
 									? 'fa-angle-up'
-									: 'fa-angle-down'} text-xl self-end"
-							/>
+									: 'fa-angle-down'} self-end text-xl"
+							></i>
 						</button>
 					</div>
 				</div>
@@ -106,14 +101,14 @@
 									Type
 									<Required />
 									<i
-										class="fa-solid fa-circle-question text-gray-500 dark:text-slate-400 cursor-help"
+										class="fa-solid fa-circle-question cursor-help text-gray-500 dark:text-slate-400"
 										title="What type of input should the question use?"
-									/>
+									></i>
 									<select
-										class="form-multiselect input text-sm"
+										class="input form-multiselect text-sm"
 										required
 										bind:value={q.type}
-										on:change={() => {
+										onchange={() => {
 											if (q.type === 'TEXT') q.maxLength = 1000;
 											else if (q.type === 'MENU') q.maxLength = 1;
 										}}
@@ -133,9 +128,9 @@
 							</div>
 
 							{#if q.type === 'TEXT'}
-								<TextQuestion bind:state={q} />
+								<TextQuestion bind:question={qS.questions[i]} />
 							{:else if q.type === 'MENU'}
-								<MenuQuestion bind:state={q} />
+								<MenuQuestion bind:question={qS.questions[i]} />
 							{/if}
 						</div>
 					</div>
