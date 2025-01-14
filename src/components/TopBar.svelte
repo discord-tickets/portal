@@ -3,7 +3,7 @@
 	import cookie from 'cookie';
 	import ms from 'ms';
 	/** @type {{user: any, isDark: any}} */
-	let { user, isDark } = $props();
+	let { user, theme } = $props();
 
 	const toggle = () => {
 		document.cookie = cookie.serialize('theme', theme === 'dark' ? 'light' : 'dark', {

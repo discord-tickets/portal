@@ -1,5 +1,6 @@
 <script>
 	import { I18nLite } from '@eartharoid/i18n';
+	import { getContext } from 'svelte';
 	/** @type {{data: import('./$types').PageData}} */
 	let { data } = $props();
 	const { client, translations, query } = data;
