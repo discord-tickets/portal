@@ -17,7 +17,7 @@
 
 <div
 	class="min-h-screen bg-cover bg-no-repeat"
-	style={`background-image: url("/assets/topgg-${theme}.png")`}
+	style={`background-image: url("/assets/topgg-${theme}.webp")`}
 >
 	<div
 		class="min-h-screen bg-gradient-to-bl from-blurple/50 to-white/10 dark:from-blurple/25 dark:to-blurple/5"
