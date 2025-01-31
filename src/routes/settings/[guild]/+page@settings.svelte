@@ -10,23 +10,39 @@
 		createdAt = new Intl.DateTimeFormat('default').format(new Date(guild.createdAt)); // navigator.languages[0]
 	});
 
-	const getProblemText = (p) => {
-		switch (p.id) {
-			case 'logChannelMissingPermission':
-				return `Please give the bot <span class="font-mono">${p.permission}</span> permission in the log channel.`;
-		}
+	const problemSnippets = {
+		botPublic,
+		logChannelMissingPermission
 	};
 </script>
 
+{#snippet botPublic()}
+	<span class="font-bold">WARNING:</span>
+	This bot is public; anyone can add it to their servers.
+	Is this a mistake?
+	Learn more at
+	<a
+		class="transition duration-300 underline hover:text-black dark:hover:text-white"
+		href="https://lnk.earth/dt-warn-pub"
+		target="_blank">https://lnk.earth/dt-warn-pub</a
+	>.
+{/snippet}
+
+{#snippet logChannelMissingPermission(p)}
+	Please give the bot <span class="font-mono">{p.permission}</span> permission in the log channel.
+{/snippet}
+
 <div class="grid grid-cols-1 gap-12 md:grid-cols-2">
-	<div class="text-center">
-		{#each problems as problem}
+	<div>
+		{#each problems as p}
 			<div class="m-4">
-				<div
-					class="rounded-xl border-2 border-orange-600 bg-orange-400/20 p-2 font-medium text-orange-600 dark:border-orange-400 dark:bg-orange-500/20 dark:text-orange-400"
-				>
-					<i class="fa-solid fa-triangle-exclamation float-left mr-2 text-2xl"></i>
-					{@html getProblemText(problem)}
+				<div class="rounded-xl border-2 border-orange-600 bg-orange-400/20 p-2 font-medium text-orange-600 dark:border-orange-400 dark:bg-orange-500/20 dark:text-orange-400">
+					<div class="flex items-center gap-2">
+						<i class="fa-solid fa-triangle-exclamation mx-2 text-2xl"></i>
+						<div>
+							{@render problemSnippets[p.id]?.(p)}
+						</div>
+					</div>
 				</div>
 			</div>
 		{/each}
@@ -41,7 +57,7 @@
 				</a>
 			</div>
 		{/if}
-		<div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
+		<div class="grid grid-cols-2 gap-4 text-center sm:grid-cols-3">
 			<a
 				href={guild.id + '/general'}
 				class="link rounded-xl bg-gray-100 p-4 shadow-sm dark:bg-slate-800"
