@@ -16,18 +16,6 @@
 		}
 	});
 
-	function getAuthUrl(guildId) {
-		const scopes = ['applications.commands', 'bot'];
-		const url = new URL('https://discord.com/oauth2/authorize');
-		url.searchParams.set('scope', scopes.join(' '));
-		url.searchParams.set('client_id', client.id);
-		url.searchParams.set('permissions', '268561488');
-		if (guildId) {
-			url.searchParams.set('guild_id', guildId);
-			url.searchParams.set('disable_guild_select', 'true');
-		}
-		return url.toString();
-	}
 </script>
 
 <div class="grid grid-cols-1 gap-12 md:grid-cols-2">
@@ -66,7 +54,7 @@
 
 			<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
 				{#each bad as guild}
-					<a href={getAuthUrl(guild.id)} target="_blank" rel="noopener noreferrer">
+					<a href={`/invite?guild=${guild.id}`}>
 						<div
 							class="link flex h-full items-center gap-4 rounded-xl bg-gray-100 p-3 font-semibold shadow-sm dark:bg-slate-800"
 						>
@@ -75,7 +63,7 @@
 						</div>
 					</a>
 				{/each}
-				<a href={getAuthUrl()} target="_blank" rel="noopener noreferrer">
+				<a href={'/invite'}>
 					<div
 						class="link flex h-full items-center gap-4 rounded-xl bg-gray-100 p-3 text-lg font-semibold shadow-sm dark:bg-slate-800"
 					>

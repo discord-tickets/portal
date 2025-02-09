@@ -10,7 +10,11 @@ export async function load({ cookies, fetch, request, url }) {
 	const body = isJSON ? await response.json() : await response.text();
 	if (url.pathname !== '/login') {
 		if (response.status === 401) {
-			redirect(307, `/login?r=${encodeURIComponent(url.pathname + url.search)}`);
+			let qs = `r=${encodeURIComponent(url.pathname + url.search)}`;
+			if (url.pathname.startsWith('/settings')) {
+				qs += '&role=admin';
+			}
+			redirect(307, `/login?${qs}`);
 		} else if (!response.ok) {
 			error(response.status, isJSON ? JSON.stringify(body) : body);
 		}

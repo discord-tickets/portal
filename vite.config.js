@@ -28,6 +28,10 @@ const config = {
 			'/avatars': {
 				target: 'http://127.0.0.1',
 				changeOrigin: true
+			},
+			'/invite': {
+				target: 'http://127.0.0.1',
+				changeOrigin: true
 			}
 		}
 	}
