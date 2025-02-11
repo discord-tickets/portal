@@ -16,6 +16,7 @@
 		}
 	});
 
+	const formatter = new Intl.NumberFormat();
 </script>
 
 <div class="grid grid-cols-1 gap-12 md:grid-cols-2">
@@ -90,11 +91,11 @@
 			<div class="m-4 grid grid-cols-2 gap-4 sm:grid-cols-3">
 				<div>
 					<h6 class="font-semibold">Activated users</h6>
-					<p class="text-gray-500 dark:text-slate-400">{client.stats.activatedUsers}</p>
+					<p class="text-gray-500 dark:text-slate-400">{formatter.format(client.stats.activatedUsers)}</p>
 				</div>
 				<div>
 					<h6 class="font-semibold">Archived messages</h6>
-					<p class="text-gray-500 dark:text-slate-400">{client.stats.archivedMessages}</p>
+					<p class="text-gray-500 dark:text-slate-400">{formatter.format(client.stats.archivedMessages)}</p>
 				</div>
 				<div>
 					<h6 class="font-semibold">Resolution time</h6>
@@ -106,11 +107,11 @@
 				</div>
 				<div>
 					<h6 class="font-semibold">Categories</h6>
-					<p class="text-gray-500 dark:text-slate-400">{client.stats.categories}</p>
+					<p class="text-gray-500 dark:text-slate-400">{formatter.format(client.stats.categories)}</p>
 				</div>
 				<div>
 					<h6 class="font-semibold">Guilds</h6>
-					<p class="text-gray-500 dark:text-slate-400">{client.stats.guilds}</p>
+					<p class="text-gray-500 dark:text-slate-400">{formatter.format(client.stats.guilds)}</p>
 				</div>
 				<!-- <div>
 					<h6 class="font-semibold">Avg. members</h6>
@@ -125,17 +126,17 @@
 				<div>
 					<h6 class="font-semibold">Members (avg)</h6>
 					<p class="text-gray-500 dark:text-slate-400">
-						{client.stats.members}
-						({Math.floor(client.stats.members / client.stats.guilds)})
+						{formatter.format(client.stats.members)}
+						({formatter.format(Math.floor(client.stats.members / client.stats.guilds))})
 					</p>
 				</div>
 				<div>
 					<h6 class="font-semibold">Tags</h6>
-					<p class="text-gray-500 dark:text-slate-400">{client.stats.tags}</p>
+					<p class="text-gray-500 dark:text-slate-400">{formatter.format(client.stats.tags)}</p>
 				</div>
 				<div>
 					<h6 class="font-semibold">Tickets</h6>
-					<p class="text-gray-500 dark:text-slate-400">{client.stats.tickets}</p>
+					<p class="text-gray-500 dark:text-slate-400">{formatter.format(client.stats.tickets)}</p>
 				</div>
 			</div>
 		</div>

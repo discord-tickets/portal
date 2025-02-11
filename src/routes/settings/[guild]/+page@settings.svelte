@@ -1,5 +1,7 @@
 <script>
-	import { onMount } from 'svelte';
+	import { getContext, onMount } from 'svelte';
+	import { modals } from 'svelte-modals';
+	import DataModal from '$components/DataModal.svelte';
 	/** @type {{data: import('./$types').PageData}} */
 	let { data } = $props();
 
@@ -14,15 +16,15 @@
 		botPublic,
 		logChannelMissingPermission
 	};
+
+	const formatter = new Intl.NumberFormat();
 </script>
 
 {#snippet botPublic()}
 	<span class="font-bold">WARNING:</span>
-	This bot is public; anyone can add it to their servers.
-	Is this a mistake?
-	Learn more at
+	This bot is public; anyone can add it to their servers. Is this a mistake? Learn more at
 	<a
-		class="transition duration-300 underline hover:text-black dark:hover:text-white"
+		class="underline transition duration-300 hover:text-black dark:hover:text-white"
 		href="https://lnk.earth/dt-warn-pub"
 		target="_blank">https://lnk.earth/dt-warn-pub</a
 	>.
@@ -36,7 +38,9 @@
 	<div>
 		{#each problems as p}
 			<div class="m-4">
-				<div class="rounded-xl border-2 border-orange-600 bg-orange-400/20 p-2 font-medium text-orange-600 dark:border-orange-400 dark:bg-orange-500/20 dark:text-orange-400">
+				<div
+					class="rounded-xl border-2 border-orange-600 bg-orange-400/20 p-2 font-medium text-orange-600 dark:border-orange-400 dark:bg-orange-500/20 dark:text-orange-400"
+				>
 					<div class="flex items-center gap-2">
 						<i class="fa-solid fa-triangle-exclamation mx-2 text-2xl"></i>
 						<div>
@@ -50,9 +54,13 @@
 			<div class="m-4">
 				<a href={guild.id + '/categories/new'}>
 					<div class="link rounded-xl border-2 border-blurple bg-blurple/20 p-2 font-medium">
-						<i class="fa-solid fa-circle-info float-left text-2xl"></i>
-						Create a category to get started
-						<i class="fa-solid fa-arrow-right-long"></i>
+						<div class="flex items-center gap-2">
+							<i class="fa-solid fa-circle-info mx-2 text-2xl"></i>
+							<div>
+								Create a category to get started
+								<i class="fa-solid fa-arrow-right-long"></i>
+							</div>
+						</div>
 					</div>
 				</a>
 			</div>
@@ -93,13 +101,13 @@
 				<i class="fas fa-tags mb-4 text-4xl"></i>
 				<p class="text-center text-lg font-semibold">Tags</p>
 			</a>
-			<a
-				href={guild.id + '/reset'}
+			<button
 				class="rounded-xl bg-red-300 p-4 shadow-sm transition duration-300 hover:bg-red-500 dark:bg-red-500/20 dark:hover:bg-red-500"
+				onclick={() => modals.open(DataModal, { guild })}
 			>
-				<i class="fas fa-triangle-exclamation mb-4 text-4xl"></i>
-				<p class="text-center text-lg font-semibold">Reset</p>
-			</a>
+				<i class="fas fa-database mb-4 text-4xl"></i>
+				<p class="text-center text-lg font-semibold">Data</p>
+			</button>
 		</div>
 	</div>
 	<div>
@@ -139,7 +147,7 @@
 				</div>
 				<div>
 					<h6 class="font-semibold">Tickets</h6>
-					<p class="text-gray-500 dark:text-slate-400">{guild.stats.tickets}</p>
+					<p class="text-gray-500 dark:text-slate-400">{formatter.format(guild.stats.tickets)}</p>
 				</div>
 				<div>
 					<h6 class="font-semibold">Most used category</h6>

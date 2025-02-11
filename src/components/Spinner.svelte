@@ -1,4 +1,4 @@
-<div class="flex h-screen justify-center">
+<div class="flex justify-center">
 	<div class="flex items-center">
 		<div class="spinner">
 			<div class="cube1"></div>
@@ -9,7 +9,7 @@
 
 <style>
 	.spinner {
-		margin: 300px auto;
+		margin: 60px auto;
 		width: 40px;
 		height: 40px;
 		position: relative;

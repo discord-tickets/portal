@@ -2,11 +2,11 @@
 	import { preventDefault } from 'svelte/legacy';
 
 	import { fly } from 'svelte/transition';
-	import { modals, onBeforeClose, exitBeforeEnter } from 'svelte-modals';
+	import { onBeforeClose } from 'svelte-modals';
 	import cookie from 'cookie';
 	import ms from 'ms';
 	/** @type {{isOpen: any, client: any}} */
-	let { isOpen, client } = $props();
+	let { isOpen, close, client } = $props();
 
 	let allowClose = $state(false);
 	onBeforeClose(() => allowClose);
@@ -16,8 +16,7 @@
 	<div
 		role="dialog"
 		class="modal mx-auto my-4 max-w-lg sm:my-12 md:my-24 lg:my-32"
-		transition:fly={{ y: 50 }}
-		use:exitBeforeEnter
+		transition:fly|global={{ y: 50 }}
 	>
 		<div
 			class="pointer-events-auto max-h-full w-full overflow-y-auto rounded-xl bg-white p-4 text-gray-800 shadow-sm dark:bg-slate-700 dark:text-slate-300"
@@ -154,7 +153,7 @@
 									path: '/',
 									sameSite: 'lax'
 								});
-								modals.close();
+								close();
 							}}
 						>
 							Start

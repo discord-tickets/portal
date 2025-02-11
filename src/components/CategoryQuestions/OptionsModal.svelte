@@ -1,8 +1,11 @@
-<!-- <script>
+<!--
+TODO: use modal props and close return data
+
+ <script>
 	import { preventDefault } from 'svelte/legacy';
 
 	import { fly } from 'svelte/transition';
-	import { modals, onBeforeClose, exitBeforeEnter } from 'svelte-modals';
+	import { modals, onBeforeClose } from 'svelte-modals';
 	import { questionsStore } from './store';
 	import { onMount } from 'svelte';
 	import Sortable from 'sortablejs';
@@ -47,8 +50,7 @@
 	<div
 		role="dialog"
 		class="modal my-4 sm:my-12 md:my-24 lg:my-32 max-w-lg mx-auto"
-		transition:fly={{ y: 50 }}
-		use:exitBeforeEnter
+		transition:fly|global={{ y: 50 }}
 	>
 		<div
 			class="pointer-events-auto bg-white dark:bg-slate-700 text-gray-800 dark:text-slate-300 p-4 rounded-xl shadow-sm w-full max-h-full overflow-y-auto"
@@ -208,7 +210,7 @@
 						type="submit"
 						form="questionOptions"
 						class="bg-green-300 hover:bg-green-500 hover:text-white dark:bg-green-500/75 dark:hover:bg-green-500 dark:hover:text-white p-2 px-5 rounded-lg font-medium transition duration-300 disabled:cursor-not-allowed"
-						onclick={modals.close()}
+						onclick={() => close(DATA)}
 					>
 						<i class="fa-solid fa-check"></i>
 						Save

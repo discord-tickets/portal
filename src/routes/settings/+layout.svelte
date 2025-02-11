@@ -54,8 +54,13 @@
 
 <div class="absolute h-max min-h-screen w-full bg-gray-200 dark:bg-slate-900">
 	<Modals>
-		{#snippet backdrop()}
-			<div class="backdrop" transition:fade onclick={modals.close} onkeypress={modals.close}></div>
+		{#snippet backdrop({ close })}
+			<div
+				class="backdrop"
+				transition:fade
+				onclick={() => close()}
+				onkeypress={() => close()}
+			></div>
 		{/snippet}
 		{#snippet loading()}
 			<div>
@@ -78,12 +83,14 @@
 			</p>
 		</div>
 	{/if}
-	<div class="m-2 sm:m-6 lg:m-12">
-		<div class="mx-auto max-w-7xl">
-			<div class="text-gray-800 dark:text-slate-300">
-				{#if $navigating || !mounted}
-					<Spinner />
-				{:else}
+	<div class="text-gray-800 dark:text-slate-300">
+		{#if $navigating || !mounted}
+			<div class="flex h-dvh items-center justify-center">
+				<Spinner />
+			</div>
+		{:else}
+			<div class="m-2 sm:m-6 lg:m-12">
+				<div class="mx-auto max-w-7xl">
 					<TopBar {user} {theme} />
 					{@render children?.()}
 					<footer class="my-16 text-center">
@@ -129,8 +136,8 @@
 							>
 						</p>
 						<p>
-							<i class="fa-solid fa-copyright"></i>
-							{new Date().getFullYear()}
+							&copy;
+							2025
 							<a
 								href="https://eartharoid.me"
 								target="_blank"
@@ -153,8 +160,8 @@
 							It is not affiliated with nor endorsed by Discord Inc.
 						</p>
 					</footer>
-				{/if}
+				</div>
 			</div>
-		</div>
+		{/if}
 	</div>
 </div>
