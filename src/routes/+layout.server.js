@@ -5,6 +5,9 @@ import ms from 'ms';
 
 /** @type {import('./$types').LayoutServerLoad} */
 export async function load({ cookies, fetch, request, url }) {
+	if (url.pathname === '/invite') {
+		redirect(307, `/auth/login?invite&guild=${url.searchParams.get('guild') || ''}`)
+	}
 	const response = await fetch(`/api/users/@me`);
 	const isJSON = response.headers.get('Content-Type')?.includes('json');
 	const body = isJSON ? await response.json() : await response.text();
