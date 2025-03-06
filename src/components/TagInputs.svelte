@@ -35,7 +35,7 @@
 			class="fa-solid fa-circle-question cursor-help text-gray-500 dark:text-slate-400"
 			title="The tag content"
 		></i>
-		<textarea class="input form-input h-24" maxlength="1000" required bind:value={tag.content}
+		<textarea class="input form-input h-24" maxlength="4096" required bind:value={tag.content}
 		></textarea>
 	</label>
 	{#if tag.content}
