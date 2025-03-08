@@ -39,9 +39,9 @@
 		></textarea>
 	</label>
 	{#if tag.content}
-		<p class="text-sm font-medium">Output</p>
+		<p class="text-sm font-medium">Preview</p>
 		<div
-			class="block w-full break-words rounded-md bg-blurple/20 p-3 font-mono text-sm shadow-sm dark:bg-blurple/20"
+			class="block w-full break-words prose prose-slate dark:prose-invert prose-a:text-blurple rounded-md bg-slate-100 p-3 font-mono text-sm shadow-sm dark:bg-slate-900"
 		>
 			{@html marked.parse(
 				tag.content

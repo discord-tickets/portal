@@ -413,7 +413,7 @@
 											author-name={data.user.username}
 											image={category.image}
 										>
-											<discord-embed-description slot="description">
+											<discord-embed-description slot="description" class="break-words prose prose-slate prose-sm dark:prose-invert prose-a:text-blurple">
 												{@html marked
 													.parse(category.openingMessage)
 													.replace(
