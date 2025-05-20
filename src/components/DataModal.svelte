@@ -35,7 +35,7 @@
 					>
 						<div class="flex items-center gap-2 md:gap-4">
 							<div class="flex w-full items-center gap-4">
-								<i class="fa-solid fa-download px-4 text-2xl"></i>
+								<i class="fa-solid fa-file-export px-4 text-2xl"></i>
 								<div class="w-full">
 									<span class="text-lg font-semibold">Export (backup)</span>
 									<div class="text-sm">Download all of your server data</div>
@@ -49,7 +49,7 @@
 					>
 						<div class="flex items-center gap-2 md:gap-4">
 							<div class="flex w-full items-center gap-4">
-								<i class="fa-solid fa-upload px-4 text-2xl"></i>
+								<i class="fa-solid fa-file-import px-4 text-2xl"></i>
 								<div class="w-full">
 									<span class="text-lg font-semibold">Import (restore)</span>
 									<div class="text-sm">Overwrite all existing data with uploaded data</div>
