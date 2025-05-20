@@ -174,11 +174,9 @@
 				<div>
 					<label>
 						<span class="font-medium">Title</span>
-						<Required />
 						<i
 							class="fa-solid fa-circle-question cursor-help text-gray-500 dark:text-slate-400"
 							title="The embed title"
-							required
 						></i>
 						<input type="text" class="input form-input" required bind:value={panel.title} />
 					</label>
