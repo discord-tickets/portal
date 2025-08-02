@@ -45,6 +45,12 @@
 
 	let { category, channels, roles, url } = $state(data);
 
+	const buttonStyles = [
+		{ name: 'Primary', value: 1 },
+		{ name: 'Secondary', value: 2 },
+		{ name: 'Success', value: 3 },
+		{ name: 'Danger', value: 4 }
+	];
 	const slowmodes = [
 		'5s',
 		'10s',
@@ -295,6 +301,32 @@
 								<option value={channel.id} class="p-1">
 									<!-- <i class="fa-solid fa-hashtag text-gray-500 dark:text-slate-400" /> -->
 									{channel.name}
+								</option>
+							{/each}
+						</select>
+					</label>
+				</div>
+				<div>
+					<label class="font-medium">
+						Button style
+						{#if category.id}
+							<Required />
+						{/if}
+						<i
+							class="fa-solid fa-circle-question cursor-help text-gray-500 dark:text-slate-400"
+							title="Button style used for panels"
+						></i>
+						<span class="text-2xl">{emoji.get(category.emoji) ?? ''}</span>
+						<select class="input form-multiselect font-normal" bind:value={category.buttonStyle}>
+							{#each buttonStyles as buttonStyle}
+								<option
+									value={buttonStyle.value}
+									class="p-1"
+									selected={!!category.id
+										? buttonStyle.value === category.buttonStyle
+										: buttonStyle.value === 2}
+								>
+									{buttonStyle.name}
 								</option>
 							{/each}
 						</select>
